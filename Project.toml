@@ -1,0 +1,13 @@
+name = "MetaheuristicsAlgorithms"
+uuid = "74a52c65-cf97-4869-821a-69cf0eb3810b"
+authors = ["Abdelazim Hussien"]
+version = "1.0.0-DEV"
+
+[compat]
+julia = "1.11"
+
+[extras]
+Test = "8dfed614-e22c-5e08-85e1-65c5234f0b40"
+
+[targets]
+test = ["Test"]
