@@ -138,6 +138,7 @@ export DBO, DDAO, DMOA, DO, DSO
 export ECO, EDO, ElkHO, EO, ETO
 export FLA, FLoodA, FOX
 export GazelleOA, GBO, GEA, GGO, GJO, GKSO, GNDO, GO, GOA, GTO, GWO
+export update_state!
 ##
 dim = 30
 Max_iteration = 1000
