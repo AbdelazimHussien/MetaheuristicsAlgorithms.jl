@@ -7,107 +7,107 @@ Swarm and Evolutionary Computation 48 (2019): 93-108.
 using Statistics
 using LinearAlgebra
 
-function AEFA(N, max_it, lb, ub, D, benchmark)
-    Rnorm = 2
-    FCheck = 1
-    Rpower = 1
-    tag = 1
+get_population!(x, lb, ub) = x .= (ub .- lb) .* rand!(x) .+ lb
+get_population(dims, lb, ub) = (ub .- lb) .* rand(Float64, dims) .+ lb
 
+mutable struct AEFA
+    npop::Int
+    i::Int
+    maxiters::Int
+    lb::Vector{Float64}
+    ub::Vector{Float64}
+    dim::Int
+    x::Matrix{Float64}
+    v::Matrix{Float64}
+    update::Bool
+    #-------------------
+    Rnorm::Int
+    FCheck::Int
+    Rpower::Int
+    # tag::Int
+    alfa::Int
+    K0::Int
+    gbest::Vector{Float64}
+    gbest_val::Vector{Float64}
+    mean_val::Vector{Float64}
+    function AEFA(npop::Integer, maxiters::Integer, lb::AbstractVector, ub::AbstractVector)
+        Rnorm = 2
+        FCheck = 1
+        Rpower = 1
+        alfa = 30
+        K0 = 500
+        dim = length(lb)
+        gbest = zeros(dim)
 
-    Fbest = Inf 
-    Lbest = zeros(D)  
+        gbest_val = Float64[]
+        mean_val = Float64[]
 
+        x = get_population((dim, npop), lb, ub)
+        v = zeros(dim, npop)
+        i = 1
+        update = true
+        new(npop, i, maxiters, lb, ub, dim, x, v, update, Rnorm, FCheck, Rpower, alfa, K0,
+            gbest, gbest_val, mean_val)
+    end
+end
 
-    X = rand(N, D) .* (ub - lb) .+ lb
+function update_state!(self::AEFA, fitness::AbstractVector)
+    (; npop, i, maxiters, lb, ub, dim, x, v, Rnorm, FCheck, Rpower, alfa, K0, gbest,
+        gbest_val, mean_val) = self
 
-    BestValues = []
-    MeanValues = []
+    best, best_X = findmin(fitness)
+    worst = maximum(fitness)
+    push!(mean_val, mean(fitness))
 
-    V = zeros(N, D)
-    fitness = zeros(N)
+    if i == 1 || best < gbest_val[end]
+        push!(gbest_val, best)
+        gbest .= @view x[:, best_X]
+    end
 
-    for iteration in 1:max_it
+    # Stopping criteria
+    if i >= maxiters
+        self.update = false
+        return self
+    end
 
-        for i in 1:N
-            fitness[i] = benchmark(X[i, :])
-        end
+    Q = if best == worst
+        ones(npop)
+    else
+        exp.((fitness .- worst) ./ (best - worst))
+    end
 
-        if tag == 1
-            best, best_X = findmin(fitness)  
-        else
-            best, best_X = findmax(fitness)  
-        end
+    Q ./= sum(Q)
 
-        if iteration == 1
-            Fbest = best
-            Lbest = X[best_X, :]
-        end
+    fper = 3
+    cbest = FCheck == 1 ? round(Int, npop * (fper + (1 - i / maxiters) * (100 - fper)) / 100) :
+            npop
+    s = sortperm(Q, rev=true)
+    # Qs = Q[s]
 
-        if tag == 1
-            if best < Fbest  
-                Fbest = best
-                Lbest = X[best_X, :]
-            end
-        else
-            if best > Fbest  
-                Fbest = best
-                Lbest = X[best_X, :]
-            end
-        end
-
-        push!(BestValues, Fbest)
-        push!(MeanValues, mean(fitness))
-
-
-        Fmax = maximum(fitness)
-        Fmin = minimum(fitness)
-        Fmean = mean(fitness)
-
-        if Fmax == Fmin
-            Q = ones(N)
-        else
-            if tag == 1
-                best, worst = Fmin, Fmax  
-            else
-                best, worst = Fmax, Fmin  
-            end
-            Q = exp.((fitness .- worst) ./ (best - worst))
-        end
-
-        Q = Q ./ sum(Q)
-
-        fper = 3
-        cbest = FCheck == 1 ? round(Int, N * (fper + (1 - iteration / max_it) * (100 - fper)) / 100) : N
-        s = sortperm(Q, rev = true)  
-        Qs = Q[s]  
-
-        E = zeros(N, D)
-        for i in 1:N
-            for ii in 1:cbest
-                j = s[ii]
-                if j != i
-                    R = norm(X[i, :] - X[j, :], Rnorm)  
-                    for k in 1:D
-                        E[i, k] += rand() * Q[j] * ((X[j, k] - X[i, k]) / (R^Rpower + eps()))
-                    end
+    E = zeros(dim, npop)
+    for i = 1:npop
+        for ii = 1:cbest
+            j = s[ii]
+            if j != i
+                R = norm(x[:, i] - x[:, j], Rnorm)
+                for k = 1:dim
+                    E[k, i] += rand() * Q[j] * ((x[k, j] - x[k, i]) / (R^Rpower + eps()))
                 end
             end
         end
-
-        alfa = 30
-        K0 = 500
-        K = K0 * exp(-alfa * iteration / max_it)
-
-        a = E * K
-
-        V = rand(N, D) .* V .+ a
-        X = X .+ V
-        X = clamp.(X, lb, ub)
-
-        swarm = zeros(N, 1, 2)
-        swarm[:, 1, 1] = X[:, 1]
-        swarm[:, 1, 2] = X[:, 2]
     end
 
-    return Fbest, Lbest, BestValues
+    a = E * K0 * exp(-alfa * i / maxiters)
+
+    v .*= rand(dim, npop)
+    v .+= a
+    x .+= v
+    x .= clamp.(x, lb, ub)
+
+    # swarm = zeros(npop, 1, 2)
+    # swarm[:, 1, 1] = x[:, 1]
+    # swarm[:, 1, 2] = x[:, 2]
+
+    self.i = i + 1
+    return self
 end
