@@ -1,7 +1,12 @@
 using MetaheuristicsAlgorithms
 using Documenter
 
-DocMeta.setdocmeta!(MetaheuristicsAlgorithms, :DocTestSetup, :(using MetaheuristicsAlgorithms); recursive=true)
+DocMeta.setdocmeta!(
+    MetaheuristicsAlgorithms,
+    :DocTestSetup,
+    :(using MetaheuristicsAlgorithms);
+    recursive=true,
+)
 
 makedocs(;
     modules=[MetaheuristicsAlgorithms],
@@ -11,25 +16,19 @@ makedocs(;
         canonical="https://abdelazimhussien.github.io/MetaheuristicsAlgorithms.jl",
         edit_link="main",
         assets=String[],
-        prettyurls=false
+        prettyurls=false,
         # prettyurls = get(ENV, "CI", "false") == "true"
     ),
     pages=[
         "Home" => "index.md",
         "Reference" => "reference.md",
         "List" => "AlgList.md",
-        "Examples" => "example.md"
+        "Examples" => "example.md",
     ],
 )
-
-# deploydocs(;
-#     repo="github.com/abdelazimhussien/MetaheuristicsAlgorithms.jl",
-#     devbranch="main",
-# )
-
 
 deploydocs(
     repo="github.com/abdelazimhussien/MetaheuristicsAlgorithms.jl",
     devbranch="main",
-    branch="gh-pages"  # Explicitly set the target branch
+    branch="gh-pages",  # Explicitly set the target branch
 )
