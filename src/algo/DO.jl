@@ -1,11 +1,3 @@
-"""
-Zhao, Shijie, Tianran Zhang, Shilin Ma, and Miao Chen. 
-"Dandelion Optimizer: A nature-inspired metaheuristic algorithm for engineering applications." 
-Engineering Applications of Artificial Intelligence 114 (2022): 105075.
-"""
-
-using Distributions
-
 function levyF(Popsize, Dim, beta)
     sigma_u = (gamma(1 + beta) * sin(π * beta / 2) / (gamma((1 + beta) / 2) * beta * 2^((beta - 1) / 2)))^(1 / beta)
     u = randn(Popsize, Dim) * sigma_u
@@ -14,6 +6,15 @@ function levyF(Popsize, Dim, beta)
     return step
 end
 
+
+"""
+# References:
+
+- Zhao, Shijie, Tianran Zhang, Shilin Ma, and Miao Chen. 
+    "Dandelion Optimizer: A nature-inspired metaheuristic algorithm for engineering applications." 
+    Engineering Applications of Artificial Intelligence 114 (2022): 105075.
+    
+"""
 function DO(Popsize, Maxiteration, LB, UB, Dim, Fobj)
     dandelions = rand(Popsize, Dim) .* (UB - LB) .+ LB
     dandelionsFitness = zeros(Popsize)

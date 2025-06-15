@@ -1,15 +1,16 @@
-"""
-Ghasemi, Mojtaba, Mohammad-Amin Akbari, Changhyun Jun, Sayed M. Bateni, Mohsen Zare, Amir Zahedi, Hao-Ting Pai, 
-Shahab S. Band, Massoud Moslehpour, and Kwok-Wing Chau. 
-"Circulatory System Based Optimization (CSBO): an expert multilevel biologically inspired meta-heuristic algorithm." 
-Engineering Applications of Computational Fluid Mechanics 16, no. 1 (2022): 1483-1525.
-"""
-
 struct Plant
     Position::Vector{Float64}
     Cost::Float64
 end
 
+"""
+# References:
+
+- Ghasemi, Mojtaba, Mohammad-Amin Akbari, Changhyun Jun, Sayed M. Bateni, Mohsen Zare, Amir Zahedi, Hao-Ting Pai, Shahab S. Band, Massoud Moslehpour, and Kwok-Wing Chau. 
+  "Circulatory System Based Optimization (CSBO): an expert multilevel biologically inspired meta-heuristic algorithm." 
+  Engineering Applications of Computational Fluid Mechanics 16, no. 1 (2022): 1483-1525.
+
+"""
 function CSBO(nPop, MaxIt, VarMin, VarMax, nVar, CostFunction)
     VarSize = (1, nVar)       
 

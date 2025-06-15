@@ -1,10 +1,10 @@
 """
-Xue J, Shen B. 
-Dung beetle optimizer: A new meta-heuristic algorithm for global optimization. 
-The Journal of Supercomputing. 
-2023 May;79(7):7305-36.
-"""
+# References: 
 
+- Xue J, Shen B. Dung beetle optimizer: A new meta-heuristic algorithm for global optimization. 
+    The Journal of Supercomputing. 2023 May;79(7):7305-36.
+    
+"""
 function DBO(pop, M, c, d, dim, fobj)
     P_percent = 0.2
     pNum = round(Int, pop * P_percent)  

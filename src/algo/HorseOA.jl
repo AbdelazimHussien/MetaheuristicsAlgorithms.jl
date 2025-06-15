@@ -4,8 +4,6 @@ MiarNaeimi, Farid, Gholamreza Azizyan, and Mohsen Rashki.
 Knowledge-Based Systems 213 (2021): 106711.
 """
 
-using Random, LinearAlgebra, Printf
-using Distributions
 
 function HorseOA(nHourse, MaxIt, VarMin, VarMax, nVar, CostFunction)
     VarSize = (1, nVar)  # Size of Decision Variables Matrix

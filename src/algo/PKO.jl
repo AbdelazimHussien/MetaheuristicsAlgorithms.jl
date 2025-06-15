@@ -4,7 +4,6 @@ Bouaouda, Anas, Fatma A. Hashim, Yassine Sayouti, and Abdelazim G. Hussien.
 Neural Computing and Applications (2024): 1-59.
 """
 
-using Random
 function PKO(N::Int, Max_iter::Int, lb::Union{Int, AbstractVector}, ub::Union{Int, AbstractVector}, dim::Int, fobj::Function)
 
     BF = 8  

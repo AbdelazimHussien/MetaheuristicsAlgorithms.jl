@@ -4,9 +4,6 @@ Moosavi, Seyyed Hamid Samareh, and Vahid Khatibi Bardsiri.
 Engineering Applications of Artificial Intelligence 60 (2017): 1-15.
 """
 
-using Random
-using Statistics
-using LinearAlgebra
 
 function SBO(nPop, MaxIt, lowerbound, upperbound, numbervar, costfcn)
     alpha = 0.94

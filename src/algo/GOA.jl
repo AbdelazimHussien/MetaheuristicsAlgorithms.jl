@@ -4,7 +4,6 @@ Saremi, Shahrzad, Seyedali Mirjalili, and Andrew Lewis.
 Advances in engineering software 105 (2017): 30-47.
 """
 
-using LinearAlgebra
 
 function distance(a, b)
     return sqrt((a[1] - b[1])^2 + (a[2] - b[2])^2)

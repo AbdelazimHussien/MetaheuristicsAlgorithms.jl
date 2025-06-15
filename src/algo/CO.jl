@@ -1,14 +1,15 @@
-"""
-Akbari, Mohammad Amin, Mohsen Zare, Rasoul Azizipanah-Abarghooee, Seyedali Mirjalili, and Mohamed Deriche. 
-"The cheetah optimizer: A nature-inspired metaheuristic algorithm for large-scale optimization problems." 
-Scientific reports 12, no. 1 (2022): 10953.
-"""
-
 mutable struct Individual
     Position::Vector{Float64}
     Cost::Float64
 end
 
+
+"""
+# References:
+
+- Akbari, Mohammad Amin, Mohsen Zare, Rasoul Azizipanah-Abarghooee, Seyedali Mirjalili, and Mohamed Deriche. "The cheetah optimizer: A nature-inspired metaheuristic algorithm for large-scale optimization problems." Scientific reports 12, no. 1 (2022): 10953.
+
+"""
 function CO(n, MaxIt, lb, ub, D, fobj)
     empty_individual = Individual([], Inf)
     BestSol = Individual([], Inf)

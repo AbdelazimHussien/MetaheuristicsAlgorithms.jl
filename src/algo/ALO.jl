@@ -1,9 +1,3 @@
-"""
-Mirjalili, Seyedali. 
-"The ant lion optimizer." 
-Advances in engineering software 83 (2015): 80-98.
-"""
-
 function Random_walk_around_antlion(Dim, max_iter, lb, ub, antlion, current_iter)
     
     if length(lb) == 1 && length(ub) == 1
@@ -80,6 +74,13 @@ function RouletteWheelSelectionF(weights)
     return chosen_index  # Return the chosen index
 end
 
+
+"""
+# References:
+
+- Mirjalili, Seyedali. "The ant lion optimizer." Advances in engineering software 83 (2015): 80-98.
+
+"""
 function ALO(N, Max_iter, lb, ub, dim, fobj)
     # Initialize the positions of antlions and ants
     antlion_position = initialization(N, dim, ub, lb)

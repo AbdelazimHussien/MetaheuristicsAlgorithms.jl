@@ -4,7 +4,7 @@ Abdollahzadeh, Benyamin, Farhad Soleimanian Gharehchopogh, Nima Khodadadi, and S
 Advances in Engineering Software 174 (2022): 103282.
 """
 
-using Random
+
 function Coefficient_Vector(dim, Iter, MaxIter)
     a2 = -1 + Iter * (-1 / MaxIter)
     u = randn(dim)  

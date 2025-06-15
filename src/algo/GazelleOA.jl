@@ -4,9 +4,7 @@ Agushaka, Jeffrey O., Absalom E. Ezugwu, and Laith Abualigah.
 Neural Computing and Applications 35, no. 5 (2023): 4099-4131.
 """
 
-using Random
-using Distributions
-using SpecialFunctions 
+
 
 
 function GazelleOA(SearchAgents_no, Max_iter, lb, ub, dim, fobj)

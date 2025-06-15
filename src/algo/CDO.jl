@@ -1,7 +1,8 @@
 """
-Shehadeh, Hisham A. 
-"Chernobyl disaster optimizer (CDO): A novel meta-heuristic method for global optimization." 
-Neural Computing and Applications 35, no. 15 (2023): 10733-10749.
+# References:
+
+- Shehadeh, Hisham A. "Chernobyl disaster optimizer (CDO): A novel meta-heuristic method for global optimization."  Neural Computing and Applications 35, no. 15 (2023): 10733-10749.
+
 """
 function CDO(SearchAgents_no, Max_iter, lb, ub, dim, fobj) 
     Alpha_pos = zeros(Float64, dim)

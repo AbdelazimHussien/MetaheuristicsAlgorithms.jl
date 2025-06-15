@@ -4,8 +4,6 @@ Han, Muxuan, Zunfeng Du, Kum Fai Yuen, Haitao Zhu, Yancang Li, and Qiuyu Yuan.
 Expert Systems with Applications 239 (2024): 122413.
 """
 
-using Random
-using SpecialFunctions  
 
 function levyFlight(d::Int)
     beta = 3/2

@@ -1,10 +1,9 @@
 """
-Naruei, Iraj, and Farshid Keynia. 
-"A new optimization method based on COOT bird natural life model." 
-Expert Systems with Applications 183 (2021): 115352.
+# References: 
+
+- Naruei, Iraj, and Farshid Keynia. "A new optimization method based on COOT bird natural life model." Expert Systems with Applications 183 (2021): 115352.
 
 """
-
 function COOT(N, Max_iter, lb, ub, dim, fobj)
     if length(ub) == 1
         ub = ones(dim) * ub

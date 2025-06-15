@@ -4,7 +4,6 @@ Yuan, Chong, Dong Zhao, Ali Asghar Heidari, Lei Liu, Yi Chen, and Huiling Chen.
 Neurocomputing 607 (2024): 128427.
 """
 
-using SpecialFunctions  
 
 function PLO(N::Int, MaxIt::Int, lb, ub, dim::Int, fobj::Function)
     FEs = 0

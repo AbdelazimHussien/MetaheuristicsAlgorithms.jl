@@ -1,5 +1,13 @@
 module MetaheuristicsAlgorithms
 
+using Random, 
+      Dates, 
+      SpecialFunctions,
+      Distributions,
+      Statistics,
+      LinearAlgebra,
+      Printf
+
 abstract type OptimizationResult end 
 export OptimizationResult
 
@@ -7,6 +15,7 @@ include("algo/AEFA.jl")
 include("algo/AEO.jl")
 include("algo/AFT.jl")
 include("algo/AHA.jl")
+include("algo/ALA.jl")
 include("algo/ALO.jl")
 include("algo/AOArithmetic.jl")
 include("algo/APO.jl")
@@ -19,6 +28,7 @@ include("algo/BO.jl")
 include("algo/BOA.jl")
 include("algo/CDO.jl")
 include("algo/ChameleonSA.jl")
+include("algo/CapSA.jl")
 include("algo/ChOA.jl")
 include("algo/CO.jl")
 include("algo/CoatiOA.jl")
@@ -139,10 +149,14 @@ include("initialization.jl")
 # using .YDSE
 # using .ZOA
 
-export AEFA, AEO, AFT, AHA, ALO, AOArithmetic, APO, ARO, AVOA
+
+# This list of exports include 
+# repeated items and should be cleaned up.
+# some of the algorithms are missing and didn't get exported.
+export AEFA, AEO, AFT, AHA, ALA, ALO, AOArithmetic, APO, ARO, AVOA
 export AEO, AFT, AHA, ALO, AOArithmetic, APO, ARO, AVOA
 export BES, BKA, BO, BOA
-export ChOA, CO, CoatiOA, COOT, CSBO
+export CapSA, ChOA, CO, CoatiOA, COOT, CSBO
 export DBO, DDAO, DMOA, DO, DSO
 export ECO, EDO, ElkHO, EO, ETO
 export FLA, FLoodA, FOX

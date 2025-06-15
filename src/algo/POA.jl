@@ -4,8 +4,6 @@ Trojovský, Pavel, and Mohammad Dehghani.
 Sensors 22, no. 3 (2022): 855.
 """
 
-using Random
-using Statistics
 
 function POA(SearchAgents, Max_iterations, lowerbound, upperbound, dimension, fobj)
     lowerbound = ones(dimension) * lowerbound

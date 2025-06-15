@@ -4,8 +4,7 @@ Hashim, Fatma A., Reham R. Mostafa, Abdelazim G. Hussien, Seyedali Mirjalili, an
 Knowledge-Based Systems 260 (2023): 110146.
 """
 
-using Statistics
-using LinearAlgebra
+
 function FLA(NoMolecules, T, lb, ub, dim, objfunc) 
     
     C1 = 0.5

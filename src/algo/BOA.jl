@@ -1,10 +1,9 @@
 """
-Arora, Sankalap, and Satvir Singh. 
-"Butterfly optimization algorithm: a novel approach for global optimization." 
-Soft computing 23 (2019): 715-734.
+# References:
+
+- Arora, Sankalap, and Satvir Singh. "Butterfly optimization algorithm: a novel approach for global optimization." Soft computing 23 (2019): 715-734.
+
 """
-
-
 function BOA(n, N_iter, Lb, Ub, dim, fobj)
     p = 0.6                  
     power_exponent = 0.1      

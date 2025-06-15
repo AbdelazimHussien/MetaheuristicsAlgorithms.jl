@@ -1,7 +1,8 @@
 """
-Braik, Malik Shehadeh. 
-"Chameleon Swarm Algorithm: A bio-inspired optimizer for solving engineering design problems." 
-Expert Systems with Applications 174 (2021): 114685.
+# References:
+
+- Braik, Malik Shehadeh. "Chameleon Swarm Algorithm: A bio-inspired optimizer for solving engineering design problems." Expert Systems with Applications 174 (2021): 114685.
+
 """
 function ChameleonSA(searchAgents, iteMax, lb, ub, dim, fobj)
     if length(ub) == 1

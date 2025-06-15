@@ -5,7 +5,6 @@ continuous optimization and engineering applications."
 Expert Systems with Applications 238 (2024): 121744.
 """
 
-using Random
 
 function TTAO(PopSize, T, Low, Up, Dim, fobj)
     N = floor(Int, PopSize / 3)  

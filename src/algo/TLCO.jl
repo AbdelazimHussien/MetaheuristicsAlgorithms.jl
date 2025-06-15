@@ -4,7 +4,6 @@ Minh, Hoang-Le, Thanh Sang-To, Guy Theraulaz, Magd Abdel Wahab, and Thanh Cuong-
 Expert Systems with Applications 213 (2023): 119211.
 """
 
-using Distributions
 
 function TLCO(NP, cycle, Lower_B, Upper_B, nvar, fobj)
     lb = Lower_B * ones(nvar)  

@@ -26,7 +26,9 @@ The Deep Sleep Optimiser (DSO) is a human-inspired metaheuristic optimization al
 
 # References:
 
-- Oladejo, Sunday O., Stephen O. Ekwe, Lateef A. Akinyemi, and Seyedali A. Mirjalili, The deep sleep optimiser: A human-based metaheuristic approach., IEEE Access (2023).
+- Oladejo, Sunday O., Stephen O. Ekwe, Lateef A. Akinyemi, and Seyedali A. Mirjalili, 
+    The deep sleep optimiser: A human-based metaheuristic approach., IEEE Access (2023).
+    
 """
 function DSO(search_agent, run, LB, UB, ObjFun)::DSOResult
 

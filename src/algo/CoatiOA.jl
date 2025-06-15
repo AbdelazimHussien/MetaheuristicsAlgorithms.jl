@@ -1,10 +1,9 @@
 """
-Braik, Malik, Alaa Sheta, and Heba Al-Hiary. 
-"A novel meta-heuristic search algorithm for solving optimization problems: capuchin search algorithm." 
-Neural computing and applications 33, no. 7 (2021): 2515-2547.
-"""
+# References:
 
-using Statistics
+- Braik, Malik, Alaa Sheta, and Heba Al-Hiary. "A novel meta-heuristic search algorithm for solving optimization problems: capuchin search algorithm." Neural computing and applications 33, no. 7 (2021): 2515-2547.
+
+"""
 function CoatiOA(SearchAgents, Max_iterations, lowerbound, upperbound, dimension, fitness)
 
     lowerbound = ones(dimension) .* lowerbound  

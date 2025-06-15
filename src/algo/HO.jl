@@ -4,8 +4,6 @@ Hippopotamus optimization algorithm: a novel nature-inspired optimization algori
 Scientific Reports, 14(1), p.5032.
 """
 
-using Random
-
 function HO(SearchAgents, Max_iterations, lowerbound, upperbound, dimension, fitness)
 
     lowerbound = fill(lowerbound, dimension)

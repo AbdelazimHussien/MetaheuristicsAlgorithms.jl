@@ -4,8 +4,6 @@ Lian, Junbo, Ting Zhu, Ling Ma, Xincan Wu, Ali Asghar Heidari, Yi Chen, Huiling 
 International Journal of Systems Science 55, no. 15 (2024): 3185-3222.
 """
 
-using Random
-using LinearAlgebra
 
 function ECO(N::Int, Max_iter::Int, lb::Union{Int, AbstractVector}, ub::Union{Int, AbstractVector}, dim::Int, fobj::Function)
 

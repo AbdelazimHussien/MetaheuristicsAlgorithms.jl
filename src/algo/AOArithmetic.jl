@@ -1,7 +1,9 @@
 """
-Abualigah, Laith, Ali Diabat, Seyedali Mirjalili, Mohamed Abd Elaziz, and Amir H. Gandomi. 
-"The arithmetic optimization algorithm." 
-Computer methods in applied mechanics and engineering 376 (2021): 113609.
+
+# References:
+
+- Abualigah, Laith, Ali Diabat, Seyedali Mirjalili, Mohamed Abd Elaziz, and Amir H. Gandomi. "The arithmetic optimization algorithm." Computer methods in applied mechanics and engineering 376 (2021): 113609.
+
 """
 function AOArithmetic(N, M_Iter, LB, UB, Dim, F_obj) # AOArithmetic(SearchAgents_no, Max_iteration, lb, ub, dim, Chung_Reynolds)
     

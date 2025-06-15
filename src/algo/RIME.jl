@@ -4,7 +4,6 @@ Su, Hang, Dong Zhao, Ali Asghar Heidari, Lei Liu, Xiaoqin Zhang, Majdi Mafarja, 
 Neurocomputing 532 (2023): 183-214.
 """
 
-using LinearAlgebra
 
 function RIME(N::Int, Max_iter::Int, lb::Union{Int, AbstractVector}, ub::Union{Int, AbstractVector}, dim::Int, fobj)
     println("RIME is now tackling your problem")

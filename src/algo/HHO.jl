@@ -4,9 +4,6 @@ Heidari, Ali Asghar, Seyedali Mirjalili, Hossam Faris, Ibrahim Aljarah, Majdi Ma
 Future generation computer systems 97 (2019): 849-872.
 """
 
-using Random
-using SpecialFunctions  # For gamma function
-using Statistics
 
 function HHO(
     N::Int,

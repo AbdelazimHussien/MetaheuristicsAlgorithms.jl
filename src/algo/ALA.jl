@@ -1,8 +1,4 @@
-"""
-Xiao, Y., Cui, H., Khurma, R. A., & Castillo, P. A. (2025). 
-Artificial lemming algorithm: a novel bionic meta-heuristic technique for solving real-world engineering optimization problems. 
-Artificial Intelligence Review, 58(3), 84.
-"""
+
 
 function levy(d)
     beta = 1.5
@@ -14,6 +10,12 @@ function levy(d)
     return step
 end
 
+"""
+# References:
+
+- Xiao, Y., Cui, H., Khurma, R. A., & Castillo, P. A. (2025). Artificial lemming algorithm: a novel bionic meta-heuristic technique for solving real-world engineering optimization problems. Artificial Intelligence Review, 58(3), 84.
+
+"""
 function ALA(N, Max_iter, lb, ub, dim, fobj)
     X = initialization(N, dim, ub, lb)
     Position = zeros(dim)

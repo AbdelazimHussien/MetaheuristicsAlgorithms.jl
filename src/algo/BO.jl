@@ -1,11 +1,9 @@
 """
-Das, Amit Kumar, and Dilip Kumar Pratihar. 
-"Bonobo optimizer (BO): an intelligent heuristic with self-adjusting parameters over continuous spaces and its applications to engineering problems." 
-Applied Intelligence 52, no. 3 (2022): 2942-2974.
+# References:
+
+- Das, Amit Kumar, and Dilip Kumar Pratihar. "Bonobo optimizer (BO): an intelligent heuristic with self-adjusting parameters over continuous spaces and its applications to engineering problems." Applied Intelligence 52, no. 3 (2022): 2942-2974.
+
 """
-
-using Distributions
-
 function BO(N, max_it, Var_min, Var_max, d, CostFunction)
     p_xgm_initial = 0.001
     scab = 1.25 

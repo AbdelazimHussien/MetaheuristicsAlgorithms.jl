@@ -1,12 +1,9 @@
 """
-Khishe, Mohammad, and Mohammad Reza Mosavi. 
-"Chimp optimization algorithm." 
-Expert systems with applications 149 (2020): 113338.
+# References:
+
+- Khishe, Mohammad, and Mohammad Reza Mosavi. "Chimp optimization algorithm." Expert systems with applications 149 (2020): 113338.
+
 """
-
-using Random
-
-
 function ChOA(SearchAgents_no, Max_iter, lb, ub, dim, fobj)
     Attacker_pos = zeros(dim)
     Attacker_score = Inf  

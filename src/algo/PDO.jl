@@ -4,8 +4,6 @@ Ezugwu, Absalom E., Jeffrey O. Agushaka, Laith Abualigah, Seyedali Mirjalili, an
 Neural Computing and Applications 34, no. 22 (2022): 20017-20065.
 """
 
-using Random
-using Distributions
 
 function levym(n, m, beta)
     num = gamma(1 + beta) * sin(pi * beta / 2)  

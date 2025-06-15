@@ -1,8 +1,3 @@
-"""
-Yuan, Chong, Dong Zhao, Ali Asghar Heidari, Lei Liu, Yi Chen, Zongda Wu, and Huiling Chen. 
-"Artemisinin optimization based on malaria therapy: Algorithm and applications to medical image segmentation." 
-Displays 84 (2024): 102740.
-"""
 
 function Mutation(z, x, b, dim)
     for j in 1:dim
@@ -25,6 +20,12 @@ function Transborder_reset(z, ub, lb, dim, best)
     return z
 end
 
+"""
+# References: 
+
+- Yuan, Chong, Dong Zhao, Ali Asghar Heidari, Lei Liu, Yi Chen, Zongda Wu, and Huiling Chen. "Artemisinin optimization based on malaria therapy: Algorithm and applications to medical image segmentation." Displays 84 (2024): 102740.
+
+"""
 function ArtemisininO(N, MaxIter, lb, ub, dim, fobj) # (fobj, lb, ub, dim, N, MaxFEs)
     # Initialization parameters
     FEs = 0

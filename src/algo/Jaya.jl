@@ -4,7 +4,7 @@ Rao, R.
 International Journal of Industrial Engineering Computations 7, no. 1 (2016): 19-34.
 """
 
-using Random
+
 function Jaya(pop, maxGen, mini, maxi, var, objective)
 
     # Parameters

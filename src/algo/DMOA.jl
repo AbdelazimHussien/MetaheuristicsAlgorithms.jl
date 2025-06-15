@@ -1,14 +1,16 @@
-"""
-Agushaka, Jeffrey O., Absalom E. Ezugwu, and Laith Abualigah. 
-"Dwarf mongoose optimization algorithm." 
-Computer methods in applied mechanics and engineering 391 (2022): 114570.
-"""
 mutable struct Mongoose
     Position::Vector{Float64}
     Cost::Float64
 end
 
+"""
+# References:
 
+- Agushaka, Jeffrey O., Absalom E. Ezugwu, and Laith Abualigah. 
+    "Dwarf mongoose optimization algorithm." 
+    Computer methods in applied mechanics and engineering 391 (2022): 114570.
+    
+"""
 function DMOA(nPop, MaxIt, VarMin, VarMax, nVar, F_obj)
     VarSize = nVar  
 

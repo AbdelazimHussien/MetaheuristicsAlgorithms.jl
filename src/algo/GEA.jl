@@ -4,7 +4,6 @@ Ghasemi, Mojtaba, Mohsen Zare, Amir Zahedi, Mohammad-Amin Akbari, Seyedali Mirja
 Journal of Bionic Engineering 21, no. 1 (2024): 374-408.
 """
 
-using Random
 
 function GEA(nPop, MaxIt, VarMin, VarMax, nVar, CostFunction)
     VarSize = (1, nVar)  

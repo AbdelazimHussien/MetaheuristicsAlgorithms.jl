@@ -1,9 +1,9 @@
 """
-Braik, Malik, Alaa Sheta, and Heba Al-Hiary. 
-"A novel meta-heuristic search algorithm for solving optimization problems: capuchin search algorithm." 
-Neural computing and applications 33, no. 7 (2021): 2515-2547.
-"""
+# References: 
 
+- Braik, Malik, Alaa Sheta, and Heba Al-Hiary. "A novel meta-heuristic search algorithm for solving optimization problems: capuchin search algorithm." Neural computing and applications 33, no. 7 (2021): 2515-2547.
+
+"""
 function CapSA(noP, maxite, LB, UB, dim, fobj)
 
     cg_curve = zeros(maxite)

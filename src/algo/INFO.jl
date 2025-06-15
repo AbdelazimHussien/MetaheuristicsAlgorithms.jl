@@ -4,7 +4,7 @@ Ahmadianfar, Iman, Ali Asghar Heidari, Saeed Noshadian, Huiling Chen, and Amir H
 Expert Systems with Applications 195 (2022): 116516.
 """
 
-using Distributions
+
 
 function INFO(nP, MaxIt, lb, ub, dim, fobj)
     # Initialization

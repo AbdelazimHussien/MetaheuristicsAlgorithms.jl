@@ -4,7 +4,6 @@ Abdel-Basset, Mohamed, Doaa El-Shahat, Mohammed Jameel, and Mohamed Abouhawwash.
 Computer Methods in Applied Mechanics and Engineering 403 (2023): 115652.
 """
 
-using Random
 
 function YDSE(NP, Max_iter, LB, UB, Dim, F_obj)
     L = 1       

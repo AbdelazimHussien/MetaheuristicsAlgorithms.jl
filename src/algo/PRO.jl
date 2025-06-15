@@ -4,7 +4,6 @@ Moosavi, Seyyed Hamid Samareh, and Vahid Khatibi Bardsiri.
 Engineering applications of artificial intelligence 86 (2019): 165-181.
 """
 
-using Random, Statistics, LinearAlgebra
 
 function PRO(nPop, MaxIt, VarMin, VarMax, nVar, CostFunction)
     VarSize = (1, nVar)
