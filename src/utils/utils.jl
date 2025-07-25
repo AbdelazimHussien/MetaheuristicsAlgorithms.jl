@@ -38,3 +38,13 @@ function levy(beta_base::AbstractFloat, dim::Integer, t::Integer, max_iter::Inte
     w = abs.(u ./ abs.(v) .^ (1 / beta))
     return w ./ (maximum(w) + eps())
 end
+
+function clamp_matrix!(x::AbstractMatrix, lb::AbstractVector, ub::AbstractVector)
+    @inbounds for j in axes(x, 2)
+        @simd for i in axes(x, 1)
+            x[i, j] = ifelse(x[i, j] < lb[i], lb[i], x[i, j])
+            x[i, j] = ifelse(x[i, j] > ub[i], ub[i], x[i, j])
+        end
+    end
+    return x
+end
