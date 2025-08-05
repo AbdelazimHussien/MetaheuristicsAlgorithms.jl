@@ -57,83 +57,85 @@ function AEO(objfun, lb::Real, ub::Real, npop::Integer, max_iter::Integer, dim::
     return AEO(objfun, fill(lb, dim), fill(ub, dim), npop, max_iter)
 end
 
-function AEO(objfun, lb::Vector{Float64}, ub::Vector{Float64}, npop::Integer, max_iter::Integer)
+@views function AEO(objfun, lb::Vector{Float64}, ub::Vector{Float64}, npop::Integer, max_iter::Integer)
     dim = length(lb)
-    PopPos = zeros(npop, dim)
-    PopFit = zeros(npop)
-
-    newPopFit = zeros(npop, dim)
+    # Matr = (1, dim)
+    x = initialization2(npop, dim, ub, lb)
+    x_new = zeros(dim, npop)
+    x_rand = zeros(dim)
+    y = zeros(npop)
+    y_new = zeros(npop)
     his_best_fit = zeros(max_iter + 1)
-    PopPos = initialization(npop, dim, ub, lb)
+    u = zeros(dim)
+    v = zeros(dim)
+    C = zeros(dim)
+
     for i = 1:npop
-        PopFit[i] = objfun(PopPos[i, :])
+        y[i] = objfun(x[:, i])
     end
 
-    indF = sortperm(PopFit, rev=true)
-    PopPos = PopPos[indF, :]
-    PopFit = PopFit[indF]
-    his_best_fit[1] = BestF = PopFit[end]
-    BestX = PopPos[end, :]
-
-    Matr = [1, dim]
+    indF = sortperm(y, rev=true)
+    sort!(y, rev=true)
+    Base.permutecols!!(x, indF)  # x = copy(x[:, indF])
+    his_best_fit[1] = BestF = y[end]
+    BestX = x[:, end]
 
     for it = 1:max_iter
         r1 = rand()
         a = (1 - it / max_iter) * r1
-        xrand = rand(dim) .* (ub - lb) .+ lb
-        newPopPos = zeros(npop, dim)
-        newPopPos[1, :] = (1 - a) * PopPos[end, :] .+ a * xrand  # equation (1)
+        initialization2!(x_rand, ub, lb)
+        @. x_new[:, 1] = (1 - a) * x[:, end] + a * x_rand  # equation (1)
 
         for i = 3:npop
-            u = randn(dim)
-            v = randn(dim)
-            C = 1 / 2 * u ./ abs.(v)  # equation (4)
+            randn!(u)
+            randn!(v)
+            @. C = 1 / 2 * u / abs(v)  # equation (4)
 
             r = rand()
             if r < 1 / 3
-                newPopPos[i, :] = PopPos[i, :] .+ C .* (PopPos[i, :] .- newPopPos[1, :])  # equation (6)
+                @. x_new[:, i] = x[:, i] + C * (x[:, i] - x_new[:, 1])  # equation (6)
             elseif r < 2 / 3
                 r_idx = rand(2:i-1)
-                newPopPos[i, :] = PopPos[i, :] .+ C .* (PopPos[i, :] .- PopPos[r_idx, :])  # equation (7)
+                @. x_new[:, i] = x[:, i] + C * (x[:, i] - x[:, r_idx])  # equation (7)
             else
                 r2 = rand()
                 r_idx = rand(2:i-1)
-                newPopPos[i, :] = PopPos[i, :] .+ C .* (r2 * (PopPos[i, :] .- newPopPos[1, :]) .+ (1 - r2) .* (PopPos[i, :] .- PopPos[r_idx, :]))  # equation (8)
+                @. x_new[:, i] = x[:, i] + C * (r2 * (x[:, i] - x_new[:, 1]) + (1 - r2) * (x[:, i] - x[:, r_idx]))  # equation (8)
             end
         end
 
         for i = 1:npop
-            newPopPos[i, :] = max.(min.(newPopPos[i, :], ub), lb)
-            newPopFit[i] = objfun(newPopPos[i, :])
-            if newPopFit[i] < PopFit[i]
-                PopFit[i] = newPopFit[i]
-                PopPos[i, :] = newPopPos[i, :]
+            x_new[:, i] .= clamp.(x_new[:, i], lb, ub)
+            y_new[i] = objfun(x_new[:, i])
+            if y_new[i] < y[i]
+                x[:, i] .= x_new[:, i]
+                y[i] = y_new[i]
             end
         end
 
-        indOne = argmin(PopFit)
+        indOne = argmin(y)
         for i = 1:npop
             r3 = rand()
-            Ind = rand(1:2)
-            newPopPos[i, :] = PopPos[indOne, :] .+ 3 * randn(Matr[Ind]) .* ((r3 * rand(1:2) .- 1) .* PopPos[indOne, :] .- (2 * r3 - 1) .* PopPos[i, :])  # equation (9)
+            rand(1:2) == 1 ? fill!(u, randn()) : randn!(u)
+            @. x_new[:, i] = x[:, indOne] + 3 * u * ((r3 * $rand(1:2) - 1) * x[:, indOne] - (2 * r3 - 1) * x[:, i])  # equation (9)
         end
 
         for i = 1:npop
-            newPopPos[i, :] = max.(min.(newPopPos[i, :], ub), lb)
-            newPopFit[i] = objfun(newPopPos[i, :])
-            if newPopFit[i] < PopFit[i]
-                PopPos[i, :] = newPopPos[i, :]
-                PopFit[i] = newPopFit[i]
+            x_new[:, i] .= clamp.(x_new[:, i], lb, ub)
+            y_new[i] = objfun(x_new[:, i])
+            if y_new[i] < y[i]
+                x[:, i] .= x_new[:, i]
+                y[i] = y_new[i]
             end
         end
 
-        indF = sortperm(PopFit, rev=true)
-        PopPos = PopPos[indF, :]
-        PopFit = PopFit[indF]
+        sortperm!(indF, y, rev=true)
+        sort!(y, rev=true)
+        Base.permutecols!!(x, indF)
 
-        if PopFit[end] < BestF
-            BestF = PopFit[end]
-            BestX = PopPos[end, :]
+        if y[end] < BestF
+            BestF = y[end]
+            BestX .= x[:, end]
         end
 
         his_best_fit[it+1] = BestF
