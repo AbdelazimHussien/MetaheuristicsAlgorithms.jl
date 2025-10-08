@@ -11,7 +11,7 @@ using Random,
 # abstract type OptimizationResult end 
 
 struct OptimizationResult
-    bestX::Vector
+    bestX::Vector{Float64}
     bestF::Float64
     his_best_fit::Vector{Float64}
 end
@@ -142,6 +142,7 @@ include("algo/SSA.jl")
 include("algo/STOA.jl")
 include("algo/SuperbFOA.jl")
 include("algo/SupplyDO.jl")
+include("algo/THRO.jl")
 include("algo/TLBO.jl")
 include("algo/TLCO.jl")
 include("algo/TOC.jl")
