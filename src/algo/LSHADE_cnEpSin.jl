@@ -394,20 +394,15 @@ function LSHADE_cnEpSin(objfun, lb::Vector{Float64}, ub::Vector{Float64}, npop::
     println("bestX: ", typeof(bsf_solution))
     println("his_best_fit: ", typeof(his_best_fit))
 
-
     return OptimizationResult(
         bsf_solution,
         bsf_fit_var,
         his_best_fit
     )
-
 end
 
-function LSHADE_cnEpSin(problem::OptimizationProblem, npop::Integer=30, max_iter::Integer=1000)
-    return LSHADE_cnEpSin(npop, max_iter, problem.lb, problem.ub, problem.dim, problem.objfun)
-end
-
-function LSHADE_cnEpSin(problem::OptimizationProblem, npop::Integer=30, max_iter::Integer=1000)#::OptimizationResult
+function LSHADE_cnEpSin(problem::OptimizationProblem, npop::Integer=30, max_iter::Integer=1000
+)::OptimizationResult
     return LSHADE_cnEpSin(problem.objfun, problem.lb, problem.ub, npop, max_iter)
 end
 

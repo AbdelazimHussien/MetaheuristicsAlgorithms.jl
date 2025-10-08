@@ -213,26 +213,42 @@ function F9(x)
 end
 
 """
-    F10(x)
+    Ackley(x)
 
-Ackley Function.
+Ackley function.
 
-A popular multimodal benchmark function used to test optimization algorithms.
-It features a nearly flat outer region and a large number of local minima, making convergence difficult.
+A popular multimodal benchmark with a nearly flat outer region and many local minima.
+Commonly used to test global optimization algorithms.
 
-# Equation
+Equation (with a = 20, b = 0.2, c = 2π):
 
 ```math
-f(\\mathbf{x}) = -20 \\exp\\left(-0.2 \\sqrt{\\frac{1}{n} \\sum_{i=1}^n x_i^2}\\right)
-                - \\exp\\left(\\frac{1}{n} \\sum_{i=1}^n \\cos(2\\pi x_i)\\right)
-                + 20 + e
+f(\\mathbf{x}) = -a\\,\\exp\\left(-b\\,\\sqrt{\\tfrac{1}{n}\\sum_{i=1}^n x_i^2}\\right)
+                 - \\exp\\left(\\tfrac{1}{n}\\sum_{i=1}^n \\cos(c\\,x_i)\\right)
+                 + a + e
 ```
+
+Properties:
+- Domain: any dimension `n`; typical bounds `x_i ∈ [-32.768, 32.768]` (sometimes `[-5, 5]`).
+- Global minimum: `f(0,…,0) = 0` at `x = 0`.
+- Output: `Float64` scalar value of the function at `x`.
 """
-function F10(x)
-    dim = length(x)
-    return -20 * exp(-0.2 * sqrt(sum(x.^2) / dim)) -
-           exp(sum(cos.(2π .* x)) / dim) + 20 + exp(1)
+function Ackley(x::AbstractVector{<:Real})::Float64
+    n = length(x)
+    a = 20.0
+    b = 0.2
+    c = 2π
+
+    sum1 = sum(xi^2 for xi in x)
+    sum2 = sum(cos(c * xi) for xi in x)
+
+    term1 = -a * exp(-b * sqrt(sum1 / n))
+    term2 = -exp(sum2 / n)
+
+    return term1 + term2 + a + exp(1)
 end
+
+const F10 = Ackley
 
 """
     F11(x)
