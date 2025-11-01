@@ -52,6 +52,12 @@ result = AEO(30, 100, lb, ub, 10, Ackley)
 # Using OptimizationProblem struct
 problem = OptimizationProblem(Ackley, -5.12, 5.12, 10)
 result = AEO(problem, 30, 100)
+
+
+# References
+Zhao, Weiguo, Liying Wang, and Zhenxing Zhang. 
+"Artificial ecosystem-based optimization: a novel nature-inspired meta-heuristic algorithm." 
+Neural Computing and Applications 32.13 (2020): 9383-9425.
 """
 function AEO(objfun, lb::Real, ub::Real, npop::Integer, max_iter::Integer, dim::Integer)
     return AEO(objfun, fill(lb, dim), fill(ub, dim), npop, max_iter)

@@ -1,8 +1,7 @@
 """
 # References:
 
-- Braik, Malik, Alaa Sheta, and Heba Al-Hiary. "A novel meta-heuristic search algorithm for solving optimization problems: capuchin search algorithm." Neural computing and applications 33, no. 7 (2021): 2515-2547.
-
+Dehghani, M., Montazeri, Z., Trojovská, E., & Trojovský, P. "Coati Optimization Algorithm: A new bio-inspired metaheuristic algorithm for solving optimization problems." Knowledge-based systems 259 (2023): 110011.
 """
 function CoatiOA(objfun, lb::Real, ub::Real, npop::Integer, max_iter::Integer, dim::Integer)
     return CoatiOA(objfun, fill(lb, dim), fill(ub, dim), npop, max_iter) 
