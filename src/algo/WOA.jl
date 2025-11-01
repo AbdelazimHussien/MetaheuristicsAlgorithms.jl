@@ -2,11 +2,11 @@
 # References:
 
 - Mirjalili, Seyedali, and Andrew Lewis.
-"The whale optimization algorithm." 
-Advances in engineering software 95 (2016): 51-67.
+  "The whale optimization algorithm."
+  Advances in engineering software 95 (2016): 51-67.
 """
 function WOA(objfun, lb::Real, ub::Real, npop::Integer, max_iter::Integer, dim::Integer)
-    return WOA(objfun, fill(lb, dim), fill(ub, dim), npop, max_iter) 
+    return WOA(objfun, fill(lb, dim), fill(ub, dim), npop, max_iter)
 end
 
 # function WOA(npop::Integer, max_iter::Integer, lb::Vector{Float64}, ub::Vector{Float64}, dim::Integer, objfun)

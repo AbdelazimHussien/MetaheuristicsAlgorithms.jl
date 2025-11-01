@@ -1,12 +1,12 @@
 """
 # References:
 
--  Houssein, Essam H., Diego Oliva, Nagwan Abdel Samee, Noha F. Mahmoud, and Marwa M. Emam. 
-"Liver Cancer Algorithm: A novel bio-inspired optimizer." 
-Computers in Biology and Medicine 165 (2023): 107389.
+- Houssein, Essam H., Diego Oliva, Nagwan Abdel Samee, Noha F. Mahmoud, and Marwa M. Emam.
+  "Liver Cancer Algorithm: A novel bio-inspired optimizer."
+  Computers in Biology and Medicine 165 (2023): 107389.
 """
 function LCA(objfun, lb::Real, ub::Real, npop::Integer, max_iter::Integer, dim::Integer)::OptimizationResult
-    return LCA(objfun, fill(lb, dim), fill(ub, dim), npop, max_iter) 
+    return LCA(objfun, fill(lb, dim), fill(ub, dim), npop, max_iter)
 end
 
 function LCA(objfun, lb::Vector{Float64}, ub::Vector{Float64}, npop::Integer, max_iter::Integer)

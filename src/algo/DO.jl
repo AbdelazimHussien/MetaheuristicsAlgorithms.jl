@@ -9,13 +9,12 @@
 """
 # References:
 
-- Zhao, Shijie, Tianran Zhang, Shilin Ma, and Miao Chen. 
-    "Dandelion Optimizer: A nature-inspired metaheuristic algorithm for engineering applications." 
-    Engineering Applications of Artificial Intelligence 114 (2022): 105075.
-    
+- Zhao, Shijie, Tianran Zhang, Shilin Ma, and Miao Chen.
+  "Dandelion Optimizer: A nature-inspired metaheuristic algorithm for engineering applications."
+  Engineering Applications of Artificial Intelligence 114 (2022): 105075.
 """
 function DO(objfun, lb::Real, ub::Real, npop::Integer, max_iter::Integer, dim::Integer)
-    return DO(objfun, fill(lb, dim), fill(ub, dim), npop, max_iter) 
+    return DO(objfun, fill(lb, dim), fill(ub, dim), npop, max_iter)
 end
 
 function DO(objfun, lb::Vector{Float64}, ub::Vector{Float64}, npop::Integer, max_iter::Integer)

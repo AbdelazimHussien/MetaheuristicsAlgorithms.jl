@@ -1,11 +1,11 @@
 """
 # References:
--  Zhang, Yiying, Zhigang Jin, and Seyedali Mirjalili. 
-"Generalized normal distribution optimization and its applications in parameter extraction of photovoltaic models." 
-Energy Conversion and Management 224 (2020): 113301.
+- Zhang, Yiying, Zhigang Jin, and Seyedali Mirjalili.
+  "Generalized normal distribution optimization and its applications in parameter extraction of photovoltaic models."
+  Energy Conversion and Management 224 (2020): 113301.
 """
 function GNDO(objfun, lb::Real, ub::Real, npop::Integer, max_iter::Integer, dim::Integer)
-    return GNDO(objfun, fill(lb, dim), fill(ub, dim), npop, max_iter) 
+    return GNDO(objfun, fill(lb, dim), fill(ub, dim), npop, max_iter)
 end
 
 function GNDO(objfun, lb::Vector{Float64}, ub::Vector{Float64}, npop::Integer, max_iter::Integer)

@@ -4,89 +4,150 @@ using LinearAlgebra
 function Ufun(x, a, k, m)
     return k .* ((x .- a).^m) .* (x .> a) + k .* ((-x .- a).^m) .* (x .< -a)
 end
+
 """
-F1()
+    sphere(x)
 
 Sphere function.
 
-This is a basic unimodal test function used in benchmarking optimization algorithms.
+A basic unimodal benchmark used in optimization.
 
-**Equation:**
-
+# Equation
 ```math
 f(\\mathbf{x}) = \\sum_{i=1}^n x_i^2
 ```
 
+# Properties
+- Domain: any dimension n; typical bounds xᵢ ∈ [-100, 100].
+- Global minimum: `f(0,…,0) = 0` at `x = 0`.
+- Complex support: if x contains complex or dual numbers, this implementation uses abs2(xᵢ) (the squared modulus), so the result is a real, non-negative scalar.
 """
-F1(x) = sum(x .^ 2)
+sphere(x) = sum(abs2, x)
 
-"""
-    F2()
-Sum of Absolute Values and Product of Absolute Values.
-
-This is a basic test function used in optimization, combining both the sum and product of the absolute values of the input vector elements.
-
-**Equation:**
-
-```math
-f(\\mathbf{x}) = \\sum_{i=1}^n |x_i| + \\prod_{i=1}^n |x_i|
-```
+const F1 = sphere
 
 """
-F2(x) = sum(abs.(x)) + prod(abs.(x))
+    schwefel_2_22(x)
 
-"""
-    F3()
-Cumulative Sum of Squares Function.
+Schwefel’s Problem 2.22 (F2).
 
-This test function computes the sum of the squares of cumulative sums of the input vector. It increases the dependency between variables and is used to test an algorithm’s ability to handle variable interactions.
+A basic benchmark that combines the sum and the product of absolute values. Often used
+to test robustness to scaling and zero/near-zero components.
 
 # Equation
+```math
+f(\\mathbf{x}) = \\sum_{i=1}^n |x_i| \\;+\\; \\prod_{i=1}^n |x_i|
+````
 
+# Properties
+- Domain: any dimension `n`; typical bounds `xᵢ ∈ [-10, 10]` (variants exist).
+- Global minimum: `f(0,…,0) = 0` at `x = 0`.
+- Complex/AD support: this implementation uses `abs(xᵢ)` (modulus), so it works with
+  complex and dual numbers; the result is a real, non-negative scalar.
+- Note: if any `xᵢ = 0`, the product term is `0`.
+"""
+schwefel_2_22(x) = sum(abs, x) + prod(abs, x)
+
+const F2 = schwefel_2_22
+
+"""
+    schwefel_1_2(x)
+
+Schwefel’s Problem 1.2 (F3).
+
+Cumulative-sum-of-squares benchmark.
+
+This test function computes the sum of the squares of cumulative sums of the input vector.
+It increases the dependency between variables and is used to test an algorithm’s ability
+to handle variable interactions.
+
+# Equation
 ```math
 f(\\mathbf{x}) = \\sum_{i=1}^n \\left( \\sum_{j=1}^i x_j \\right)^2
 ```
+
+# Properties
+* Domain: any dimension `n`; typical bounds `xᵢ ∈ [-100, 100]`.
+* Global minimum: `f(0,…,0) = 0` at `x = 0`.
+* Structure: convex, **non-separable**, unimodal; conditioning worsens with `n`.
+* Complexity: implemented in O(n) via a single pass of prefix sums (no nested sums).
+* Complex/AD support: uses `abs2(prefix)` so the result is a real, non-negative scalar
+  for complex and dual-number inputs; for real `x` this equals the textbook definition.
 """
-function F3(x)
-    o = 0.0
-    for i in 1:length(x)
-        o += sum(x[1:i])^2
+function schwefel_1_2(x)
+    T = float(eltype(x))
+    s, o = zero(T), zero(T)
+    @inbounds @simd for xi in x
+        s += xi
+        o += abs2(s)
     end
     return o
 end
 
+const F3 = schwefel_1_2
+
 """
-    F4()
+    schwefel_2_21(x)
+
+Schwefel’s Problem 2.21 (F4).
+
 Maximum Absolute Value Function.
 
-This function returns the maximum of the absolute values of the input vector elements. It is used to test an optimizer's ability to minimize the worst-case (largest-magnitude) variable.
+This function returns the maximum of the absolute values of the input vector elements.
+It is used to test an optimizer's ability to minimize the worst-case (largest-magnitude) variable.
 
 # Equation
-
 ```math
-f(\\mathbf{x}) = \\max_{1 \\leq i \\leq n} |x_i|
+f(\\mathbf{x}) = \\max_{1 \\le i \\le n} |x_i|
 ```
+
+# Properties
+* Domain: any dimension `n`; typical bounds `xᵢ ∈ [-100, 100]`.
+* Global minimum: `f(0,…,0) = 0` at `x = 0`.
+* Complex/AD support: uses `abs(xᵢ)` (modulus), so it works with complex and dual numbers; the result is a real, non-negative scalar.
 """
-F4(x) = maximum(abs.(x))
+schwefel_2_21(x) = maximum(abs, x)
+
+const F4 = schwefel_2_21
 
 """
-    F5()
-Rosenbrock Function.
+    rosenbrock(x)
 
-A classic, non-convex test problem for optimization algorithms. It has a narrow, curved valley leading to the global minimum, which makes convergence difficult.
+Rosenbrock Function (F5).
+
+A classic, non-convex test problem for optimization algorithms. It has a narrow, curved
+valley leading to the global minimum, which makes convergence difficult.
 
 # Equation
-
 ```math
-f(\\mathbf{x}) = \\sum_{i=1}^{n-1} \\left[ 100(x_{i+1} - x_i^2)^2 + (x_i - 1)^2 \\right]
+f(\\mathbf{x}) = \\sum_{i=1}^{n-1} \\left[ 100\\,(x_{i+1} - x_i^2)^2 + (x_i - 1)^2 \\right]
 ```
+
+# Properties
+* Domain: any dimension `n`; typical bounds `xᵢ ∈ [-30, 30]`.
+* Global minimum: `f(1,…,1) = 0` at `x = (1,…,1)`.
+* Structure: non-convex, non-separable; narrow, curved valley.
+* Numerical: implemented in **O(n)** with a single pass and no intermediate allocations.
+* AD support: works with dual numbers; intended for real-valued inputs.
 """
-function F5(x)
-    return sum(100 .* (x[2:end] .- x[1:end-1].^2).^2 + (x[1:end-1] .- 1).^2)
+function rosenbrock(x)
+    T = float(eltype(x))
+    n = length(x)
+    @assert n >= 2 "Rosenbrock requires length(x) ≥ 2"
+    s = zero(T)
+    @inbounds @simd for i = 1:(n-1)
+        xi   = x[i]
+        xip1 = x[i+1]
+        s    += 100 * (xip1 - xi*xi)^2 + (xi - 1)^2
+    end
+    return s
 end
 
+const F5 = rosenbrock
+
 """
-    F6()
+    F6(x)
+
 Shifted Sphere Function.
 
 This function is a variation of the Sphere function where each variable is shifted by 0.5 before squaring. It remains unimodal but shifts the global minimum from the origin.
@@ -100,7 +161,8 @@ f(\\mathbf{x}) = \\sum_{i=1}^n (x_i + 0.5)^2
 F6(x) = sum(abs.(x .+ 0.5).^2)
 
 """
-    F7()
+    F7(x)
+
 Weighted Quartic Function with Noise.
 
 This function adds a random noise term to a weighted sum of the fourth powers of the input variables. The noise introduces stochasticity, making it useful for testing robustness of optimization algorithms.
@@ -117,10 +179,12 @@ function F7(x)
 end
 
 """
-    F8()
+    F8(x)
+
 Schwefel Function.
 
-A widely used multimodal benchmark function with many local minima. It poses a challenge for optimization algorithms due to its deceptive landscape and large search space.
+A widely used multimodal benchmark function with many local minima. It poses a challenge for optimization
+    algorithms due to its deceptive landscape and large search space.
 
 # Equation
 
@@ -131,7 +195,8 @@ f(\\mathbf{x}) = \\sum_{i=1}^n -x_i \\cdot \\sin(\\sqrt{|x_i|})
 F8(x) = sum(-x .* sin.(sqrt.(abs.(x))))
 
 """
-    F9()
+    F9(x)
+
 Rastrigin Function.
 
 A highly multimodal benchmark function commonly used to evaluate the performance of global optimization algorithms. Its large number of local minima makes it particularly challenging.
@@ -148,10 +213,12 @@ function F9(x)
 end
 
 """
-    F10()
+    F10(x)
+
 Ackley Function.
 
-A popular multimodal benchmark function used to test optimization algorithms. It features a nearly flat outer region and a large number of local minima, making convergence difficult.
+A popular multimodal benchmark function used to test optimization algorithms.
+It features a nearly flat outer region and a large number of local minima, making convergence difficult.
 
 # Equation
 
@@ -168,7 +235,8 @@ function F10(x)
 end
 
 """
-    F11()
+    F11(x)
+
 Griewank Function.
 
 A widely used multimodal test function with many widespread local minima, but a simple global minimum at the origin.
@@ -185,7 +253,8 @@ function F11(x)
 end
 
 """
-    F12()
+    F12(x)
+
 Penalized Function #1.
 
 A multimodal benchmark function with penalization terms to enforce constraints, often used in optimization testing.
@@ -206,7 +275,8 @@ end
 
 
 """
-    F13()
+    F13(x)
+
 Penalized Function #2.
 
 A multimodal benchmark function with penalization terms used to test optimization algorithms, featuring sine and quadratic terms.
@@ -227,7 +297,8 @@ end
 
 
 """
-    F14()
+    F14(x)
+
 Shekel's Foxholes Function.
 
 A challenging multimodal benchmark function used to test optimization algorithms. The function has many local minima, making it useful for assessing global search capability.
@@ -258,7 +329,8 @@ function F14(x)
 end
 
 """
-    F15()
+    F15(x)
+
 Kowalik and Osborne Function.
 
 A nonlinear least squares problem used in parameter estimation and optimization. It is known for its narrow, curved valley structure, which poses a challenge for optimization algorithms.
@@ -276,7 +348,8 @@ function F15(x)
 end
 
 """
-    F16()
+    F16(x)
+
 Six-Hump Camel Function.
 
 A well-known multimodal benchmark function with six local minima, two of which are global. Often used to evaluate global optimization algorithms.
@@ -292,7 +365,8 @@ function F16(x)
 end
 
 """
-    F17()
+    F17(x)
+
 Branin Function (also known as Branin-Hoo Function).
 
 A widely used benchmark function for optimization algorithms. It has multiple global minima and is commonly used for testing the performance of global optimizers in 2D.
@@ -309,7 +383,8 @@ function F17(x)
 end
 
 """
-    F18()
+    F18(x)
+
 Goldstein–Price Function.
 
 A classic two-dimensional test function for global optimization with a complex landscape containing many local minima and a known global minimum.
@@ -328,7 +403,8 @@ function F18(x)
 end
 
 """
-    F19()
+    F19(x)
+
 Hartmann 3D Function.
 
 A common multimodal benchmark function used to test the performance of global optimization algorithms in 3 dimensions. It is characterized by several local minima and one known global minimum.
@@ -350,7 +426,8 @@ function F19(x)
 end
 
 """
-    F20()
+    F20(x)
+
 Hartmann 6D Function.
 
 A widely used multimodal benchmark function in 6 dimensions for testing the performance of global optimization algorithms. It features a complex landscape with several local minima and a known global minimum.
@@ -375,7 +452,8 @@ function F20(x)
 end
 
 """
-    F21()
+    F21(x)
+
 Shekel’s Foxholes Function (m = 5).
 
 A multimodal benchmark function often used to test optimization algorithms' ability to avoid local optima. This version uses `m = 5` terms in the summation.
@@ -402,7 +480,8 @@ function F21(x)
 end
 
 """
-    F22()
+    F22(x)
+
 Shekel’s Foxholes Function (m = 7).
 
 A multimodal benchmark function commonly used for testing the ability of optimization algorithms to navigate complex landscapes with many local minima. This is a variant of the Shekel function with `m = 7` terms.
@@ -429,7 +508,8 @@ function F22(x)
 end
 
 """
-    F23()
+    F23(x)
+
 Shekel’s Foxholes Function (m = 10).
 
 A classic multimodal benchmark function designed to test an optimization algorithm’s ability to avoid numerous local optima and find the global minimum. This version uses `m = 10` terms in the summation.

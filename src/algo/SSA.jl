@@ -1,12 +1,12 @@
 """
 # References:
 
-- Mirjalili, Seyedali, Amir H. Gandomi, Seyedeh Zahra Mirjalili, Shahrzad Saremi, Hossam Faris, and Seyed Mohammad Mirjalili. 
-"Salp Swarm Algorithm: A bio-inspired optimizer for engineering design problems." 
-Advances in engineering software 114 (2017): 163-191.
+- Mirjalili, Seyedali, Amir H. Gandomi, Seyedeh Zahra Mirjalili, Shahrzad Saremi, Hossam Faris, and Seyed Mohammad Mirjalili.
+  "Salp Swarm Algorithm: A bio-inspired optimizer for engineering design problems."
+  Advances in engineering software 114 (2017): 163-191.
 """
 function SSA(objfun, lb::Real, ub::Real, npop::Integer, max_iter::Integer, dim::Integer)::OptimizationResult
-    return SSA(objfun, fill(lb, dim), fill(ub, dim), npop, max_iter) 
+    return SSA(objfun, fill(lb, dim), fill(ub, dim), npop, max_iter)
 end
 
 function SSA(objfun, lb::Vector{Float64}, ub::Vector{Float64}, npop::Integer, max_iter::Integer)

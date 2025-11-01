@@ -1,12 +1,12 @@
 """
 # References:
 
--  Dhiman, Gaurav, Meenakshi Garg, Atulya Nagar, Vijay Kumar, and Mohammad Dehghani. 
-"A novel algorithm for global optimization: rat swarm optimizer." 
-Journal of Ambient Intelligence and Humanized Computing 12 (2021): 8457-8482.
+- Dhiman, Gaurav, Meenakshi Garg, Atulya Nagar, Vijay Kumar, and Mohammad Dehghani.
+  "A novel algorithm for global optimization: rat swarm optimizer."
+  Journal of Ambient Intelligence and Humanized Computing 12 (2021): 8457-8482.
 """
 function RSO(objfun, lb::Real, ub::Real, npop::Integer, max_iter::Integer, dim::Integer)::OptimizationResult
-    return RSO(objfun, fill(lb, dim), fill(ub, dim), npop, max_iter) 
+    return RSO(objfun, fill(lb, dim), fill(ub, dim), npop, max_iter)
 end
 
 function RSO(objfun, lb::Vector{Float64}, ub::Vector{Float64}, npop::Integer, max_iter::Integer)

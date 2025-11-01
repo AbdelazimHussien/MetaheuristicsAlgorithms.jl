@@ -1,12 +1,12 @@
 """
 # References:
 
--  Faramarzi, Afshin, Mohammad Heidarinejad, Seyedali Mirjalili, and Amir H. Gandomi. 
-"Marine Predators Algorithm: A nature-inspired metaheuristic." 
-Expert systems with applications 152 (2020): 113377.
+- Faramarzi, Afshin, Mohammad Heidarinejad, Seyedali Mirjalili, and Amir H. Gandomi.
+  "Marine Predators Algorithm: A nature-inspired metaheuristic."
+  Expert systems with applications 152 (2020): 113377.
 """
 function MPA(objfun, lb::Real, ub::Real, npop::Integer, max_iter::Integer, dim::Integer)::OptimizationResult
-    return MPA(objfun, fill(lb, dim), fill(ub, dim), npop, max_iter) 
+    return MPA(objfun, fill(lb, dim), fill(ub, dim), npop, max_iter)
 end
 
 function MPA(objfun, lb::Vector{Float64}, ub::Vector{Float64}, npop::Integer, max_iter::Integer)

@@ -1,12 +1,12 @@
 """
 # References:
 
-- Jia, Heming, et al. 
-"Superb Fairy-wren Optimization Algorithm: a novel metaheuristic algorithm for solving feature selection problems." 
-Cluster Computing 28.4 (2025): 246.
+- Jia, Heming, et al.
+  "Superb Fairy-wren Optimization Algorithm: a novel metaheuristic algorithm for solving feature selection problems."
+  Cluster Computing 28.4 (2025): 246.
 """
 function SuperbFOA(objfun, lb::Real, ub::Real, npop::Integer, max_iter::Integer, dim::Integer)::OptimizationResult
-    return SuperbFOA(objfun, fill(lb, dim), fill(ub, dim), npop, max_iter) 
+    return SuperbFOA(objfun, fill(lb, dim), fill(ub, dim), npop, max_iter)
 end
 
 function SuperbFOA(objfun, lb::Vector{Float64}, ub::Vector{Float64}, npop::Integer, max_iter::Integer)

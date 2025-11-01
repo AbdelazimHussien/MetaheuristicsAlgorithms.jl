@@ -1,12 +1,12 @@
 """
 # References:
 
--  Askari, Qamar, Irfan Younas, and Mehreen Saeed. 
-"Political Optimizer: A novel socio-inspired meta-heuristic for global optimization." 
-Knowledge-based systems 195 (2020): 105709.
+- Askari, Qamar, Irfan Younas, and Mehreen Saeed.
+  "Political Optimizer: A novel socio-inspired meta-heuristic for global optimization."
+  Knowledge-based systems 195 (2020): 105709.
 """
 function PoliticalO(objfun, lb::Real, ub::Real, npop::Integer, max_iter::Integer, dim::Integer)::OptimizationResult
-    return PoliticalO(objfun, fill(lb, dim), fill(ub, dim), npop, max_iter) 
+    return PoliticalO(objfun, fill(lb, dim), fill(ub, dim), npop, max_iter)
 end
 
 function PoliticalO(objfun, lb::Vector{Float64}, ub::Vector{Float64}, npop::Integer, max_iter::Integer)

@@ -1,12 +1,12 @@
 """
 # References:
 
--  Hashim, Fatma A., and Abdelazim G. Hussien. 
-"Snake Optimizer: A novel meta-heuristic optimization algorithm." 
-Knowledge-Based Systems 242 (2022): 108320.
+- Hashim, Fatma A., and Abdelazim G. Hussien.
+  "Snake Optimizer: A novel meta-heuristic optimization algorithm."
+  Knowledge-Based Systems 242 (2022): 108320.
 """
 function SO(objfun, lb::Real, ub::Real, npop::Integer, max_iter::Integer, dim::Integer)::OptimizationResult
-    return SO(objfun, fill(lb, dim), fill(ub, dim), npop, max_iter) 
+    return SO(objfun, fill(lb, dim), fill(ub, dim), npop, max_iter)
 end
 
 function SO(objfun, lb::Vector{Float64}, ub::Vector{Float64}, npop::Integer, max_iter::Integer)

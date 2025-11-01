@@ -1,12 +1,12 @@
 """
 # References:
 
--  Dhiman, Gaurav, and Vijay Kumar. 
-"Seagull optimization algorithm: Theory and its applications for large-scale industrial engineering problems." 
-Knowledge-based systems 165 (2019): 169-196.
+- Dhiman, Gaurav, and Vijay Kumar.
+  "Seagull optimization algorithm: Theory and its applications for large-scale industrial engineering problems."
+  Knowledge-based systems 165 (2019): 169-196.
 """
 function SOA(objfun, lb::Real, ub::Real, npop::Integer, max_iter::Integer, dim::Integer)::OptimizationResult
-    return SOA(objfun, fill(lb, dim), fill(ub, dim), npop, max_iter) 
+    return SOA(objfun, fill(lb, dim), fill(ub, dim), npop, max_iter)
 end
 
 function SOA(objfun, lb::Vector{Float64}, ub::Vector{Float64}, npop::Integer, max_iter::Integer)

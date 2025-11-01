@@ -1,12 +1,11 @@
 """
-# References: 
+# References:
 
-- Xue J, Shen B. Dung beetle optimizer: A new meta-heuristic algorithm for global optimization. 
-    The Journal of Supercomputing. 2023 May;79(7):7305-36.
-    
+- Xue J, Shen B. Dung beetle optimizer: A new meta-heuristic algorithm for global optimization.
+  The Journal of Supercomputing. 2023 May; 79(7):7305-36.
 """
 function DBO(objfun, lb::Real, ub::Real, npop::Integer, max_iter::Integer, dim::Integer)
-    return DBO(objfun, fill(lb, dim), fill(ub, dim), npop, max_iter) 
+    return DBO(objfun, fill(lb, dim), fill(ub, dim), npop, max_iter)
 end
 
 function DBO(objfun, lb::Vector{Float64}, ub::Vector{Float64}, npop::Integer, max_iter::Integer)

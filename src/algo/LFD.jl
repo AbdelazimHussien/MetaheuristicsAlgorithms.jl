@@ -1,12 +1,12 @@
 """
 # References:
 
--  Houssein, Essam H., Mohammed R. Saad, Fatma A. Hashim, Hassan Shaban, and M. Hassaballah. 
-"Lévy flight distribution: A new metaheuristic algorithm for solving engineering optimization problems." 
-Engineering Applications of Artificial Intelligence 94 (2020): 103731.
+- Houssein, Essam H., Mohammed R. Saad, Fatma A. Hashim, Hassan Shaban, and M. Hassaballah.
+  "Lévy flight distribution: A new metaheuristic algorithm for solving engineering optimization problems."
+  Engineering Applications of Artificial Intelligence 94 (2020): 103731.
 """
 function LFD(objfun, lb::Real, ub::Real, npop::Integer, max_iter::Integer, dim::Integer)::OptimizationResult
-    return LFD(objfun, fill(lb, dim), fill(ub, dim), npop, max_iter) 
+    return LFD(objfun, fill(lb, dim), fill(ub, dim), npop, max_iter)
 end
 
 function LFD(objfun, lb::Vector{Float64}, ub::Vector{Float64}, npop::Integer, max_iter::Integer)

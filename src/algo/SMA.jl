@@ -1,12 +1,12 @@
 """
 # References:
 
--  Li, Shimin, Huiling Chen, Mingjing Wang, Ali Asghar Heidari, and Seyedali Mirjalili. 
-"Slime mould algorithm: A new method for stochastic optimization." 
-Future generation computer systems 111 (2020): 300-323.
+- Li, Shimin, Huiling Chen, Mingjing Wang, Ali Asghar Heidari, and Seyedali Mirjalili.
+  "Slime mould algorithm: A new method for stochastic optimization."
+  Future generation computer systems 111 (2020): 300-323.
 """
 function SMA(objfun, lb::Real, ub::Real, npop::Integer, max_iter::Integer, dim::Integer)::OptimizationResult
-    return SMA(objfun, fill(lb, dim), fill(ub, dim), npop, max_iter) 
+    return SMA(objfun, fill(lb, dim), fill(ub, dim), npop, max_iter)
 end
 
 function SMA(objfun, lb::Vector{Float64}, ub::Vector{Float64}, npop::Integer, max_iter::Integer)

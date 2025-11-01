@@ -1,11 +1,12 @@
 """
 # References:
--  Heidari, Ali Asghar, Seyedali Mirjalili, Hossam Faris, Ibrahim Aljarah, Majdi Mafarja, and Huiling Chen. 
-"Harris hawks optimization: Algorithm and applications." 
-Future generation computer systems 97 (2019): 849-872.
+
+- Heidari, Ali Asghar, Seyedali Mirjalili, Hossam Faris, Ibrahim Aljarah, Majdi Mafarja, and Huiling Chen.
+  "Harris hawks optimization: Algorithm and applications."
+  Future generation computer systems 97 (2019): 849-872.
 """
 function HHO(objfun, lb::Real, ub::Real, npop::Integer, max_iter::Integer, dim::Integer)
-    return HHO(objfun, fill(lb, dim), fill(ub, dim), npop, max_iter) 
+    return HHO(objfun, fill(lb, dim), fill(ub, dim), npop, max_iter)
 end
 function HHO(objfun, lb::Vector{Float64}, ub::Vector{Float64}, npop::Integer, max_iter::Integer)
     dim = length(lb)

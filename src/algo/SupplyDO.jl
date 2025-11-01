@@ -1,11 +1,12 @@
 """
 # References:
--  Zhao, Weiguo, Liying Wang, and Zhenxing Zhang. 
-"Supply-demand-based optimization: A novel economics-inspired algorithm for global optimization." 
-Ieee Access 7 (2019): 73182-73206.
+
+- Zhao, Weiguo, Liying Wang, and Zhenxing Zhang.
+  "Supply-demand-based optimization: A novel economics-inspired algorithm for global optimization."
+  Ieee Access 7 (2019): 73182-73206.
 """
 function SupplyDO(objfun, lb::Real, ub::Real, npop::Integer, max_iter::Integer, dim::Integer)::OptimizationResult
-    return SupplyDO(objfun, fill(lb, dim), fill(ub, dim), npop, max_iter) 
+    return SupplyDO(objfun, fill(lb, dim), fill(ub, dim), npop, max_iter)
 end
 
 function SupplyDO(objfun, lb::Vector{Float64}, ub::Vector{Float64}, marketsize::Integer, max_iter::Integer)

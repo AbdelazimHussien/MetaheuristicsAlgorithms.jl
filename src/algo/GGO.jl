@@ -1,12 +1,12 @@
 """
 # References:
 
--  El-Kenawy, El-Sayed M., Nima Khodadadi, Seyedali Mirjalili, Abdelaziz A. Abdelhamid, Marwa M. Eid, and Abdelhameed Ibrahim. 
-"Greylag goose optimization: nature-inspired optimization algorithm." 
-Expert Systems with Applications 238 (2024): 122147.
+- El-Kenawy, El-Sayed M., Nima Khodadadi, Seyedali Mirjalili, Abdelaziz A. Abdelhamid, Marwa M. Eid, and Abdelhameed Ibrahim.
+  "Greylag goose optimization: nature-inspired optimization algorithm."
+  Expert Systems with Applications 238 (2024): 122147.
 """
 function GGO(objfun, lb::Real, ub::Real, npop::Integer, max_iter::Integer, dim::Integer)
-    return GGO(objfun, fill(lb, dim), fill(ub, dim), npop, max_iter) 
+    return GGO(objfun, fill(lb, dim), fill(ub, dim), npop, max_iter)
 end
 
 function GGO(objfun, lb::Vector{Float64}, ub::Vector{Float64}, npop::Integer, max_iter::Integer)

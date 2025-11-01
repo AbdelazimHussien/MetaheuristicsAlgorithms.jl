@@ -6,12 +6,12 @@ end
 """
 # References:
 
--  Rao, R. Venkata, Vimal J. Savsani, and Dipakkumar P. Vakharia. 
-"Teaching–learning-based optimization: a novel method for constrained mechanical design optimization problems." 
-Computer-aided design 43, no. 3 (2011): 303-315.
+- Rao, R. Venkata, Vimal J. Savsani, and Dipakkumar P. Vakharia.
+  "Teaching–learning-based optimization: a novel method for constrained mechanical design optimization problems."
+  Computer-aided design 43, no. 3 (2011): 303-315.
 """
 function TLBO(objfun, lb::Real, ub::Real, npop::Integer, max_iter::Integer, dim::Integer)::OptimizationResult
-    return TLBO(objfun, fill(lb, dim), fill(ub, dim), npop, max_iter) 
+    return TLBO(objfun, fill(lb, dim), fill(ub, dim), npop, max_iter)
 end
 
 function TLBO(objfun, lb::Vector{Float64}, ub::Vector{Float64}, npop::Integer, max_iter::Integer)

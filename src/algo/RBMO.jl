@@ -1,12 +1,12 @@
 """
 # References:
 
-- Fu, Shengwei, et al. 
-"Red-billed blue magpie optimizer: a novel metaheuristic algorithm for 2D/3D UAV path planning and engineering design problems." 
-Artificial Intelligence Review 57.6 (2024): 134.
+- Fu, Shengwei, et al.
+  "Red-billed blue magpie optimizer: a novel metaheuristic algorithm for 2D/3D UAV path planning and engineering design problems."
+  Artificial Intelligence Review 57.6 (2024): 134.
 """
 function RBMO(objfun, lb::Real, ub::Real, npop::Integer, max_iter::Integer, dim::Integer)::OptimizationResult
-    return RBMO(objfun, fill(lb, dim), fill(ub, dim), npop, max_iter) 
+    return RBMO(objfun, fill(lb, dim), fill(ub, dim), npop, max_iter)
 end
 function RBMO(objfun, lb::Vector{Float64}, ub::Vector{Float64}, npop::Integer, max_iter::Integer)
     D = length(lb)

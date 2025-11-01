@@ -1,12 +1,12 @@
 """
 # References:
 
--  Moosavi, Seyyed Hamid Samareh, and Vahid Khatibi Bardsiri. 
-"Poor and rich optimization algorithm: A new human-based and multi populations algorithm." 
-Engineering applications of artificial intelligence 86 (2019): 165-181.
+- Moosavi, Seyyed Hamid Samareh, and Vahid Khatibi Bardsiri.
+  "Poor and rich optimization algorithm: A new human-based and multi populations algorithm."
+  Engineering applications of artificial intelligence 86 (2019): 165-181.
 """
 function PRO(objfun, lb::Real, ub::Real, npop::Integer, max_iter::Integer, dim::Integer)::OptimizationResult
-    return PRO(objfun, fill(lb, dim), fill(ub, dim), npop, max_iter) 
+    return PRO(objfun, fill(lb, dim), fill(ub, dim), npop, max_iter)
 end
 
 function PRO(objfun, lb::Vector{Float64}, ub::Vector{Float64}, npop::Integer, max_iter::Integer)

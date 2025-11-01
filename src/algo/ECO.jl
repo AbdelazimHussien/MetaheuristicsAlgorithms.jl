@@ -1,12 +1,12 @@
 """
 # References:
 
-- Lian, Junbo, Ting Zhu, Ling Ma, Xincan Wu, Ali Asghar Heidari, Yi Chen, Huiling Chen, and Guohua Hui. 
-"The educational competition optimizer." 
-International Journal of Systems Science 55, no. 15 (2024): 3185-3222.
+- Lian, Junbo, Ting Zhu, Ling Ma, Xincan Wu, Ali Asghar Heidari, Yi Chen, Huiling Chen, and Guohua Hui.
+  "The educational competition optimizer."
+  International Journal of Systems Science 55, no. 15 (2024): 3185-3222.
 """
 function ECO(objfun, lb::Real, ub::Real, npop::Integer, max_iter::Integer, dim::Integer)
-    return ECO(objfun, fill(lb, dim), fill(ub, dim), npop, max_iter) 
+    return ECO(objfun, fill(lb, dim), fill(ub, dim), npop, max_iter)
 end
 
 function ECO(objfun, lb::Vector{Float64}, ub::Vector{Float64}, npop::Integer, max_iter::Integer)

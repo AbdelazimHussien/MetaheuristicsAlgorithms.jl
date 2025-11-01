@@ -1,12 +1,12 @@
 """
 # References:
 
--  Yang, Yutao, Huiling Chen, Ali Asghar Heidari, and Amir H. Gandomi. 
-"Hunger games search: Visions, conception, implementation, deep analysis, perspectives, and towards performance shifts." 
-Expert Systems with Applications 177 (2021): 114864.
+- Yang, Yutao, Huiling Chen, Ali Asghar Heidari, and Amir H. Gandomi.
+  "Hunger games search: Visions, conception, implementation, deep analysis, perspectives, and towards performance shifts."
+  Expert Systems with Applications 177 (2021): 114864.
 """
 function HGS(objfun, lb::Real, ub::Real, npop::Integer, max_iter::Integer, dim::Integer)
-    return HGS(objfun, fill(lb, dim), fill(ub, dim), npop, max_iter) 
+    return HGS(objfun, fill(lb, dim), fill(ub, dim), npop, max_iter)
 end
 
 function HGS(objfun, lb::Vector{Float64}, ub::Vector{Float64}, npop::Integer, max_iter::Integer)

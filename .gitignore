@@ -4,3 +4,8 @@
 /Manifest.toml
 /docs/Manifest.toml
 /docs/build/
+
+.vscode
+.lsp
+.clj-kondo
+.DS_Store

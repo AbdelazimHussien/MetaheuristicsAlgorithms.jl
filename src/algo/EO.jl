@@ -1,12 +1,12 @@
 """
 # References:
 
--  Faramarzi, Afshin, Mohammad Heidarinejad, Brent Stephens, and Seyedali Mirjalili. 
-"Equilibrium optimizer: A novel optimization algorithm." 
-Knowledge-based systems 191 (2020): 105190.
+- Faramarzi, Afshin, Mohammad Heidarinejad, Brent Stephens, and Seyedali Mirjalili.
+  "Equilibrium optimizer: A novel optimization algorithm."
+  Knowledge-based systems 191 (2020): 105190.
 """
 function EO(objfun, lb::Real, ub::Real, npop::Integer, max_iter::Integer, dim::Integer)
-    return EO(objfun, fill(lb, dim), fill(ub, dim), npop, max_iter) 
+    return EO(objfun, fill(lb, dim), fill(ub, dim), npop, max_iter)
 end
 
 function EO(objfun, lb::Vector{Float64}, ub::Vector{Float64}, npop::Integer, max_iter::Integer)

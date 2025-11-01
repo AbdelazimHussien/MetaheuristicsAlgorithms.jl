@@ -1,12 +1,12 @@
 """
 # References:
 
--  Zhao, Weiguo, Zhenxing Zhang, and Liying Wang. 
-"Manta ray foraging optimization: An effective bio-inspired optimizer for engineering applications." 
-Engineering Applications of Artificial Intelligence 87 (2020): 103300.
+- Zhao, Weiguo, Zhenxing Zhang, and Liying Wang.
+  "Manta ray foraging optimization: An effective bio-inspired optimizer for engineering applications."
+  Engineering Applications of Artificial Intelligence 87 (2020): 103300.
 """
 function MRFO(objfun, lb::Real, ub::Real, npop::Integer, max_iter::Integer, dim::Integer)::OptimizationResult
-    return MRFO(objfun, fill(lb, dim), fill(ub, dim), npop, max_iter) 
+    return MRFO(objfun, fill(lb, dim), fill(ub, dim), npop, max_iter)
 end
 
 function MRFO(objfun, lb::Vector{Float64}, ub::Vector{Float64}, npop::Integer, max_iter::Integer)

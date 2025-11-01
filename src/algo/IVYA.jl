@@ -1,12 +1,12 @@
 """
 # References:
 
--  Ghasemi, Mojtaba, Mohsen Zare, Pavel Trojovský, Ravipudi Venkata Rao, Eva Trojovská, and Venkatachalam Kandasamy. 
-"Optimization based on the smart behavior of plants with its engineering applications: Ivy algorithm." 
-Knowledge-Based Systems 295 (2024): 111850.
+- Ghasemi, Mojtaba, Mohsen Zare, Pavel Trojovský, Ravipudi Venkata Rao, Eva Trojovská, and Venkatachalam Kandasamy.
+  "Optimization based on the smart behavior of plants with its engineering applications: Ivy algorithm."
+  Knowledge-Based Systems 295 (2024): 111850.
 """
 function IVYA(objfun, lb::Real, ub::Real, npop::Integer, max_iter::Integer, dim::Integer)::OptimizationResult
-    return IVYA(objfun, fill(lb, dim), fill(ub, dim), npop, max_iter) 
+    return IVYA(objfun, fill(lb, dim), fill(ub, dim), npop, max_iter)
 end
 
 function IVYA(objfun, lb::Vector{Float64}, ub::Vector{Float64}, npop::Integer, max_iter::Integer)

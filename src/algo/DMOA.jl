@@ -6,13 +6,12 @@ end
 """
 # References:
 
-- Agushaka, Jeffrey O., Absalom E. Ezugwu, and Laith Abualigah. 
-    "Dwarf mongoose optimization algorithm." 
-    Computer methods in applied mechanics and engineering 391 (2022): 114570.
-    
+- Agushaka, Jeffrey O., Absalom E. Ezugwu, and Laith Abualigah.
+  "Dwarf mongoose optimization algorithm."
+  Computer methods in applied mechanics and engineering 391 (2022): 114570.
 """
 function DMOA(objfun, lb::Real, ub::Real, npop::Integer, max_iter::Integer, dim::Integer)
-    return DMOA(objfun, fill(lb, dim), fill(ub, dim), npop, max_iter) 
+    return DMOA(objfun, fill(lb, dim), fill(ub, dim), npop, max_iter)
 end
 
 function DMOA(objfun, lb::Vector{Float64}, ub::Vector{Float64}, npop::Integer, max_iter::Integer)

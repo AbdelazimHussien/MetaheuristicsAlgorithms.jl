@@ -1,13 +1,12 @@
 """
 # References:
 
-- Ghafil, H. N., & Jármai, K. (2020). 
-    Dynamic differential annealed optimization: New metaheuristic optimization algorithm for engineering applications. 
-    Applied Soft Computing, 93, 106392.
-    
+- Ghafil, H. N., & Jármai, K. (2020).
+  Dynamic differential annealed optimization: New metaheuristic optimization algorithm for engineering applications.
+  Applied Soft Computing, 93, 106392.
 """
 function DDAO(objfun, lb::Real, ub::Real, npop::Integer, max_iter::Integer, dim::Integer)
-    return DDAO(objfun, fill(lb, dim), fill(ub, dim), npop, max_iter) 
+    return DDAO(objfun, fill(lb, dim), fill(ub, dim), npop, max_iter)
 end
 
 function DDAO(objfun, lb::Vector{Float64}, ub::Vector{Float64}, npop::Integer, max_iter::Integer)

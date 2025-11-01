@@ -1,9 +1,9 @@
 """
 # References:
 
-- Yadav, Anupam. 
-"AEFA: Artificial electric field algorithm for global optimization." 
-Swarm and Evolutionary Computation 48 (2019): 93-108.
+- Yadav, Anupam.
+  "AEFA: Artificial electric field algorithm for global optimization."
+  Swarm and Evolutionary Computation 48 (2019): 93-108.
 """
 function AEFA(objfun, lb::Real, ub::Real, npop::Integer, max_iter::Integer, dim::Integer)
     return AEFA(objfun, fill(lb, dim), fill(ub, dim), npop, max_iter)

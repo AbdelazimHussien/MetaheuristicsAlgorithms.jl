@@ -1,12 +1,12 @@
-""" 
+"""
 # References:
 
-- Ghasemi, M., Golalipour, K., Zare, M., Mirjalili, S., Trojovský, P., Abualigah, L. and Hemmati, R., 2024. 
-Flood algorithm (FLA): an efficient inspired meta-heuristic for engineering optimization. 
-The Journal of Supercomputing, 80(15), pp.22913-23017.
+- Ghasemi, M., Golalipour, K., Zare, M., Mirjalili, S., Trojovský, P., Abualigah, L. and Hemmati, R., 2024.
+  Flood algorithm (FLA): an efficient inspired meta-heuristic for engineering optimization.
+  The Journal of Supercomputing, 80(15), pp.22913-23017.
 """
 function FLoodA(objfun, lb::Real, ub::Real, npop::Integer, max_iter::Integer, dim::Integer)
-    return FLoodA(objfun, fill(lb, dim), fill(ub, dim), npop, max_iter) 
+    return FLoodA(objfun, fill(lb, dim), fill(ub, dim), npop, max_iter)
 end
 
 function FLoodA(objfun, lb::Vector{Float64}, ub::Vector{Float64}, npop::Integer, max_iter::Integer)

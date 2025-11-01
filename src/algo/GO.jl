@@ -1,12 +1,12 @@
 """
 # References:
 
--  Zhang, Qingke, Hao Gao, Zhi-Hui Zhan, Junqing Li, and Huaxiang Zhang. 
-"Growth Optimizer: A powerful metaheuristic algorithm for solving continuous and discrete global optimization problems." 
-Knowledge-Based Systems 261 (2023): 110206.
+- Zhang, Qingke, Hao Gao, Zhi-Hui Zhan, Junqing Li, and Huaxiang Zhang.
+  "Growth Optimizer: A powerful metaheuristic algorithm for solving continuous and discrete global optimization problems."
+  Knowledge-Based Systems 261 (2023): 110206.
 """
 function GO(objfun, lb::Real, ub::Real, npop::Integer, max_iter::Integer, dim::Integer)
-    return GO(objfun, fill(lb, dim), fill(ub, dim), npop, max_iter) 
+    return GO(objfun, fill(lb, dim), fill(ub, dim), npop, max_iter)
 end
 
 function GO(objfun, lb::Vector{Float64}, ub::Vector{Float64}, npop::Integer, max_iter::Integer)

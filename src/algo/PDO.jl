@@ -14,12 +14,12 @@
 """
 # References:
 
--  Ezugwu, Absalom E., Jeffrey O. Agushaka, Laith Abualigah, Seyedali Mirjalili, and Amir H. Gandomi. 
-"Prairie dog optimization algorithm." 
-Neural Computing and Applications 34, no. 22 (2022): 20017-20065.
+- Ezugwu, Absalom E., Jeffrey O. Agushaka, Laith Abualigah, Seyedali Mirjalili, and Amir H. Gandomi.
+  "Prairie dog optimization algorithm."
+  Neural Computing and Applications 34, no. 22 (2022): 20017-20065.
 """
 function PDO(objfun, lb::Real, ub::Real, npop::Integer, max_iter::Integer, dim::Integer)::OptimizationResult
-    return PDO(objfun, fill(lb, dim), fill(ub, dim), npop, max_iter) 
+    return PDO(objfun, fill(lb, dim), fill(ub, dim), npop, max_iter)
 end
 
 function PDO(objfun, lb::Vector{Float64}, ub::Vector{Float64}, npop::Integer, max_iter::Integer)

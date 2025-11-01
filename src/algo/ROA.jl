@@ -1,12 +1,12 @@
 """
 # References:
 
--  Jia, Heming, Xiaoxu Peng, and Chunbo Lang. 
-"Remora optimization algorithm." 
-Expert Systems with Applications 185 (2021): 115665.
+- Jia, Heming, Xiaoxu Peng, and Chunbo Lang.
+  "Remora optimization algorithm."
+  Expert Systems with Applications 185 (2021): 115665.
 """
 function ROA(objfun, lb::Real, ub::Real, npop::Integer, max_iter::Integer, dim::Integer)::OptimizationResult
-    return ROA(objfun, fill(lb, dim), fill(ub, dim), npop, max_iter) 
+    return ROA(objfun, fill(lb, dim), fill(ub, dim), npop, max_iter)
 end
 
 function ROA(objfun, lb::Vector{Float64}, ub::Vector{Float64}, npop::Integer, max_iter::Integer)

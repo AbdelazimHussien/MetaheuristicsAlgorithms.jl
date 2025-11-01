@@ -1,18 +1,18 @@
 """
 # References:
 
--  Braik, M., & Al-Hiary, H. (2025). 
-A novel meta-heuristic optimization algorithm inspired by water uptake and transport in plants. 
-Neural Computing and Applications, 1-82.
+- Braik, M., & Al-Hiary, H. (2025).
+  A novel meta-heuristic optimization algorithm inspired by water uptake and transport in plants.
+  Neural Computing and Applications, 1-82.
 """
 function WUTP(objfun, lb::Real, ub::Real, npop::Integer, max_iter::Integer, dim::Integer)
-    return WUTP(objfun, fill(lb, dim), fill(ub, dim), npop, max_iter) 
+    return WUTP(objfun, fill(lb, dim), fill(ub, dim), npop, max_iter)
 end
 
 function WUTP(objfun, lb::Vector{Float64}, ub::Vector{Float64}, no_particles::Integer, max_iter::Integer)
     dim = length(lb)
     # Preallocate
-    ccurve = zeros(max_iter) 
+    ccurve = zeros(max_iter)
     # Initialize population
     y = initialization(no_particles, dim, ub, lb)
     # Initial velocity

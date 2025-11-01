@@ -2,11 +2,11 @@
 # References:
 
 - Abdel-Basset, Mohamed, Doaa El-Shahat, Mohammed Jameel, and Mohamed Abouhawwash.
-"Young's double-slit experiment optimizer: A novel metaheuristic optimization algorithm for global and constraint optimization problems." 
-Computer Methods in Applied Mechanics and Engineering 403 (2023): 115652.
+  "Young's double-slit experiment optimizer: A novel metaheuristic optimization algorithm for global and constraint optimization problems."
+  Computer Methods in Applied Mechanics and Engineering 403 (2023): 115652.
 """
 function YDSE(objfun, lb::Real, ub::Real, npop::Integer, max_iter::Integer, dim::Integer)
-    return YDSE(objfun, fill(lb, dim), fill(ub, dim), npop, max_iter) 
+    return YDSE(objfun, fill(lb, dim), fill(ub, dim), npop, max_iter)
 end
 
 function YDSE(objfun, lb::Vector{Float64}, ub::Vector{Float64}, npop::Integer, max_iter::Integer)

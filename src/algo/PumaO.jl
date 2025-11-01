@@ -96,12 +96,12 @@ end
 """
 # References:
 
-- Abdollahzadeh, Benyamin, Nima Khodadadi, Saeid Barshandeh, Pavel Trojovský, Farhad Soleimanian Gharehchopogh, El-Sayed M. El-kenawy, Laith Abualigah, and Seyedali Mirjalili. 
-"Puma optimizer (PO): A novel metaheuristic optimization algorithm and its application in machine learning." 
-Cluster Computing (2024): 1-49.
+- Abdollahzadeh, Benyamin, Nima Khodadadi, Saeid Barshandeh, Pavel Trojovský, Farhad Soleimanian Gharehchopogh, El-Sayed M. El-kenawy, Laith Abualigah, and Seyedali Mirjalili.
+  "Puma optimizer (PO): A novel metaheuristic optimization algorithm and its application in machine learning."
+  Cluster Computing (2024): 1-49.
 """
 function PumaO(objfun, lb::Real, ub::Real, npop::Integer, max_iter::Integer, dim::Integer)::OptimizationResult
-    return PumaO(objfun, fill(lb, dim), fill(ub, dim), npop, max_iter) 
+    return PumaO(objfun, fill(lb, dim), fill(ub, dim), npop, max_iter)
 end
 
 function PumaO(objfun, lb::Vector{Float64}, ub::Vector{Float64}, npop::Integer, max_iter::Integer)

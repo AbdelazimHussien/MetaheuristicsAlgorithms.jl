@@ -1,12 +1,12 @@
 """
 # References:
 
--  Dehghani, Mohammad, and Pavel Trojovský. 
-"Osprey optimization algorithm: A new bio-inspired metaheuristic algorithm for solving engineering optimization problems." 
-Frontiers in Mechanical Engineering 8 (2023): 1126450.
+- Dehghani, Mohammad, and Pavel Trojovský.
+  "Osprey optimization algorithm: A new bio-inspired metaheuristic algorithm for solving engineering optimization problems."
+  Frontiers in Mechanical Engineering 8 (2023): 1126450.
 """
 function OOA(objfun, lb::Real, ub::Real, npop::Integer, max_iter::Integer, dim::Integer)::OptimizationResult
-    return OOA(objfun, fill(lb, dim), fill(ub, dim), npop, max_iter) 
+    return OOA(objfun, fill(lb, dim), fill(ub, dim), npop, max_iter)
 end
 
 function OOA(objfun, lb::Vector{Float64}, ub::Vector{Float64}, npop::Integer, max_iter::Integer)

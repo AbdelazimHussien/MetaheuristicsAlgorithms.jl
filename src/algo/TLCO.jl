@@ -1,12 +1,12 @@
 """
 # References:
 
-- Minh, Hoang-Le, Thanh Sang-To, Guy Theraulaz, Magd Abdel Wahab, and Thanh Cuong-Le. 
-"Termite life cycle optimizer." 
-Expert Systems with Applications 213 (2023): 119211.
+- Minh, Hoang-Le, Thanh Sang-To, Guy Theraulaz, Magd Abdel Wahab, and Thanh Cuong-Le.
+  "Termite life cycle optimizer."
+  Expert Systems with Applications 213 (2023): 119211.
 """
 function TLCO(objfun, lb::Real, ub::Real, npop::Integer, max_iter::Integer, dim::Integer)::OptimizationResult
-    return TLCO(objfun, fill(lb, dim), fill(ub, dim), npop, max_iter) 
+    return TLCO(objfun, fill(lb, dim), fill(ub, dim), npop, max_iter)
 end
 
 function TLCO(objfun, lb::Vector{Float64}, ub::Vector{Float64}, npop::Integer, cycle::Integer)

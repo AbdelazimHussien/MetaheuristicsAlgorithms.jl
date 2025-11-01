@@ -1,12 +1,12 @@
 """
 # References:
 
--  Kaur, Satnam, Lalit K. Awasthi, Amrit Lal Sangal, and Gaurav Dhiman. 
-"Tunicate Swarm Algorithm: A new bio-inspired based metaheuristic paradigm for global optimization." 
-Engineering Applications of Artificial Intelligence 90 (2020): 103541.
+- Kaur, Satnam, Lalit K. Awasthi, Amrit Lal Sangal, and Gaurav Dhiman.
+  "Tunicate Swarm Algorithm: A new bio-inspired based metaheuristic paradigm for global optimization."
+  Engineering Applications of Artificial Intelligence 90 (2020): 103541.
 """
 function TSA(objfun, lb::Real, ub::Real, npop::Integer, max_iter::Integer, dim::Integer)::OptimizationResult
-    return TSA(objfun, fill(lb, dim), fill(ub, dim), npop, max_iter) 
+    return TSA(objfun, fill(lb, dim), fill(ub, dim), npop, max_iter)
 end
 
 function TSA(objfun, lb::Vector{Float64}, ub::Vector{Float64}, npop::Integer, max_iter::Integer)

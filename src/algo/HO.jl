@@ -1,12 +1,12 @@
 """
 # References:
 
--  Amiri, M.H., Mehrabi Hashjin, N., Montazeri, M., Mirjalili, S. and Khodadadi, N., 2024. 
-Hippopotamus optimization algorithm: a novel nature-inspired optimization algorithm. 
-Scientific Reports, 14(1), p.5032.
+- Amiri, M.H., Mehrabi Hashjin, N., Montazeri, M., Mirjalili, S. and Khodadadi, N., 2024.
+  Hippopotamus optimization algorithm: a novel nature-inspired optimization algorithm.
+  Scientific Reports, 14(1), p.5032.
 """
 function HO(objfun, lb::Real, ub::Real, npop::Integer, max_iter::Integer, dim::Integer)
-    return HO(objfun, fill(lb, dim), fill(ub, dim), npop, max_iter) 
+    return HO(objfun, fill(lb, dim), fill(ub, dim), npop, max_iter)
 end
 function HO(objfun, lb::Vector{Float64}, ub::Vector{Float64}, npop::Integer, max_iter::Integer)
     dim = length(lb)

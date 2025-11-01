@@ -1,12 +1,12 @@
 """
 # References:
 
--  Mirjalili, Seyedali, Seyed Mohammad Mirjalili, and Andrew Lewis. 
-"Grey wolf optimizer." 
-Advances in engineering software 69 (2014): 46-61.
+- Mirjalili, Seyedali, Seyed Mohammad Mirjalili, and Andrew Lewis.
+  "Grey wolf optimizer."
+  Advances in engineering software 69 (2014): 46-61.
 """
 function GWO(objfun, lb::Real, ub::Real, npop::Integer, max_iter::Integer, dim::Integer)
-    return GWO(objfun, fill(lb, dim), fill(ub, dim), npop, max_iter) 
+    return GWO(objfun, fill(lb, dim), fill(ub, dim), npop, max_iter)
 end
 
 function GWO(objfun, lb::Vector{Float64}, ub::Vector{Float64}, npop::Integer, max_iter::Integer)

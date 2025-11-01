@@ -1,12 +1,12 @@
 """
 # References:
 
--  Trojovská, Eva, Mohammad Dehghani, and Pavel Trojovský. 
-"Zebra optimization algorithm: A new bio-inspired optimization algorithm for solving optimization algorithm." 
-Ieee Access 10 (2022): 49445-49473.
+- Trojovská, Eva, Mohammad Dehghani, and Pavel Trojovský.
+  "Zebra optimization algorithm: A new bio-inspired optimization algorithm for solving optimization algorithm."
+  Ieee Access 10 (2022): 49445-49473.
 """
 function ZOA(objfun, lb::Real, ub::Real, npop::Integer, max_iter::Integer, dim::Integer)
-    return ZOA(objfun, fill(lb, dim), fill(ub, dim), npop, max_iter) 
+    return ZOA(objfun, fill(lb, dim), fill(ub, dim), npop, max_iter)
 end
 
 function ZOA(objfun, lb::Vector{Float64}, ub::Vector{Float64}, npop::Integer, max_iter::Integer)

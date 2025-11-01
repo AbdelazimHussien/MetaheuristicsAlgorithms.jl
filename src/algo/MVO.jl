@@ -18,12 +18,12 @@ end
 """
 # References:
 
--  Mirjalili, Seyedali, Seyed Mohammad Mirjalili, and Abdolreza Hatamlou. 
-"Multi-verse optimizer: a nature-inspired algorithm for global optimization." 
-Neural Computing and Applications 27 (2016): 495-513.
+- Mirjalili, Seyedali, Seyed Mohammad Mirjalili, and Abdolreza Hatamlou.
+  "Multi-verse optimizer: a nature-inspired algorithm for global optimization."
+  Neural Computing and Applications 27 (2016): 495-513.
 """
 function MVO(objfun, lb::Real, ub::Real, npop::Integer, max_iter::Integer, dim::Integer)::OptimizationResult
-    return MVO(objfun, fill(lb, dim), fill(ub, dim), npop, max_iter) 
+    return MVO(objfun, fill(lb, dim), fill(ub, dim), npop, max_iter)
 end
 
 function MVO(objfun, lb::Vector{Float64}, ub::Vector{Float64}, npop::Integer, max_iter::Integer)

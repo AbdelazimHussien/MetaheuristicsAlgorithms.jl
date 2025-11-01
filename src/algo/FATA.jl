@@ -1,12 +1,12 @@
 """
 # References:
 
--  Qi, Ailiang, Dong Zhao, Ali Asghar Heidari, Lei Liu, Yi Chen, and Huiling Chen. 
-"FATA: an efficient optimization method based on geophysics." 
-Neurocomputing 607 (2024): 128289.
+- Qi, Ailiang, Dong Zhao, Ali Asghar Heidari, Lei Liu, Yi Chen, and Huiling Chen.
+  "FATA: an efficient optimization method based on geophysics."
+  Neurocomputing 607 (2024): 128289.
 """
 function FATA(objfun, lb::Real, ub::Real, npop::Integer, max_iter::Integer, dim::Integer)
-    return FATA(objfun, fill(lb, dim), fill(ub, dim), npop, max_iter) 
+    return FATA(objfun, fill(lb, dim), fill(ub, dim), npop, max_iter)
 end
 
 function FATA(objfun, lb::Vector{Float64}, ub::Vector{Float64}, npop::Integer, max_iter::Integer)

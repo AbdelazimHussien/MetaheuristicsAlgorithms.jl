@@ -14,12 +14,13 @@ end
 
 """
 # References:
--  Askari, Qamar, Mehreen Saeed, and Irfan Younas. 
-"Heap-based optimizer inspired by corporate rank hierarchy for global optimization." 
-Expert Systems with Applications 161 (2020): 113702.
+
+- Askari, Qamar, Mehreen Saeed, and Irfan Younas.
+  "Heap-based optimizer inspired by corporate rank hierarchy for global optimization."
+  Expert Systems with Applications 161 (2020): 113702.
 """
 function HBO(objfun, lb::Real, ub::Real, npop::Integer, max_iter::Integer, dim::Integer)
-    return HBO(objfun, fill(lb, dim), fill(ub, dim), npop, max_iter) 
+    return HBO(objfun, fill(lb, dim), fill(ub, dim), npop, max_iter)
 end
 
 function HBO(objfun, lb::Vector{Float64}, ub::Vector{Float64}, npop::Integer, max_iter::Integer)

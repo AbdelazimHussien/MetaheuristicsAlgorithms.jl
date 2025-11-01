@@ -1,12 +1,12 @@
 """
 # References:
 
--  Bai, Jianfu, Yifei Li, Mingpo Zheng, Samir Khatir, Brahim Benaissa, Laith Abualigah, and Magd Abdel Wahab. 
-"A sinh cosh optimizer." 
-Knowledge-Based Systems 282 (2023): 111081.
+- Bai, Jianfu, Yifei Li, Mingpo Zheng, Samir Khatir, Brahim Benaissa, Laith Abualigah, and Magd Abdel Wahab.
+  "A sinh cosh optimizer."
+  Knowledge-Based Systems 282 (2023): 111081.
 """
 function SCHO(objfun, lb::Real, ub::Real, npop::Integer, max_iter::Integer, dim::Integer)::OptimizationResult
-    return SCHO(objfun, fill(lb, dim), fill(ub, dim), npop, max_iter) 
+    return SCHO(objfun, fill(lb, dim), fill(ub, dim), npop, max_iter)
 end
 
 function SCHO(objfun, lb::Vector{Float64}, ub::Vector{Float64}, npop::Integer, max_iter::Integer)

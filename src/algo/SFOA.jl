@@ -1,12 +1,12 @@
 """
 # References:
 
--  Zhong, C., Li, G., Meng, Z., Li, H., Yildiz, A. R., & Mirjalili, S. (2025). 
-Starfish optimization algorithm (SFOA): a bio-inspired metaheuristic algorithm for global optimization compared with 100 optimizers. 
-Neural Computing and Applications, 37(5), 3641-3683.
+- Zhong, C., Li, G., Meng, Z., Li, H., Yildiz, A. R., & Mirjalili, S. (2025).
+  Starfish optimization algorithm (SFOA): a bio-inspired metaheuristic algorithm for global optimization compared with 100 optimizers.
+  Neural Computing and Applications, 37(5), 3641-3683.
 """
 function SFOA(objfun, lb::Real, ub::Real, npop::Integer, max_iter::Integer, dim::Integer)::OptimizationResult
-    return SFOA(objfun, fill(lb, dim), fill(ub, dim), npop, max_iter) 
+    return SFOA(objfun, fill(lb, dim), fill(ub, dim), npop, max_iter)
 end
 
 function SFOA(objfun, lb::Vector{Float64}, ub::Vector{Float64}, npop::Integer, max_iter::Integer)

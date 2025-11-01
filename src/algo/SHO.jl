@@ -18,12 +18,12 @@ end
 """
 # References:
 
--  Dhiman, Gaurav, and Vijay Kumar. 
-"Spotted hyena optimizer: a novel bio-inspired based metaheuristic technique for engineering applications." 
-Advances in Engineering Software 114 (2017): 48-70.
+- Dhiman, Gaurav, and Vijay Kumar.
+  "Spotted hyena optimizer: a novel bio-inspired based metaheuristic technique for engineering applications."
+  Advances in Engineering Software 114 (2017): 48-70.
 """
 function SHO(objfun, lb::Real, ub::Real, npop::Integer, max_iter::Integer, dim::Integer)::OptimizationResult
-    return SHO(objfun, fill(lb, dim), fill(ub, dim), npop, max_iter) 
+    return SHO(objfun, fill(lb, dim), fill(ub, dim), npop, max_iter)
 end
 
 function SHO(objfun, lb::Vector{Float64}, ub::Vector{Float64}, npop::Integer, max_iter::Integer)

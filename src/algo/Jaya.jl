@@ -1,12 +1,12 @@
 """
 # References:
 
--  Rao, R. 
-"Jaya: A simple and new optimization algorithm for solving constrained and unconstrained optimization problems." 
-International Journal of Industrial Engineering Computations 7, no. 1 (2016): 19-34.
+- Rao, R.
+  "Jaya: A simple and new optimization algorithm for solving constrained and unconstrained optimization problems."
+  International Journal of Industrial Engineering Computations 7, no. 1 (2016): 19-34.
 """
 function Jaya(objfun, lb::Real, ub::Real, npop::Integer, max_iter::Integer, dim::Integer)::OptimizationResult
-    return Jaya(objfun, fill(lb, dim), fill(ub, dim), npop, max_iter) 
+    return Jaya(objfun, fill(lb, dim), fill(ub, dim), npop, max_iter)
 end
 
 function Jaya(objfun, lb::Vector{Float64}, ub::Vector{Float64}, npop::Integer, max_iter::Integer)::OptimizationResult

@@ -1,12 +1,12 @@
 """
 # References:
 
--  Hu, Gang, Yuxuan Guo, Guo Wei, and Laith Abualigah. 
-"Genghis Khan shark optimizer: a novel nature-inspired algorithm for engineering optimization." 
-Advanced Engineering Informatics 58 (2023): 102210.
+- Hu, Gang, Yuxuan Guo, Guo Wei, and Laith Abualigah.
+  "Genghis Khan shark optimizer: a novel nature-inspired algorithm for engineering optimization."
+  Advanced Engineering Informatics 58 (2023): 102210.
 """
 function GKSO(objfun, lb::Real, ub::Real, npop::Integer, max_iter::Integer, dim::Integer)
-    return GKSO(objfun, fill(lb, dim), fill(ub, dim), npop, max_iter) 
+    return GKSO(objfun, fill(lb, dim), fill(ub, dim), npop, max_iter)
 end
 
 function GKSO(objfun, lb::Vector{Float64}, ub::Vector{Float64}, npop::Integer, max_iter::Integer)

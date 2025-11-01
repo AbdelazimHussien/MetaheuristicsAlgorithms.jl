@@ -1,12 +1,12 @@
 """
 # References:
 
-- Braik, M., Al-Hiary, H., Alzoubi, H., Hammouri, A., Azmi Al-Betar, M., & Awadallah, M. A. (2025). 
-Tornado optimizer with Coriolis force: a novel bio-inspired meta-heuristic algorithm for solving engineering problems. 
-Artificial Intelligence Review, 58(4), 1-99.
+- Braik, M., Al-Hiary, H., Alzoubi, H., Hammouri, A., Azmi Al-Betar, M., & Awadallah, M. A. (2025).
+  Tornado optimizer with Coriolis force: a novel bio-inspired meta-heuristic algorithm for solving engineering problems.
+  Artificial Intelligence Review, 58(4), 1-99.
 """
 function TOC(objfun, lb::Real, ub::Real, npop::Integer, max_iter::Integer, dim::Integer)::OptimizationResult
-    return TOC(objfun, fill(lb, dim), fill(ub, dim), npop, max_iter) 
+    return TOC(objfun, fill(lb, dim), fill(ub, dim), npop, max_iter)
 end
 
 function TOC(objfun, lb::Vector{Float64}, ub::Vector{Float64}, npop::Integer, max_iter::Integer, nto=4, nt=3)

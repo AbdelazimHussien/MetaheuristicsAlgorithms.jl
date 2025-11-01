@@ -1,8 +1,7 @@
 """
-# References: 
+# References:
 
 - Wang, Xiaopeng, Václav Snášel, Seyedali Mirjalili, Jeng-Shyang Pan, Lingping Kong, and Hisham A. Shehadeh. "Artificial Protozoa Optimizer (APO): A novel bio-inspired metaheuristic algorithm for engineering optimization." Knowledge-Based Systems 295 (2024): 111737.
-
 """
 function APO(objfun, lb::Real, ub::Real, npop::Integer, max_iter::Integer, dim::Integer)
     return APO(objfun, fill(lb, dim), fill(ub, dim), npop, max_iter)
@@ -46,7 +45,7 @@ function APO(objfun, lb::Vector{Float64}, ub::Vector{Float64}, npop::Integer, ma
     bestFit = bestval                     # Best Fit
     f_out_convergence[1] = bestFit
 
-    # Main loop  
+    # Main loop
     for iter = 2:max_iter
         index = sortperm(protozoa_Fit)
         protozoa_Fit = protozoa_Fit[index]
@@ -55,7 +54,7 @@ function APO(objfun, lb::Vector{Float64}, ub::Vector{Float64}, npop::Integer, ma
         ri = randperm(ps)[1:ceil(Int, ps * pf)]  # Random indices
 
         for i = 1:ps
-            if i in ri  # Protozoa in dormancy or reproduction form  
+            if i in ri  # Protozoa in dormancy or reproduction form
                 pdr = 1 / 2 * (1 + cos((1 - i / ps) * π)) # Probability of dormancy and reproduction
                 if rand() < pdr  # Dormancy form
                     newprotozoa[i, :] .= lb .+ rand(dim) .* (ub .- lb)
@@ -71,10 +70,10 @@ function APO(objfun, lb::Vector{Float64}, ub::Vector{Float64}, npop::Integer, ma
                 Mf = zeros(Float64, dim)  # Mapping vector in foraging
                 Mf[randperm(dim)[1:ceil(Int, dim * i / ps)]] .= 1
 
-                pah = 1 / 2 * (1 + cos(iter / max_iter * π)) # Probability of autotroph and heterotroph 
-                if rand() < pah  # Autotroph form            
+                pah = 1 / 2 * (1 + cos(iter / max_iter * π)) # Probability of autotroph and heterotroph
+                if rand() < pah  # Autotroph form
                     j = rand(1:ps)  # Randomly selected protozoa
-                    for k = 1:np  # Neighbor pairs  
+                    for k = 1:np  # Neighbor pairs
                         if i == 1
                             km = i  # k-
                             kp = i + rand(1:(ps-i))
@@ -91,8 +90,8 @@ function APO(objfun, lb::Vector{Float64}, ub::Vector{Float64}, npop::Integer, ma
                         epn[k, :] .= wa * (protozoa[km, :] .- protozoa[kp, :])
                     end
                     newprotozoa[i, :] .= protozoa[i, :] + f * (protozoa[j, :] .- protozoa[i, :] .+ (1 / np) * vec(sum(epn, dims=1))) .* Mf
-                else   # Heterotroph form   
-                    for k = 1:np  # Neighbor pairs 
+                else   # Heterotroph form
+                    for k = 1:np  # Neighbor pairs
                         if i == 1
                             imk = i
                             ipk = i + k

@@ -1,12 +1,12 @@
 """
 # References:
 
--  Mirjalili, Seyedali. 
-"SCA: a sine cosine algorithm for solving optimization problems." 
-Knowledge-based systems 96 (2016): 120-133.
+- Mirjalili, Seyedali.
+  "SCA: a sine cosine algorithm for solving optimization problems."
+  Knowledge-based systems 96 (2016): 120-133.
 """
 function SCA(objfun, lb::Real, ub::Real, npop::Integer, max_iter::Integer, dim::Integer)::OptimizationResult
-    return SCA(objfun, fill(lb, dim), fill(ub, dim), npop, max_iter) 
+    return SCA(objfun, fill(lb, dim), fill(ub, dim), npop, max_iter)
 end
 
 function SCA(objfun, lb::Vector{Float64}, ub::Vector{Float64}, npop::Integer, max_iter::Integer)

@@ -1,12 +1,12 @@
 """
 # References:
 
--  Ahmadianfar, Iman, Ali Asghar Heidari, Saeed Noshadian, Huiling Chen, and Amir H. Gandomi. 
-"INFO: An efficient optimization algorithm based on weighted mean of vectors." 
-Expert Systems with Applications 195 (2022): 116516.
+- Ahmadianfar, Iman, Ali Asghar Heidari, Saeed Noshadian, Huiling Chen, and Amir H. Gandomi.
+  "INFO: An efficient optimization algorithm based on weighted mean of vectors."
+  Expert Systems with Applications 195 (2022): 116516.
 """
 function INFO(objfun, lb::Real, ub::Real, npop::Integer, max_iter::Integer, dim::Integer)::OptimizationResult
-    return INFO(objfun, fill(lb, dim), fill(ub, dim), npop, max_iter) 
+    return INFO(objfun, fill(lb, dim), fill(ub, dim), npop, max_iter)
 end
 
 function INFO(objfun, lb::Vector{Float64}, ub::Vector{Float64}, npop::Integer, max_iter::Integer)::OptimizationResult

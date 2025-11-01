@@ -1,12 +1,12 @@
 """
 # References:
 
--  Mohammed, Hardi, and Tarik Rashid. 
-"FOX: a FOX-inspired optimization algorithm." 
-Applied Intelligence 53, no. 1 (2023): 1030-1050.
+- Mohammed, Hardi, and Tarik Rashid.
+  "FOX: a FOX-inspired optimization algorithm."
+  Applied Intelligence 53, no. 1 (2023): 1030-1050.
 """
 function FOX(objfun, lb::Real, ub::Real, npop::Integer, max_iter::Integer, dim::Integer)
-    return FOX(objfun, fill(lb, dim), fill(ub, dim), npop, max_iter) 
+    return FOX(objfun, fill(lb, dim), fill(ub, dim), npop, max_iter)
 end
 
 function FOX(objfun, lb::Vector{Float64}, ub::Vector{Float64}, npop::Integer, max_iter::Integer)

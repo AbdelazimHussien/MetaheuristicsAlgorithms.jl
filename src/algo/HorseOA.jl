@@ -1,12 +1,12 @@
 """
 # References:
 
--  MiarNaeimi, Farid, Gholamreza Azizyan, and Mohsen Rashki. 
-"Horse herd optimization algorithm: A nature-inspired algorithm for high-dimensional optimization problems." 
-Knowledge-Based Systems 213 (2021): 106711.
+- MiarNaeimi, Farid, Gholamreza Azizyan, and Mohsen Rashki.
+  "Horse herd optimization algorithm: A nature-inspired algorithm for high-dimensional optimization problems."
+  Knowledge-Based Systems 213 (2021): 106711.
 """
 function HorseOA(objfun, lb::Real, ub::Real, npop::Integer, max_iter::Integer, dim::Integer)
-    return HorseOA(objfun, fill(lb, dim), fill(ub, dim), npop, max_iter) 
+    return HorseOA(objfun, fill(lb, dim), fill(ub, dim), npop, max_iter)
 end
 
 function HorseOA(objfun, lb::Vector{Float64}, ub::Vector{Float64}, nHourse::Integer, max_iter::Integer)

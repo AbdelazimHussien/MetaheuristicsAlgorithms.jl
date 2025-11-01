@@ -77,7 +77,6 @@ end
 # References:
 
 - Mirjalili, Seyedali. "The ant lion optimizer." Advances in engineering software 83 (2015): 80-98.
-
 """
 function ALO(objfun, lb::Real, ub::Real, npop::Integer, max_iter::Integer, dim::Integer)
     return ALO(objfun, fill(lb, dim), fill(ub, dim), npop, max_iter)
@@ -89,7 +88,7 @@ function ALO(objfun, lb::Vector{Float64}, ub::Vector{Float64}, npop::Integer, ma
     antlion_position = initialization(npop, dim, ub, lb)
     ant_position = initialization(npop, dim, ub, lb)
 
-    # Initialize variables to save the position of elite, sorted antlions, 
+    # Initialize variables to save the position of elite, sorted antlions,
     # convergence curve, antlions fitness, and ants fitness
     Sorted_antlions = zeros(npop, dim)
     elite_antlion_position = zeros(dim)

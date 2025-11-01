@@ -1,12 +1,12 @@
 """
 # References:
 
-- Luan, Tran Minh, Samir Khatir, Minh Thi Tran, Bernard De Baets, and Thanh Cuong-Le. 
-"Exponential-trigonometric optimization algorithm for solving complicated engineering problems." 
-Computer Methods in Applied Mechanics and Engineering 432 (2024): 117411.
+- Luan, Tran Minh, Samir Khatir, Minh Thi Tran, Bernard De Baets, and Thanh Cuong-Le.
+  "Exponential-trigonometric optimization algorithm for solving complicated engineering problems."
+  Computer Methods in Applied Mechanics and Engineering 432 (2024): 117411.
 """
 function ETO(objfun, lb::Real, ub::Real, npop::Integer, max_iter::Integer, dim::Integer)
-    return ETO(objfun, fill(lb, dim), fill(ub, dim), npop, max_iter) 
+    return ETO(objfun, fill(lb, dim), fill(ub, dim), npop, max_iter)
 end
 
 function ETO(objfun, lb::Vector{Float64}, ub::Vector{Float64}, npop::Integer, max_iter::Integer)

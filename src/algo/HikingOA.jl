@@ -1,12 +1,12 @@
 """
 # References:
 
--  Oladejo, Sunday O., Stephen O. Ekwe, and Seyedali Mirjalili. 
-"The Hiking Optimization Algorithm: A novel human-based metaheuristic approach." 
-Knowledge-Based Systems 296 (2024): 111880.
+- Oladejo, Sunday O., Stephen O. Ekwe, and Seyedali Mirjalili.
+  "The Hiking Optimization Algorithm: A novel human-based metaheuristic approach."
+  Knowledge-Based Systems 296 (2024): 111880.
 """
 function HikingOA(objfun, lb::Real, ub::Real, npop::Integer, max_iter::Integer, dim::Integer)
-    return HikingOA(objfun, fill(lb, dim), fill(ub, dim), npop, max_iter) 
+    return HikingOA(objfun, fill(lb, dim), fill(ub, dim), npop, max_iter)
 end
 
 function HikingOA(objfun, lb::Vector{Float64}, ub::Vector{Float64}, hiker::Integer, max_iter::Integer)

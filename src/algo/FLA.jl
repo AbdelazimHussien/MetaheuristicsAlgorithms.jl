@@ -1,12 +1,12 @@
 """
 # References:
 
-- Hashim, Fatma A., Reham R. Mostafa, Abdelazim G. Hussien, Seyedali Mirjalili, and Karam M. Sallam. 
-"Fick's Law Algorithm: A physical law-based algorithm for numerical optimization." 
-Knowledge-Based Systems 260 (2023): 110146.
+- Hashim, Fatma A., Reham R. Mostafa, Abdelazim G. Hussien, Seyedali Mirjalili, and Karam M. Sallam.
+  "Fick's Law Algorithm: A physical law-based algorithm for numerical optimization."
+  Knowledge-Based Systems 260 (2023): 110146.
 """
 function FLA(objfun, lb::Real, ub::Real, npop::Integer, max_iter::Integer, dim::Integer)
-    return FLA(objfun, fill(lb, dim), fill(ub, dim), npop, max_iter) 
+    return FLA(objfun, fill(lb, dim), fill(ub, dim), npop, max_iter)
 end
 
 function FLA(objfun, lb::Vector{Float64}, ub::Vector{Float64}, NoMolecules::Integer, max_iter::Integer)

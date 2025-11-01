@@ -17,7 +17,7 @@ The Deep Sleep Optimiser (DSO) is a human-inspired metaheuristic optimization al
 - `ub`: Upper bounds of the search space.
 - `objfun`: Objective function to be minimized.
 
-# Returns: 
+# Returns:
 
 - `::DSOResult`: A struct containing:
   - `Best_Cost`: The best cost found during the optimization.
@@ -26,12 +26,11 @@ The Deep Sleep Optimiser (DSO) is a human-inspired metaheuristic optimization al
 
 # References:
 
-- Oladejo, Sunday O., Stephen O. Ekwe, Lateef A. Akinyemi, and Seyedali A. Mirjalili, 
-    The deep sleep optimiser: A human-based metaheuristic approach., IEEE Access (2023).
-    
+- Oladejo, Sunday O., Stephen O. Ekwe, Lateef A. Akinyemi, and Seyedali A. Mirjalili,
+  The deep sleep optimiser: A human-based metaheuristic approach., IEEE Access (2023).
 """
 function DSO(objfun, lb::Real, ub::Real, npop::Integer, max_iter::Integer, dim::Integer)
-    return DSO(objfun, fill(lb, dim), fill(ub, dim), npop, max_iter) 
+    return DSO(objfun, fill(lb, dim), fill(ub, dim), npop, max_iter)
 end
 
 function DSO(objfun, lb::Vector{Float64}, ub::Vector{Float64}, npop::Integer, max_iter::Integer)

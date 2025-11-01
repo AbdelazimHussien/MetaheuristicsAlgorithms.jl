@@ -1,12 +1,12 @@
 """
 # References:
 
-- Abdel-Basset, Mohamed, Doaa El-Shahat, Mohammed Jameel, and Mohamed Abouhawwash. 
-"Exponential distribution optimizer (EDO): a novel math-inspired algorithm for global optimization and engineering problems." 
-Artificial Intelligence Review 56, no. 9 (2023): 9329-9400.
+- Abdel-Basset, Mohamed, Doaa El-Shahat, Mohammed Jameel, and Mohamed Abouhawwash.
+  "Exponential distribution optimizer (EDO): a novel math-inspired algorithm for global optimization and engineering problems."
+  Artificial Intelligence Review 56, no. 9 (2023): 9329-9400.
 """
 function EDO(objfun, lb::Real, ub::Real, npop::Integer, max_iter::Integer, dim::Integer)
-    return EDO(objfun, fill(lb, dim), fill(ub, dim), npop, max_iter) 
+    return EDO(objfun, fill(lb, dim), fill(ub, dim), npop, max_iter)
 end
 
 function EDO(objfun, lb::Vector{Float64}, ub::Vector{Float64}, npop::Integer, max_iter::Integer)

@@ -18,12 +18,12 @@ end
 """
 # References:
 
-- Naruei, Iraj, and Farshid Keynia. 
-"Wild horse optimizer: A new meta-heuristic algorithm for solving engineering optimization problems." 
-Engineering with computers 38, no. Suppl 4 (2022): 3025-3056.
+- Naruei, Iraj, and Farshid Keynia.
+  "Wild horse optimizer: A new meta-heuristic algorithm for solving engineering optimization problems."
+  Engineering with computers 38, no. Suppl 4 (2022): 3025-3056.
 """
 function WHO(objfun, lb::Real, ub::Real, npop::Integer, max_iter::Integer, dim::Integer)
-    return WHO(objfun, fill(lb, dim), fill(ub, dim), npop, max_iter) 
+    return WHO(objfun, fill(lb, dim), fill(ub, dim), npop, max_iter)
 end
 
 function WHO(objfun, lb::Vector{Float64}, ub::Vector{Float64}, npop::Integer, max_iter::Integer)

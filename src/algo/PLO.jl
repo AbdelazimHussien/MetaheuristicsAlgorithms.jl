@@ -1,12 +1,12 @@
 """
 # References:
 
--  Yuan, Chong, Dong Zhao, Ali Asghar Heidari, Lei Liu, Yi Chen, and Huiling Chen. 
-"Polar lights optimizer: Algorithm and applications in image segmentation and feature selection." 
-Neurocomputing 607 (2024): 128427.
+- Yuan, Chong, Dong Zhao, Ali Asghar Heidari, Lei Liu, Yi Chen, and Huiling Chen.
+  "Polar lights optimizer: Algorithm and applications in image segmentation and feature selection."
+  Neurocomputing 607 (2024): 128427.
 """
 function PLO(objfun, lb::Real, ub::Real, npop::Integer, max_iter::Integer, dim::Integer)::OptimizationResult
-    return PLO(objfun, fill(lb, dim), fill(ub, dim), npop, max_iter) 
+    return PLO(objfun, fill(lb, dim), fill(ub, dim), npop, max_iter)
 end
 
 function PLO(objfun, lb::Vector{Float64}, ub::Vector{Float64}, npop::Integer, max_iter::Integer)

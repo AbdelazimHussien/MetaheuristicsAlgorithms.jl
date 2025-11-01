@@ -1,12 +1,12 @@
 """
 # References:
 
--  Su, Hang, Dong Zhao, Ali Asghar Heidari, Lei Liu, Xiaoqin Zhang, Majdi Mafarja, and Huiling Chen. 
-"RIME: A physics-based optimization." 
-Neurocomputing 532 (2023): 183-214.
+- Su, Hang, Dong Zhao, Ali Asghar Heidari, Lei Liu, Xiaoqin Zhang, Majdi Mafarja, and Huiling Chen.
+  "RIME: A physics-based optimization."
+  Neurocomputing 532 (2023): 183-214.
 """
 function RIME(objfun, lb::Real, ub::Real, npop::Integer, max_iter::Integer, dim::Integer)::OptimizationResult
-    return RIME(objfun, fill(lb, dim), fill(ub, dim), npop, max_iter) 
+    return RIME(objfun, fill(lb, dim), fill(ub, dim), npop, max_iter)
 end
 
 function RIME(objfun, lb::Vector{Float64}, ub::Vector{Float64}, npop::Integer, max_iter::Integer)

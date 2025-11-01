@@ -1,12 +1,12 @@
 """
 # References:
 
--  Abdollahzadeh, Benyamin, Farhad Soleimanian Gharehchopogh, and Seyedali Mirjalili. 
-"Artificial gorilla troops optimizer: a new nature‐inspired metaheuristic algorithm for global optimization problems." 
-International Journal of Intelligent Systems 36, no. 10 (2021): 5887-5958.
+- Abdollahzadeh, Benyamin, Farhad Soleimanian Gharehchopogh, and Seyedali Mirjalili.
+  "Artificial gorilla troops optimizer: a new nature‐inspired metaheuristic algorithm for global optimization problems."
+  International Journal of Intelligent Systems 36, no. 10 (2021): 5887-5958.
 """
 function GTO(objfun, lb::Real, ub::Real, npop::Integer, max_iter::Integer, dim::Integer)
-    return GTO(objfun, fill(lb, dim), fill(ub, dim), npop, max_iter) 
+    return GTO(objfun, fill(lb, dim), fill(ub, dim), npop, max_iter)
 end
 
 function GTO(objfun, lb::Vector{Float64}, ub::Vector{Float64}, npop::Integer, max_iter::Integer)

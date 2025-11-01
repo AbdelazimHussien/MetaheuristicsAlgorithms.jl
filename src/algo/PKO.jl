@@ -1,12 +1,12 @@
 """
 # References:
 
--  Bouaouda, Anas, Fatma A. Hashim, Yassine Sayouti, and Abdelazim G. Hussien. 
-"Pied kingfisher optimizer: a new bio-inspired algorithm for solving numerical optimization and industrial engineering problems." 
-Neural Computing and Applications (2024): 1-59.
+- Bouaouda, Anas, Fatma A. Hashim, Yassine Sayouti, and Abdelazim G. Hussien.
+  "Pied kingfisher optimizer: a new bio-inspired algorithm for solving numerical optimization and industrial engineering problems."
+  Neural Computing and Applications (2024): 1-59.
 """
 function PKO(objfun, lb::Real, ub::Real, npop::Integer, max_iter::Integer, dim::Integer)::OptimizationResult
-    return PKO(objfun, fill(lb, dim), fill(ub, dim), npop, max_iter) 
+    return PKO(objfun, fill(lb, dim), fill(ub, dim), npop, max_iter)
 end
 
 function PKO(objfun, lb::Vector{Float64}, ub::Vector{Float64}, npop::Integer, max_iter::Integer)

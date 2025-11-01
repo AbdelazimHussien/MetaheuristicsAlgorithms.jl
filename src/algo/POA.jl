@@ -1,12 +1,12 @@
 """
 # References:
 
--  Trojovský, Pavel, and Mohammad Dehghani. 
-"Pelican optimization algorithm: A novel nature-inspired algorithm for engineering applications." 
-Sensors 22, no. 3 (2022): 855.
+- Trojovský, Pavel, and Mohammad Dehghani.
+  "Pelican optimization algorithm: A novel nature-inspired algorithm for engineering applications."
+  Sensors 22, no. 3 (2022): 855.
 """
 function POA(objfun, lb::Real, ub::Real, npop::Integer, max_iter::Integer, dim::Integer)::OptimizationResult
-    return POA(objfun, fill(lb, dim), fill(ub, dim), npop, max_iter) 
+    return POA(objfun, fill(lb, dim), fill(ub, dim), npop, max_iter)
 end
 
 function POA(objfun, lb::Vector{Float64}, ub::Vector{Float64}, npop::Integer, max_iter::Integer)

@@ -12,12 +12,12 @@ end
 
 """
 # References:
-- Saremi, Shahrzad, Seyedali Mirjalili, and Andrew Lewis. 
-"Grasshopper optimisation algorithm: theory and application." 
-Advances in engineering software 105 (2017): 30-47.
+- Saremi, Shahrzad, Seyedali Mirjalili, and Andrew Lewis.
+  "Grasshopper optimisation algorithm: theory and application."
+  Advances in engineering software 105 (2017): 30-47.
 """
 function GOA(objfun, lb::Real, ub::Real, npop::Integer, max_iter::Integer, dim::Integer)
-    return GOA(objfun, fill(lb, dim), fill(ub, dim), npop, max_iter) 
+    return GOA(objfun, fill(lb, dim), fill(ub, dim), npop, max_iter)
 end
 
 function GOA(objfun, lb::Vector{Float64}, ub::Vector{Float64}, npop::Integer, max_iter::Integer)

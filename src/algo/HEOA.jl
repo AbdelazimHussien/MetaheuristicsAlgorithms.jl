@@ -1,12 +1,12 @@
 """
 # References:
-- Lian, Junbo, and Guohua Hui. 
-"Human evolutionary optimization algorithm." 
-Expert Systems with Applications 241 (2024): 122638.
 
+- Lian, Junbo, and Guohua Hui.
+  "Human evolutionary optimization algorithm."
+  Expert Systems with Applications 241 (2024): 122638.
 """
 function HEOA(objfun, lb::Real, ub::Real, npop::Integer, max_iter::Integer, dim::Integer)
-    return HEOA(objfun, fill(lb, dim), fill(ub, dim), npop, max_iter) 
+    return HEOA(objfun, fill(lb, dim), fill(ub, dim), npop, max_iter)
 end
 
 function HEOA(objfun, lb::Vector{Float64}, ub::Vector{Float64}, npop::Integer, max_iter::Integer)

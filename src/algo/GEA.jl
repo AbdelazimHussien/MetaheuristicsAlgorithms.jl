@@ -1,11 +1,12 @@
 """
 # References:
--  Ghasemi, Mojtaba, Mohsen Zare, Amir Zahedi, Mohammad-Amin Akbari, Seyedali Mirjalili, and Laith Abualigah. 
-"Geyser inspired algorithm: a new geological-inspired meta-heuristic for real-parameter and constrained engineering optimization." 
-Journal of Bionic Engineering 21, no. 1 (2024): 374-408.
+
+- Ghasemi, Mojtaba, Mohsen Zare, Amir Zahedi, Mohammad-Amin Akbari, Seyedali Mirjalili, and Laith Abualigah.
+  "Geyser inspired algorithm: a new geological-inspired meta-heuristic for real-parameter and constrained engineering optimization."
+  Journal of Bionic Engineering 21, no. 1 (2024): 374-408.
 """
 function GEA(objfun, lb::Real, ub::Real, npop::Integer, max_iter::Integer, dim::Integer)
-    return GEA(objfun, fill(lb, dim), fill(ub, dim), npop, max_iter) 
+    return GEA(objfun, fill(lb, dim), fill(ub, dim), npop, max_iter)
 end
 
 function GEA(objfun, lb::Vector{Float64}, ub::Vector{Float64}, npop::Integer, max_iter::Integer)

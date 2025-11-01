@@ -1,11 +1,12 @@
 """
 # References:
--  Hashim, F.A., Houssein, E.H., Mabrouk, M.S., Al-Atabany, W. and Mirjalili, S., 2019. 
-Henry gas solubility optimization: A novel physics-based algorithm. 
-Future Generation Computer Systems, 101, pp.646-667.
+
+- Hashim, F.A., Houssein, E.H., Mabrouk, M.S., Al-Atabany, W. and Mirjalili, S., 2019.
+  Henry gas solubility optimization: A novel physics-based algorithm.
+  Future Generation Computer Systems, 101, pp.646-667.
 """
 function HGSO(objfun, lb::Real, ub::Real, npop::Integer, max_iter::Integer, dim::Integer)
-    return HGSO(objfun, fill(lb, dim), fill(ub, dim), npop, max_iter) 
+    return HGSO(objfun, fill(lb, dim), fill(ub, dim), npop, max_iter)
 end
 function HGSO(objfun, lb::Vector{Float64}, ub::Vector{Float64}, var_n_gases::Integer, max_iter::Integer)
     dim = length(lb)

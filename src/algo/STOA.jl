@@ -1,12 +1,12 @@
 """
 # References:
 
-- Dhiman, Gaurav, and Amandeep Kaur. 
-"STOA: a bio-inspired based optimization algorithm for industrial engineering problems." 
-Engineering Applications of Artificial Intelligence 82 (2019): 148-174.
+- Dhiman, Gaurav, and Amandeep Kaur.
+  "STOA: a bio-inspired based optimization algorithm for industrial engineering problems."
+  Engineering Applications of Artificial Intelligence 82 (2019): 148-174.
 """
 function STOA(objfun, lb::Real, ub::Real, npop::Integer, max_iter::Integer, dim::Integer)::OptimizationResult
-    return STOA(objfun, fill(lb, dim), fill(ub, dim), npop, max_iter) 
+    return STOA(objfun, fill(lb, dim), fill(ub, dim), npop, max_iter)
 end
 function STOA(objfun, lb::Vector{Float64}, ub::Vector{Float64}, npop::Integer, max_iter::Integer)
     dim = length(lb)

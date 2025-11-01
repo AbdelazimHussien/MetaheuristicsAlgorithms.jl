@@ -2,9 +2,9 @@
 #     beta = 3/2
 
 #     sigma = (gamma(1 + beta) * sin(pi * beta / 2) / (gamma((1 + beta) / 2) * beta * 2^((beta - 1) / 2)))^(1/beta)
-#     u = randn(d) * sigma  
-#     v = randn(d)  
-#     step = u ./ abs.(v).^(1/beta)  
+#     u = randn(d) * sigma
+#     v = randn(d)
+#     step = u ./ abs.(v).^(1/beta)
 
 #     return step
 # end
@@ -13,11 +13,11 @@
 # References:
 
 - Han, Muxuan, Zunfeng Du, Kum Fai Yuen, Haitao Zhu, Yancang Li, and Qiuyu Yuan.
-"Wave optimization algorithm: A new metaheuristic algorithm for solving optimization problems." 
-Knowledge-Based Systems 236 (2022): 107760.
+  "Wave optimization algorithm: A new metaheuristic algorithm for solving optimization problems."
+  Knowledge-Based Systems 236 (2022): 107760.
 """
 function WO(objfun, lb::Real, ub::Real, npop::Integer, max_iter::Integer, dim::Integer)
-    return WO(objfun, fill(lb, dim), fill(ub, dim), npop, max_iter) 
+    return WO(objfun, fill(lb, dim), fill(ub, dim), npop, max_iter)
 end
 
 function WO(objfun, lb::Vector{Float64}, ub::Vector{Float64}, npop::Integer, max_iter::Integer)
@@ -25,7 +25,7 @@ function WO(objfun, lb::Vector{Float64}, ub::Vector{Float64}, npop::Integer, max
     best_pos = zeros(Float64, dim)
     Second_Pos = zeros(Float64, dim)
     best_score = Inf
-    Second_Score = Inf  
+    Second_Score = Inf
     GBestX = repeat(best_pos, npop, 1)
 
 
@@ -33,41 +33,41 @@ function WO(objfun, lb::Vector{Float64}, ub::Vector{Float64}, npop::Integer, max
 
     convergence_curve = zeros(Float64, max_iter)
 
-    P = 0.4  
-    F_number = round(Int, npop * P)  
-    M_number = F_number  
-    C_number = npop - F_number - M_number  
-    
-    t = 0  
+    P = 0.4
+    F_number = round(Int, npop * P)
+    M_number = F_number
+    C_number = npop - F_number - M_number
+
+    t = 0
 
     while t < max_iter
         for i in axes(X, 1)
             Flag4ub = X[i, :] .> ub
             Flag4lb = X[i, :] .< lb
-            X[i, :] .= (X[i, :] .* .! (Flag4ub .| Flag4lb)) .+ ub .* Flag4ub .+ lb .* Flag4lb  
+            X[i, :] .= (X[i, :] .* .! (Flag4ub .| Flag4lb)) .+ ub .* Flag4ub .+ lb .* Flag4lb
 
-            fitness = objfun(X[i, :])  
+            fitness = objfun(X[i, :])
 
             if fitness < best_score
                 best_score = fitness
-                best_pos .= X[i, :]  
+                best_pos .= X[i, :]
             end
-            
+
             if fitness > best_score && fitness < Second_Score
                 Second_Score = fitness
-                Second_Pos .= X[i, :]  
+                Second_Pos .= X[i, :]
             end
         end
-        
+
         Alpha = 1 - t / max_iter
         Beta = 1 - 1 / (1 + exp((1 / 2 * max_iter - t) / max_iter * 10))
-        A = 2 * Alpha  
+        A = 2 * Alpha
         r1 = rand()
         R = 2 * r1 - 1
         Danger_signal = A * R
         r2 = rand()
         Satey_signal = r2
-        
+
         if abs(Danger_signal) >= 1
             r3 = rand()
             Rs = size(X, 1)
@@ -92,14 +92,14 @@ function WO(objfun, lb::Vector{Float64}, ub::Vector{Float64}, npop::Integer, max
                     X[i, :] .= P * (o .- X[i, :])
                 end
             end
-                
+
             if Satey_signal < 0.5 && abs(Danger_signal) >= 0.5
                 for i in 1:npop
                     r4 = rand()
                     X[i, :] .= X[i, :] .* R .- abs.(GBestX[i, :] .- X[i, :]) .* r4^2
                 end
             end
-            
+
             if Satey_signal < 0.5 && abs(Danger_signal) < 0.5
                 for i in axes(X, 1)
                     for j in axes(X, 2)
@@ -107,12 +107,12 @@ function WO(objfun, lb::Vector{Float64}, ub::Vector{Float64}, npop::Integer, max
                         a1 = Beta * rand() - Beta
                         b1 = tan(theta1 * π)
                         X1 = best_pos[j] - a1 * b1 * abs(best_pos[j] - X[i, j])
-                        
+
                         theta2 = rand()
                         a2 = Beta * rand() - Beta
                         b2 = tan(theta2 * π)
                         X2 = Second_Pos[j] - a2 * b2 * abs(Second_Pos[j] - X[i, j])
-                        
+
                         X[i, j] = (X1 + X2) / 2
                     end
                 end
@@ -138,7 +138,7 @@ function hal(index, base)
     i = index
     while i > 0
         result += f * mod(i, base)
-        i = div(i, base)  
+        i = div(i, base)
         f /= base
     end
     return result

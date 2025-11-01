@@ -1,12 +1,12 @@
 """
 # References:
 
--  Chou, Jui-Sheng, and Dinh-Nhat Truong. 
-"A novel metaheuristic optimizer inspired by behavior of jellyfish in ocean." 
-Applied Mathematics and Computation 389 (2021): 125535.
+- Chou, Jui-Sheng, and Dinh-Nhat Truong.
+  "A novel metaheuristic optimizer inspired by behavior of jellyfish in ocean."
+  Applied Mathematics and Computation 389 (2021): 125535.
 """
 function JS(objfun, lb::Real, ub::Real, npop::Integer, max_iter::Integer, dim::Integer)::OptimizationResult
-    return JS(objfun, fill(lb, dim), fill(ub, dim), npop, max_iter) 
+    return JS(objfun, fill(lb, dim), fill(ub, dim), npop, max_iter)
 end
 
 function JS(objfun, lb::Vector{Float64}, ub::Vector{Float64}, npop::Integer, max_iter::Integer)

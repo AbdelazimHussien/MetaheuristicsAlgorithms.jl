@@ -1,12 +1,12 @@
 """
 # References:
 
--  Fu, Youfa, Dan Liu, Jiadui Chen, and Ling He. 
-"Secretary bird optimization algorithm: a new metaheuristic for solving global optimization problems." 
-Artificial Intelligence Review 57, no. 5 (2024): 1-102.
+- Fu, Youfa, Dan Liu, Jiadui Chen, and Ling He.
+  "Secretary bird optimization algorithm: a new metaheuristic for solving global optimization problems."
+  Artificial Intelligence Review 57, no. 5 (2024): 1-102.
 """
 function SBOA(objfun, lb::Real, ub::Real, npop::Integer, max_iter::Integer, dim::Integer)::OptimizationResult
-    return SBOA(objfun, fill(lb, dim), fill(ub, dim), npop, max_iter) 
+    return SBOA(objfun, fill(lb, dim), fill(ub, dim), npop, max_iter)
 end
 function SBOA(objfun, lb::Vector{Float64}, ub::Vector{Float64}, npop::Integer, max_iter::Integer)
     dim = length(lb)

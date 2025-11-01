@@ -1,12 +1,12 @@
 """
 # References:
 
--  Özbay, Feyza Altunbey. 
-"A modified seahorse optimization algorithm based on chaotic maps for solving global optimization and engineering problems." 
-Engineering Science and Technology, an International Journal 41 (2023): 101408.
+- Özbay, Feyza Altunbey.
+  "A modified seahorse optimization algorithm based on chaotic maps for solving global optimization and engineering problems."
+  Engineering Science and Technology, an International Journal 41 (2023): 101408.
 """
 function SeaHO(objfun, lb::Real, ub::Real, npop::Integer, max_iter::Integer, dim::Integer)::OptimizationResult
-    return SeaHO(objfun, fill(lb, dim), fill(ub, dim), npop, max_iter) 
+    return SeaHO(objfun, fill(lb, dim), fill(ub, dim), npop, max_iter)
 end
 
 function SeaHO(objfun, lb::Vector{Float64}, ub::Vector{Float64}, npop::Integer, max_iter::Integer)

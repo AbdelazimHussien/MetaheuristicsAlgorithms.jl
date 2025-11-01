@@ -1,12 +1,12 @@
 """
 # References:
 
--  Agushaka, Jeffrey O., Absalom E. Ezugwu, and Laith Abualigah. 
-"Gazelle optimization algorithm: a novel nature-inspired metaheuristic optimizer." 
-Neural Computing and Applications 35, no. 5 (2023): 4099-4131.
+- Agushaka, Jeffrey O., Absalom E. Ezugwu, and Laith Abualigah.
+  "Gazelle optimization algorithm: a novel nature-inspired metaheuristic optimizer."
+  Neural Computing and Applications 35, no. 5 (2023): 4099-4131.
 """
 function GazelleOA(objfun, lb::Real, ub::Real, npop::Integer, max_iter::Integer, dim::Integer)
-    return GazelleOA(objfun, fill(lb, dim), fill(ub, dim), npop, max_iter) 
+    return GazelleOA(objfun, fill(lb, dim), fill(ub, dim), npop, max_iter)
 end
 
 function GazelleOA(objfun, lb::Vector{Float64}, ub::Vector{Float64}, npop::Integer, max_iter::Integer)

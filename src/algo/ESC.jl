@@ -1,12 +1,12 @@
 """
 # References:
 
-- Ouyang, K., Fu, S., Chen, Y., Cai, Q., Heidari, A. A., & Chen, H. (2024). 
-Escape: an optimization method based on crowd evacuation behaviors. 
-Artificial Intelligence Review, 58(1), 19.
+- Ouyang, K., Fu, S., Chen, Y., Cai, Q., Heidari, A. A., & Chen, H. (2024).
+  Escape: an optimization method based on crowd evacuation behaviors.
+  Artificial Intelligence Review, 58(1), 19.
 """
 function ESC(objfun, lb::Real, ub::Real, npop::Integer, max_iter::Integer, dim::Integer)
-    return ESC(objfun, fill(lb, dim), fill(ub, dim), npop, max_iter) 
+    return ESC(objfun, fill(lb, dim), fill(ub, dim), npop, max_iter)
 end
 
 function ESC(objfun, lb::Vector{Float64}, ub::Vector{Float64}, npop::Integer, max_iter::Integer)

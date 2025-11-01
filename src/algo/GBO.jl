@@ -1,12 +1,12 @@
 """
 # References:
 
--  Ahmadianfar, Iman, Omid Bozorg-Haddad, and Xuefeng Chu. 
-"Gradient-based optimizer: A new metaheuristic optimization algorithm." 
-Information Sciences 540 (2020): 131-159.
+- Ahmadianfar, Iman, Omid Bozorg-Haddad, and Xuefeng Chu.
+  "Gradient-based optimizer: A new metaheuristic optimization algorithm."
+  Information Sciences 540 (2020): 131-159.
 """
 function GBO(objfun, lb::Real, ub::Real, npop::Integer, max_iter::Integer, dim::Integer)
-    return GBO(objfun, fill(lb, dim), fill(ub, dim), npop, max_iter) 
+    return GBO(objfun, fill(lb, dim), fill(ub, dim), npop, max_iter)
 end
 
 function GBO(objfun, lb::Vector{Float64}, ub::Vector{Float64}, npop::Integer, max_iter::Integer)

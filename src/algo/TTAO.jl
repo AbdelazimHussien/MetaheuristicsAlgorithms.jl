@@ -1,13 +1,13 @@
 """
 # References:
 
--  Zhao, Shijie, Tianran Zhang, Liang Cai, and Ronghua Yang. 
-"Triangulation topology aggregation optimizer: A novel mathematics-based meta-heuristic algorithm for 
-continuous optimization and engineering applications." 
-Expert Systems with Applications 238 (2024): 121744.
+-  Zhao, Shijie, Tianran Zhang, Liang Cai, and Ronghua Yang.
+  "Triangulation topology aggregation optimizer: A novel mathematics-based meta-heuristic algorithm for
+  continuous optimization and engineering applications."
+  Expert Systems with Applications 238 (2024): 121744.
 """
 function TTAO(objfun, lb::Real, ub::Real, npop::Integer, max_iter::Integer, dim::Integer)::OptimizationResult
-    return TTAO(objfun, fill(lb, dim), fill(ub, dim), npop, max_iter) 
+    return TTAO(objfun, fill(lb, dim), fill(ub, dim), npop, max_iter)
 end
 
 function TTAO(objfun, lb::Vector{Float64}, ub::Vector{Float64}, npop::Integer, max_iter::Integer)
