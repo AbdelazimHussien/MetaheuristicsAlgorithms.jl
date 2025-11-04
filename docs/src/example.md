@@ -9,22 +9,11 @@ with ``a = 20``, ``b = 0.2``, ``c = 2π``, and global minimum at ``x=0``.
 
 ```@example
 using MetaheuristicsAlgorithms
-using Statistics: mean
-
-function Ackley(x::Vector{Float64})::Float64
-    a = 20.0
-    b = 0.2
-    c = 2π
-
-    term1 = -a * exp(-b * sqrt(mean(x.^2)))
-    term2 = -exp(mean(cos.(c * x)))
-
-    return term1 + term2 + a + exp(1)
-end
+import MetaheuristicsAlgorithms as MA
 
 lb = [-32.768 for _ = 1:5]
 ub = [ 32.768 for _ = 1:5]
-result = AEO(Ackley, lb, ub, 100, 1000)
+result = AEO(MA.Ackley, lb, ub, 100, 1000)
 convergence_curve(result)
 ```
 
