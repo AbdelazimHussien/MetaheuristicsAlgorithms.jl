@@ -58,11 +58,12 @@ function HGS(objfun, lb::Vector{Float64}, ub::Vector{Float64}, npop::Integer, ma
             if Destination_fitness == AllFitness[i]
                 hungry[i] = 0
                 count += 1
+                count > size(tempPosition, 1) && (tempPosition = vcat(tempPosition, zeros(Float64, npop, dim)))
                 tempPosition[count, :] = X[i, :]
             else
                 temprand = rand()
                 c = (AllFitness[i] - Destination_fitness) / (Worstest_fitness - Destination_fitness) * temprand * 2 * (ub - lb)
-                b = ifelse(c < 100, 100 * (1 + temprand), c)
+                b = ifelse(all(c .< 100), 100 * (1 + temprand), c)
                 hungry[i] += maximum(b)
                 sumHungry += hungry[i]
             end

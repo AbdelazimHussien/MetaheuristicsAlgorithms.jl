@@ -60,7 +60,7 @@ function MVO(objfun, lb::Vector{Float64}, ub::Vector{Float64}, npop::Integer, ma
             # Boundary checking
             Flag4ub = Universes[i, :] .> ub
             Flag4lb = Universes[i, :] .< lb
-            Universes[i, :] = (Universes[i, :] .* .~(Flag4ub .+ Flag4lb)) + ub .* Flag4ub + lb .* Flag4lb
+            Universes[i, :] = (Universes[i, :] .* .~(Flag4ub .| Flag4lb)) + ub .* Flag4ub + lb .* Flag4lb
 
             # Calculate inflation rate (fitness) for each universe
             Inflation_rates[i] = objfun(Universes[i, :])

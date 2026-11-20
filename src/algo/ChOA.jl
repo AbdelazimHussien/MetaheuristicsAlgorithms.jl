@@ -31,7 +31,7 @@ function ChOA(objfun, lb::Vector{Float64}, ub::Vector{Float64}, npop::Integer, m
         for i in axes(Positions, 1)
             Flag4ub = Positions[i, :] .> ub
             Flag4lb = Positions[i, :] .< lb
-            Positions[i, :] = (Positions[i, :] .* .~(Flag4ub .+ Flag4lb)) .+ ub .* Flag4ub .+ lb .* Flag4lb
+            Positions[i, :] = (Positions[i, :] .* .~(Flag4ub .| Flag4lb)) .+ ub .* Flag4ub .+ lb .* Flag4lb
 
             fitness = objfun(Positions[i, :])
 

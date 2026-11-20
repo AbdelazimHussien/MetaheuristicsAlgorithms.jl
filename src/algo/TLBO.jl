@@ -18,14 +18,13 @@ function TLBO(objfun, lb::Vector{Float64}, ub::Vector{Float64}, npop::Integer, m
     dim = length(lb)
     VarSize = (dim)
 
-    pop = [individual(rand(VarSize) * (ub - lb) .+ lb,
-        objfun(vec(rand(VarSize) .* (ub - lb) .+ lb))) for _ = 1:npop]
+    pop = [individual(rand(VarSize) .* (ub - lb) .+ lb, Inf) for _ = 1:npop]
 
-    best_sol = individual([], Inf)
+    best_sol = individual(zeros(VarSize), Inf)
 
     for i = 1:npop
         pop[i].Cost = objfun(vec(pop[i].Position))
-        if pop[i].Cost < best_sol.cost
+        if pop[i].Cost < best_sol.Cost
             best_sol = pop[i]
         end
     end
@@ -55,7 +54,7 @@ function TLBO(objfun, lb::Vector{Float64}, ub::Vector{Float64}, npop::Integer, m
 
             if newsol.Cost < pop[i].Cost
                 pop[i] = newsol
-                if pop[i].Cost < best_sol.cost
+                if pop[i].Cost < best_sol.Cost
                     best_sol = pop[i]
                 end
             end
@@ -81,19 +80,19 @@ function TLBO(objfun, lb::Vector{Float64}, ub::Vector{Float64}, npop::Integer, m
 
             if newsol.Cost < pop[i].Cost
                 pop[i] = newsol
-                if pop[i].Cost < best_sol.cost
+                if pop[i].Cost < best_sol.Cost
                     best_sol = pop[i]
                 end
             end
         end
 
-        best_costs[it] = best_sol.cost
+        best_costs[it] = best_sol.Cost
     end
 
     # return best_sol.cost, best_sol, best_costs
     return OptimizationResult(
-        best_sol,
-        best_sol.cost,
+        best_sol.Position,
+        best_sol.Cost,
         best_costs)
 end
 

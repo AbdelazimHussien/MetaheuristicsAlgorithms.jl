@@ -16,8 +16,6 @@ function RIME(objfun, lb::Vector{Float64}, ub::Vector{Float64}, npop::Integer, m
     Best_rime = zeros(dim)
     Best_rime_rate = Inf
     Rimepop = initialization(npop, dim, ub, lb)
-    lb = fill(lb, dim)
-    ub = fill(ub, dim)
     it = 1
     Convergence_curve = zeros(max_iter)
     Rime_rates = zeros(npop)

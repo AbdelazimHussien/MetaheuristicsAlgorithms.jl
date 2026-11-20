@@ -63,7 +63,7 @@ function PLO(objfun, lb::Vector{Float64}, ub::Vector{Float64}, npop::Integer, ma
 
             Flag4ub = X_new[i, :] .> ub
             Flag4lb = X_new[i, :] .< lb
-            X_new[i, :] = X_new[i, :] .* .~(Flag4ub .+ Flag4lb) .+ ub .* Flag4ub .+ lb .* Flag4lb
+            X_new[i, :] = X_new[i, :] .* .~(Flag4ub .| Flag4lb) .+ ub .* Flag4ub .+ lb .* Flag4lb
 
             fitness_new[i] = objfun(X_new[i, :])
             FEs += 1
@@ -84,7 +84,6 @@ function PLO(objfun, lb::Vector{Float64}, ub::Vector{Float64}, npop::Integer, ma
         end
 
         it += 1
-        println("$it ---> $Bestscore")
         push!(Convergence_curve, Bestscore)
     end
 

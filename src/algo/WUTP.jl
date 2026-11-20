@@ -72,13 +72,13 @@ function WUTP(objfun, lb::Vector{Float64}, ub::Vector{Float64}, no_particles::In
         for i = 1:no_particles, j = 1:dim
             if rand() > p
                 if rand() > 0.1
-                    y[i, j] -= J[i, j] / K + K * rho * g * (y[i, j] - yo[i, j]) * rand()
+                    y[i, j] -= J[i, j] / K - K * rho * g * (y[i, j] - yo[i, j]) * rand()
                 else
                     y[i, j] -= ν * (lb[j] - ((lb[j] - ub[j]) * rand()))
                 end
             else
                 if rand() > 0.1
-                    y[i, j] -= J[i, j] / (2 * D * pi * a^2) + D * rho * g * (y[i, j] - yo[i, j]) * rand()
+                    y[i, j] -= J[i, j] / (2 * D * pi * a^2) - D * rho * g * (y[i, j] - yo[i, j]) * rand()
                 else
                     y[i, j] -= ν * (lb[j] - ((lb[j] - ub[j]) * rand()))
                 end
@@ -89,9 +89,9 @@ function WUTP(objfun, lb::Vector{Float64}, ub::Vector{Float64}, no_particles::In
             k = rand(1:no_particles)
             pb = pbest[k, :]
             if rand() > p
-                y[i, j] -= J[i, j] / K + K * rho * g * (y[i, j] - yo[i, j]) * rand()
+                y[i, j] -= J[i, j] / K - K * rho * g * (y[i, j] - yo[i, j]) * rand()
             else
-                y[i, j] -= J[i, j] / (K * pi * a^2) + rand() * (pb[j] - yo[i, j])
+                y[i, j] -= J[i, j] / (K * pi * a^2) - rand() * (pb[j] - yo[i, j])
             end
         end
         # Root to xylem
@@ -102,7 +102,7 @@ function WUTP(objfun, lb::Vector{Float64}, ub::Vector{Float64}, no_particles::In
                 y[i, j] -= ν * (lb[j] - ((lb[j] - ub[j]) * rand()))
             else
                 chi = 0.5
-                y[i, j] -= J[i, j] / Lp + chi * (y[i, j] - yo[i, j]) * rand() + (pb[j] - y[i, j]) * rand()
+                y[i, j] -= J[i, j] / Lp + chi * (y[i, j] - yo[i, j]) * rand() - (pb[j] - y[i, j]) * rand()
             end
         end
         # Xylem to leaves
@@ -121,7 +121,7 @@ function WUTP(objfun, lb::Vector{Float64}, ub::Vector{Float64}, no_particles::In
         end
         # Update pbest & gbest
         for i = 1:no_particles
-            cost[i] = objfun(view(y, i, :))
+            cost[i] = objfun(y[i, :])
             if all(lb .<= y[i, :]) && all(y[i, :] .<= ub)
                 yo[i, :] = y[i, :]
                 if cost[i] < fitness[i]

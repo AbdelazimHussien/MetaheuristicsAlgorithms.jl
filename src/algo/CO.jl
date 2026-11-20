@@ -15,9 +15,8 @@ end
 
 function CO(objfun, lb::Vector{Float64}, ub::Vector{Float64}, npop::Integer, max_iter::Integer)
     dim = length(lb)
-    empty_individual = Individual([], Inf)
     BestSol = Individual([], Inf)
-    pop = [empty_individual for _ = 1:npop]
+    pop = [Individual([], Inf) for _ = 1:npop]
 
     MaxEEs = npop * max_iter
 
@@ -30,10 +29,10 @@ function CO(objfun, lb::Vector{Float64}, ub::Vector{Float64}, npop::Integer, max
 
     for i = 1:npop
         # pop[i].Position = lb .+ rand(dim) .* (ub .- lb)
-        pop[i].Position = initialization(1, dim, ub, lb)
+        pop[i].Position = vec(initialization(1, dim, ub, lb))
         pop[i].Cost = objfun(pop[i].Position)
         if pop[i].Cost < BestSol.Cost
-            BestSol = pop[i]
+            BestSol = deepcopy(pop[i])
         end
     end
 
@@ -46,6 +45,9 @@ function CO(objfun, lb::Vector{Float64}, ub::Vector{Float64}, npop::Integer, max
     it = 1
     T = ceil(Int, dim / 10) * 60
     FEs = 0
+    i = 0
+    his = zeros(max_iter)
+    nhis = 0
 
     while FEs <= MaxEEs
         m = rand(2:npop)
@@ -115,7 +117,7 @@ function CO(objfun, lb::Vector{Float64}, ub::Vector{Float64}, npop::Integer, max
             if NewSol.Cost < pop[i].Cost
                 pop[i] = NewSol
                 if pop[i].Cost < BestSol.Cost
-                    BestSol = pop[i]
+                    BestSol = deepcopy(pop[i])
                 end
             end
             FEs += 1
@@ -125,7 +127,7 @@ function CO(objfun, lb::Vector{Float64}, ub::Vector{Float64}, npop::Integer, max
 
         if t > T && t - round(T) - 1 >= 1 && t > 2
             if abs(BestCost[t-1] - BestCost[t-round(T)-1]) <= abs(0.01 * BestCost[t-1])
-                best = X_best.Position
+                best = copy(X_best.Position)
                 j0 = rand(1:dim, ceil(Int, dim / 10 * rand()))
                 best[j0] = lb[j0] .+ rand(length(j0)) .* (ub[j0] .- lb[j0])
                 BestSol.Cost = objfun(best)
@@ -143,17 +145,21 @@ function CO(objfun, lb::Vector{Float64}, ub::Vector{Float64}, npop::Integer, max
         it += 1
 
         if BestSol.Cost < X_best.Cost
-            X_best = BestSol
+            X_best = deepcopy(BestSol)
         end
-        push!(BestCost, BestSol.Cost)
-        push!(Globest, X_best.Cost)
+        t > length(BestCost) ? push!(BestCost, BestSol.Cost) : (BestCost[t] = BestSol.Cost)
+        t > length(Globest) ? push!(Globest, X_best.Cost) : (Globest[t] = X_best.Cost)
+        while nhis < min(max_iter, FEs ÷ npop)
+            nhis += 1
+            his[nhis] = X_best.Cost
+        end
     end
 
     # return X_best.Cost, X_best.Position, BestCost
     return OptimizationResult(
         X_best.Position,
         X_best.Cost,
-        BestCost)
+        his)
 end
 
 function CO(problem::OptimizationProblem, npop::Integer=30, max_iter::Integer=1000)::OptimizationResult

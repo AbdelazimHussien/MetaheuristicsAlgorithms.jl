@@ -42,7 +42,7 @@ function BKA(objfun, lb::Vector{Float64}, ub::Vector{Float64}, npop::Integer, ma
             end
 
             m = 2 * sin(r + π / 2)
-            s = rand(1:30)
+            s = rand(1:npop)
             r_XFitness = XFit[s]
             ori_value = rand(dim)
             cauchy_value = tan.((ori_value .- 0.5) * π)

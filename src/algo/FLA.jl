@@ -21,7 +21,7 @@ function FLA(objfun, lb::Vector{Float64}, ub::Vector{Float64}, NoMolecules::Inte
     X = initialization(NoMolecules, dim, ub, lb)
     X1new = zeros(NoMolecules, dim)
     X2new = zeros(NoMolecules, dim)
-    CNVG = zeros(max_iter, 1)
+    CNVG = zeros(max_iter)
     FS = zeros(NoMolecules)
     TF = zeros(max_iter)
     for i = 1:NoMolecules
@@ -79,8 +79,8 @@ function FLA(objfun, lb::Vector{Float64}, ub::Vector{Float64}, NoMolecules::Inte
                 for u = 1:NT12
                     flag_index = rand(1:2)
                     DFg = vec_flag[flag_index]
-                    Xm2 = mean(X2)
-                    Xm1 = mean(X1)
+                    Xm2 = vec(mean(X2, dims=1))
+                    Xm1 = vec(mean(X1, dims=1))
                     J = -D * (Xm2 - Xm1) / (norm(Xeo2 - X1[u, :]) + eps())
                     X1new[u, :] = Xeo2 .+ rand(dim) .* DFg .* DOF .* (J .* Xeo2 - X1[u, :])
                 end
@@ -92,7 +92,7 @@ function FLA(objfun, lb::Vector{Float64}, ub::Vector{Float64}, NoMolecules::Inte
                             X1new[u, tt] = Xeo1[tt]
                         elseif p < 0.9
                             r3 = rand()
-                            X1new[u, tt] = X1[u, tt] + DOF * ((ub - lb) * r3 + lb)
+                            X1new[u, tt] = X1[u, tt] + DOF * ((ub[tt] - lb[tt]) * r3 + lb[tt])
                         else
                             X1new[u, tt] = X1[u, tt]
                         end
@@ -125,7 +125,7 @@ function FLA(objfun, lb::Vector{Float64}, ub::Vector{Float64}, NoMolecules::Inte
                             X2new[u, tt] = Xeo2[tt]
                         elseif p < 0.9
                             r3 = rand()
-                            X2new[u, tt] = X2[u, tt] + DOF * ((ub - lb) * r3 + lb)
+                            X2new[u, tt] = X2[u, tt] + DOF * ((ub[tt] - lb[tt]) * r3 + lb[tt])
                         else
                             X2new[u, tt] = X2[u, tt]
                         end
@@ -142,7 +142,7 @@ function FLA(objfun, lb::Vector{Float64}, ub::Vector{Float64}, NoMolecules::Inte
                 for u = 1:n1
                     flag_index = rand(1:2)
                     DFg = vec_flag[flag_index]
-                    Xm1 = mean(X1)
+                    Xm1 = vec(mean(X1, dims=1))
                     Xmeo1 = Xeo1
                     J = -D .* (Xmeo1 .- Xm1) / (norm((Xeo1 - X1[u, :])) + eps())
                     DRF = exp.(-J / TF[t])
@@ -155,7 +155,7 @@ function FLA(objfun, lb::Vector{Float64}, ub::Vector{Float64}, NoMolecules::Inte
                 for u = 1:n2
                     flag_index = rand(1:2)
                     DFg = vec_flag[flag_index]
-                    Xm2 = mean(X2)
+                    Xm2 = vec(mean(X2, dims=1))
                     Xmeo2 = Xeo2
                     J = -D .* (Xmeo2 .- Xm2) ./ (norm((Xeo2 .- X2[u, :])) + eps())
                     DRF = exp.(-J / TF[t])
@@ -169,10 +169,10 @@ function FLA(objfun, lb::Vector{Float64}, ub::Vector{Float64}, NoMolecules::Inte
                 for u = 1:n1
                     flag_index = rand(1:2)
                     DFg = vec_flag[flag_index]
-                    Xm1 = mean(X1)
-                    Xm = mean(X)
+                    Xm1 = vec(mean(X1, dims=1))
+                    Xm = vec(mean(X, dims=1))
                     J = -D .* (Xm .- Xm1) / (norm(Xss - X1[u, :]) + eps())
-                    DRF = exp(-J / TF[t])
+                    DRF = exp.(-J / TF[t])
                     MS = exp(-FSss / (FS1[u] + eps()))
                     R1 = rand(dim)
                     Qg = DFg * DRF .* R1
@@ -180,10 +180,10 @@ function FLA(objfun, lb::Vector{Float64}, ub::Vector{Float64}, NoMolecules::Inte
                 end
 
                 for u = 1:n2
-                    Xm1 = mean(X1)
-                    Xm = mean(X)
+                    Xm1 = vec(mean(X1, dims=1))
+                    Xm = vec(mean(X, dims=1))
                     J = -D .* (Xm1 - Xm) / (norm(Xss - X2[u, :]) + eps())
-                    DRF = exp(-J / TF[t])
+                    DRF = exp.(-J / TF[t])
                     MS = exp(-FSss / (FS2[u] + eps()))
                     flag_index = rand(1:2)
                     DFg = vec_flag[flag_index]
@@ -195,7 +195,7 @@ function FLA(objfun, lb::Vector{Float64}, ub::Vector{Float64}, NoMolecules::Inte
         for j = 1:n1
             FU = X1new[j, :] .> ub
             FL = X1new[j, :] .< lb
-            X1new[j, :] = max.(min.(X2new[j, :], ub), lb)
+            X1new[j, :] = max.(min.(X1new[j, :], ub), lb)
             v = objfun(X1new[j, :])
             if v < FS1[j]
                 FS1[j] = v

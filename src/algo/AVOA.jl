@@ -133,7 +133,7 @@ function AVOA(objfun, lb::Vector{Float64}, ub::Vector{Float64}, npop::Integer, m
         current_iter += 1
         convergence_curve[current_iter] = Best_vulture1_F
 
-        X = clamp.(X, lb, ub)
+        X = clamp.(X, lb', ub')
     end
 
     # return Best_vulture1_F, Best_vulture1_X, convergence_curve

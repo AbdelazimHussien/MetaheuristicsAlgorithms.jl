@@ -22,7 +22,7 @@ function TSA(objfun, lb::Vector{Float64}, ub::Vector{Float64}, npop::Integer, ma
         for i in axes(positions, 1)
             Flag4ub = positions[i, :] .> ub
             Flag4lu = positions[i, :] .< lb
-            positions[i, :] = (positions[i, :] .* .~(Flag4ub .+ Flag4lu)) .+ ub .* Flag4ub .+ lb .* Flag4lu
+            positions[i, :] = (positions[i, :] .* .~(Flag4ub .| Flag4lu)) .+ ub .* Flag4ub .+ lb .* Flag4lu
 
             fitness = objfun(positions[i, :])
 

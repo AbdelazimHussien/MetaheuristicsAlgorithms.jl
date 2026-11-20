@@ -26,10 +26,10 @@ function CDO(objfun, lb::Vector{Float64}, ub::Vector{Float64}, npop::Integer, ma
     l = 0
 
     while l < max_iter
-        for i = 1:axes(Positions, 1)
+        for i = axes(Positions, 1)
             Flag4ub = Positions[i, :] .> ub
             Flag4lb = Positions[i, :] .< lb
-            Positions[i, :] .= Positions[i, :] .* (.~(Flag4ub .+ Flag4lb)) .+ ub .* Flag4ub .+ lb .* Flag4lb
+            Positions[i, :] .= Positions[i, :] .* (.~(Flag4ub .| Flag4lb)) .+ ub .* Flag4ub .+ lb .* Flag4lb
 
             fitness = objfun(Positions[i, :])
 
@@ -51,8 +51,8 @@ function CDO(objfun, lb::Vector{Float64}, ub::Vector{Float64}, npop::Integer, ma
         a2 = log10((270000 - 1) * rand() + 270000)
         a3 = log10((300000 - 1) * rand() + 300000)
 
-        for i = 1:axes(Positions, 1)
-            for j = 1:axes(Positions, 2)
+        for i = axes(Positions, 1)
+            for j = axes(Positions, 2)
                 r1, r2 = rand(), rand()
                 pa = pi * r1^2 / (0.25 * a1) - a * rand()
                 C1 = r2^2 * pi

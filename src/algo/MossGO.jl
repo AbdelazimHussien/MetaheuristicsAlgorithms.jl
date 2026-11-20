@@ -62,7 +62,7 @@ function MossGO(objfun, lb::Vector{Float64}, ub::Vector{Float64}, npop::Integer,
         beta = size(calPositions, 1) / npop
         gama = 1 / sqrt(1 - beta^2)
         step = w * (rand(length(D_wind)) .- 0.5) .* (1 - FEs / MaxFEs)
-        step2 = 0.1 * w * (length(size(D_wind)) .- 0.5) .* (1 - FEs / MaxFEs) .* (1 + 1 / 2 * (1 + tanh(beta / gama)) * (1 - FEs / MaxFEs))
+        step2 = 0.1 * w * (rand(length(D_wind)) .- 0.5) .* (1 - FEs / MaxFEs) .* (1 + 1 / 2 * (1 + tanh(beta / gama)) * (1 - FEs / MaxFEs))
         step3 = 0.1 * (rand() - 0.5) * (1 - FEs / MaxFEs)
         rand_vals = rand(length(D_wind))
         result = 1 ./ (1 .+ (0.5 .- 10 .* rand_vals))

@@ -18,7 +18,7 @@ function WOA(objfun, lb::Vector{Float64}, ub::Vector{Float64}, npop::Integer, ma
 
     Positions = initialization(npop, dim, ub, lb)
 
-    convergence_curve = zeros(max_iter, 1)
+    convergence_curve = zeros(max_iter)
 
     t = 0
 
@@ -26,7 +26,7 @@ function WOA(objfun, lb::Vector{Float64}, ub::Vector{Float64}, npop::Integer, ma
         for i in axes(Positions, 1)
             Flag4ub = Positions[i, :] .> ub
             Flag4lb = Positions[i, :] .< lb
-            Positions[i, :] .= Positions[i, :] .* .~(Flag4ub .+ Flag4lb) .+ ub .* Flag4ub .+ lb .* Flag4lb
+            Positions[i, :] .= Positions[i, :] .* .~(Flag4ub .| Flag4lb) .+ ub .* Flag4ub .+ lb .* Flag4lb
 
             fitness = objfun(Positions[i, :])
 
@@ -89,5 +89,5 @@ end
 # end
 
 function WOA(problem::OptimizationProblem, npop::Integer=30, max_iter::Integer=1000)
-    return WOA(npop, max_iter, problem.lb, problem.ub, problem.dim, problem.objfun)
+    return WOA(problem.objfun, problem.lb, problem.ub, npop, max_iter)
 end

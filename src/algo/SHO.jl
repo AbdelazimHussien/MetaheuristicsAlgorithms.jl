@@ -37,16 +37,16 @@ function SHO(objfun, lb::Vector{Float64}, ub::Vector{Float64}, npop::Integer, ma
     best_hyena_pos = zeros(npop)
     best_hyena_score = Inf
 
-    while Iteration < max_iter
-        hyena_fitness = zeros(npop)
+    pre_fitness = zeros(npop)
+    best_hyena_fitness = 0
 
-        pre_fitness = zeros(npop)
-        best_hyena_fitness = 0
+    while Iteration <= max_iter
+        hyena_fitness = zeros(npop)
 
         for i in axes(hyena_pos, 1)
             H_ub = hyena_pos[i, :] .> ub
             H_lb = hyena_pos[i, :] .< lb
-            hyena_pos[i, :] = (hyena_pos[i, :] .* .~(H_ub .+ H_lb)) .+ ub .* H_ub .+ lb .* H_lb
+            hyena_pos[i, :] = (hyena_pos[i, :] .* .~(H_ub .| H_lb)) .+ ub .* H_ub .+ lb .* H_lb
             hyena_fitness[i] = objfun(hyena_pos[i, :])
         end
 
@@ -79,7 +79,7 @@ function SHO(objfun, lb::Vector{Float64}, ub::Vector{Float64}, npop::Integer, ma
         CV = 0
 
         for i in axes(hyena_pos, 1)
-            for i in axes(hyena_pos, 2)
+            for j in axes(hyena_pos, 2)
                 CV = 0
                 for k = 1:NOH
                     r1 = rand()

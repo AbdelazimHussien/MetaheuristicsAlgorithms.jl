@@ -38,8 +38,6 @@ function SSA(objfun, lb::Vector{Float64}, ub::Vector{Float64}, npop::Integer, ma
     while l <= max_iter
         c1 = 2 * exp(-((4 * l / max_iter)^2))
         for i = 1:size(SalpPositions, 1)
-            SalpPositions = SalpPositions'
-
             if i <= npop / 2
                 for j = 1:dim
                     c2 = rand()
@@ -51,12 +49,10 @@ function SSA(objfun, lb::Vector{Float64}, ub::Vector{Float64}, npop::Integer, ma
                     end
                 end
             elseif i > npop / 2 && i < npop + 1
-                point1 = SalpPositions[:, i-1]
-                point2 = SalpPositions[:, i]
-                SalpPositions[:, i] = (point2 .+ point1) / 2
+                point1 = SalpPositions[i-1, :]
+                point2 = SalpPositions[i, :]
+                SalpPositions[i, :] = (point2 .+ point1) / 2
             end
-
-            SalpPositions = SalpPositions'
         end
 
         for i in axes(SalpPositions, 1)

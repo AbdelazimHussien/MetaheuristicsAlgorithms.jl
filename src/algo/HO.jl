@@ -10,11 +10,9 @@ function HO(objfun, lb::Real, ub::Real, npop::Integer, max_iter::Integer, dim::I
 end
 function HO(objfun, lb::Vector{Float64}, ub::Vector{Float64}, npop::Integer, max_iter::Integer)
     dim = length(lb)
-    lb = fill(lb, dim)
-    ub = fill(ub, dim)
 
     # Initialization
-    X = initialization(npop, dim, lb, ub)
+    X = initialization(npop, dim, ub, lb)
     fit = zeros(npop)
     for i = 1:npop
         fit[i] = objfun(X[i, :])
@@ -68,6 +66,7 @@ function HO(objfun, lb::Vector{Float64}, ub::Vector{Float64}, npop::Integer, max
                     X_P2 = (ub .- lb) .* rand(dim) .+ lb
                 end
             end
+            X_P1 .= clamp.(X_P1, lb, ub)
             X_P2 .= clamp.(X_P2, lb, ub)
 
             F_P1, F_P2 = objfun(X_P1), objfun(X_P2)
@@ -86,7 +85,7 @@ function HO(objfun, lb::Vector{Float64}, ub::Vector{Float64}, npop::Integer, max
             F_HL = objfun(predator)
             distance2Leader = abs.(predator .- X[i, :])
 
-            b, c, d, l = rand(2.0:4.0), rand(1.0:1.5), rand(2.0:3.0), rand(-2*π:2*π)
+            b, c, d, l = rand(Uniform(2.0, 4.0)), rand(Uniform(1.0, 1.5)), rand(Uniform(2.0, 3.0)), rand(Uniform(-2 * π, 2 * π))
             RL = 0.05 * levy(npop, dim, 1.5)
 
             if fit[i] > F_HL
@@ -124,7 +123,7 @@ function HO(objfun, lb::Vector{Float64}, ub::Vector{Float64}, npop::Integer, max
     return OptimizationResult(
         Xbest,
         fbest,
-        best_so_farx)
+        best_so_far)
 end
 
 function HO(problem::OptimizationProblem, npop::Integer=30, max_iter::Integer=1000)::OptimizationResult

@@ -36,7 +36,7 @@ function RSA(objfun, lb::Vector{Float64}, ub::Vector{Float64}, npop::Integer, ma
         for i in 2:npop
             for j in 1:dim
                 R = (Best_P[j] - X[rand(1:npop), j]) / (Best_P[j] + eps())
-                P = Alpha + (X[i, j] - mean(X[i, :])) / (Best_P[j] * (ub - lb) + eps())
+                P = Alpha + (X[i, j] - mean(X[i, :])) / (Best_P[j] * (ub[j] - lb[j]) + eps())
                 Eta = Best_P[j] * P
 
                 if t < max_iter / 4

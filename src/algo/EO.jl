@@ -13,13 +13,13 @@ function EO(objfun, lb::Vector{Float64}, ub::Vector{Float64}, npop::Integer, max
     dim = length(lb)
     Convergence_curve = zeros(max_iter)
 
-    Ceq1 = zeros(1, dim)
+    Ceq1 = zeros(dim)
     Ceq1_fit = Inf
-    Ceq2 = zeros(1, dim)
+    Ceq2 = zeros(dim)
     Ceq2_fit = Inf
-    Ceq3 = zeros(1, dim)
+    Ceq3 = zeros(dim)
     Ceq3_fit = Inf
-    Ceq4 = zeros(1, dim)
+    Ceq4 = zeros(dim)
     Ceq4_fit = Inf
 
     C = initialization(npop, dim, ub, lb)
@@ -31,14 +31,15 @@ function EO(objfun, lb::Vector{Float64}, ub::Vector{Float64}, npop::Integer, max
     a2 = 1
     GP = 0.5
 
+    fit_old = zeros(npop)
+
     while Iter < max_iter
         fitness = zeros(npop)
-        fit_old = zeros(npop)
 
         for i = 1:npop
             Flag4ub = C[i, :] .> ub
             Flag4lb = C[i, :] .< lb
-            C[i, :] = (C[i, :] .* .~(Flag4ub .+ Flag4lb)) .+ ub .* Flag4ub .+ lb .* Flag4lb
+            C[i, :] = (C[i, :] .* .~(Flag4ub .| Flag4lb)) .+ ub .* Flag4ub .+ lb .* Flag4lb
 
             fitness[i] = objfun(C[i, :])
 
@@ -58,8 +59,8 @@ function EO(objfun, lb::Vector{Float64}, ub::Vector{Float64}, npop::Integer, max
         end
 
         if Iter == 0
-            fit_old = fitness
-            C_old = C
+            fit_old = copy(fitness)
+            C_old = copy(C)
         end
 
         for i = 1:npop
@@ -69,11 +70,11 @@ function EO(objfun, lb::Vector{Float64}, ub::Vector{Float64}, npop::Integer, max
             end
         end
 
-        C_old = C
-        fit_old = fitness
+        C_old = copy(C)
+        fit_old = copy(fitness)
 
         Ceq_ave = (Ceq1 + Ceq2 + Ceq3 + Ceq4) / 4
-        C_pool = vcat(Ceq1, Ceq2, Ceq3, Ceq4, Ceq_ave)
+        C_pool = vcat(Ceq1', Ceq2', Ceq3', Ceq4', Ceq_ave')
 
         t = (1 - Iter / max_iter)^(a2 * Iter / max_iter)
 

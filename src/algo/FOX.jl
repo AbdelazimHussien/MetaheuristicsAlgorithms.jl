@@ -28,7 +28,7 @@ function FOX(objfun, lb::Vector{Float64}, ub::Vector{Float64}, npop::Integer, ma
         for i = 1:npop
             Flag4ub = X[i, :] .> ub
             Flag4lb = X[i, :] .< lb
-            X[i, :] = X[i, :] .* .~(Flag4ub .+ Flag4lb) .+ ub .* Flag4ub .+ lb .* Flag4lb
+            X[i, :] = X[i, :] .* .~(Flag4ub .| Flag4lb) .+ ub .* Flag4ub .+ lb .* Flag4lb
 
             fitness = objfun(X[i, :])
 

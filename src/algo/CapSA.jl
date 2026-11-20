@@ -22,7 +22,7 @@ function CapSA(objfun, lb::Vector{Float64}, ub::Vector{Float64}, npop::Integer, 
         CapFit[i] = objfun(CapPos[i, :])
     end
 
-    Fit = CapFit
+    Fit = copy(CapFit)
 
     fitCapSA, index = findmin(CapFit)
     CapBestPos = copy(CapPos)

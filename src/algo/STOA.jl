@@ -20,7 +20,7 @@ function STOA(objfun, lb::Vector{Float64}, ub::Vector{Float64}, npop::Integer, m
 
     while l < max_iter
         for i in axes(positions, 1)
-            positions .= max.(lb, min.(positions, ub))
+            positions .= max.(lb', min.(positions, ub'))
 
             fitness = objfun(positions[i, :])
 

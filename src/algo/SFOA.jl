@@ -21,7 +21,7 @@ function SFOA(objfun, lb::Vector{Float64}, ub::Vector{Float64}, npop::Integer, m
     fvalbest = Inf
     Curve = zeros(max_iter)
     # Xpos = [lb .+ rand(dim) .* (ub .- lb) for _ = 1:npop]
-    Xpos = initialization(npop, dim, ub, lb)
+    Xpos = [Vector(r) for r in eachrow(initialization(npop, dim, ub, lb))]
     Fitness = [objfun(X) for X in Xpos]
 
     fvalbest, order = findmin(Fitness)
@@ -95,9 +95,9 @@ function SFOA(objfun, lb::Vector{Float64}, ub::Vector{Float64}, npop::Integer, m
     #  return TargetFitness, TargetPosition, Convergence_curve,
     # return fvalbest, xposbest, Curve
     return OptimizationResult(
-        best_hyena_pos,
-        best_hyena_score,
-        convergence_curve)
+        xposbest,
+        fvalbest,
+        Curve)
 end
 
 function SFOA(problem::OptimizationProblem, npop::Integer=30, max_iter::Integer=1000)::OptimizationResult

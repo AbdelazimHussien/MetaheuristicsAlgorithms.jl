@@ -111,10 +111,7 @@ function Evaluate(objfun, var_n_types, var_n_gases, X, Xnew, init_flag)
     best_pos = X[:Position][index_best, :]
 
     # return X, best_fit, best_pos
-    return OptimizationResult(
-        X,
-        best_fit,
-        best_pos)
+    return X, best_fit, best_pos
 end
 
 function HGSO(problem::OptimizationProblem, npop::Integer=30, max_iter::Integer=1000)::OptimizationResult
@@ -144,6 +141,7 @@ end
 
 function update_positions(Group, best_pos, vec_Xbest, S, var_n_gases, var_n_types, var_Gbest, alpha, beta, var_nvars)
     vec_flag = [1, -1]
+    Group = deepcopy(Group)
 
     for i = 1:var_n_types
         for j = 1:div(var_n_gases, var_n_types)
@@ -162,8 +160,8 @@ function update_positions(Group, best_pos, vec_Xbest, S, var_n_gases, var_n_type
 end
 
 function fun_checkpoisions(dim, Group, var_n_gases, var_n_types, lb, ub)
-    lb = ones(dim) * lb
-    ub = ones(dim) * ub
+    lb = ones(dim) .* lb
+    ub = ones(dim) .* ub
 
     for j = 1:var_n_types
         for i = 1:div(var_n_gases, var_n_types)

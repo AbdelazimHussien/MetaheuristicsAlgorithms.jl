@@ -15,26 +15,21 @@ function SparrowSA(objfun, lb::Vector{Float64}, ub::Vector{Float64}, npop::Integ
     P_percent = 0.2
     pNum = round(Int, npop * P_percent)
 
-    if length(lb) == 1 && length(ub) == 1
-        lb = fill(lb, dim)
-        ub = fill(ub, dim)
-    end
-
     # x = [lb .+ (ub .- lb) .* rand(dim) for _ = 1:npop]
-    x = initialization(npop, dim, lb, ub)
+    x = [vec(initialization(1, dim, ub, lb)) for _ = 1:npop]
     fit = [objfun(xi) for xi in x]
     pFit = copy(fit)
-    pX = copy(x)
+    pX = deepcopy(x)
 
     fMin, bestI = findmin(fit)
-    bestX = x[bestI]
+    bestX = copy(x[bestI])
 
     convergence_curve = zeros(max_iter)
 
     for t = 1:max_iter
         sorted_idx = sortperm(pFit)
         worst_idx = argmax(pFit)
-        worst = x[worst_idx]
+        worst = copy(x[worst_idx])
 
         r2 = rand()
         if r2 < 0.8
@@ -53,7 +48,7 @@ function SparrowSA(objfun, lb::Vector{Float64}, ub::Vector{Float64}, npop::Integ
         end
 
         fMMin, bestII = findmin(fit)
-        bestXX = x[bestII]
+        bestXX = copy(x[bestII])
 
         for i = pNum+1:npop
             A = 2 .* floor.(rand(dim) * 2) .- 1
@@ -66,7 +61,7 @@ function SparrowSA(objfun, lb::Vector{Float64}, ub::Vector{Float64}, npop::Integ
             fit[sorted_idx[i]] = objfun(x[sorted_idx[i]])
         end
 
-        random_indices = shuffle(sorted_idx[1:20])
+        random_indices = shuffle(sorted_idx)[1:min(20, npop)]
         for j in random_indices
             if pFit[j] > fMin
                 x[j] .= bestX .+ randn(dim) .* abs.(pX[j] .- bestX)

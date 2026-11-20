@@ -80,8 +80,8 @@ function SeaHO(objfun, lb::Vector{Float64}, ub::Vector{Float64}, npop::Integer, 
         Sea_horsesFitness1 = [objfun(Sea_horses_new2[i, :]) for i = 1:npop]
         sorted_indexes = sortperm(Sea_horsesFitness1)
 
-        Sea_horses_father = Sea_horses_new2[sorted_indexes[1:npop], :]
-        Sea_horses_mother = Sea_horses_new2[sorted_indexes[npop+1:end], :]
+        Sea_horses_father = Sea_horses_new2[sorted_indexes[1:npop÷2], :]
+        Sea_horses_mother = Sea_horses_new2[sorted_indexes[npop÷2+1:end], :]
         for k = 1:npop÷2
             r3 = rand()
             Si[k, :] = r3 * Sea_horses_father[k, :] + (1 - r3) * Sea_horses_mother[k, :]

@@ -25,7 +25,7 @@ function SO(objfun, lb::Vector{Float64}, ub::Vector{Float64}, npop::Integer, max
     end
 
     X = initialization(npop, dim, ub, lb)
-    gbest_t = zeros(max_iter, 1)
+    gbest_t = zeros(max_iter)
     fitness = zeros(npop)
     for i = 1:npop
         fitness[i] = objfun(X[i, :])

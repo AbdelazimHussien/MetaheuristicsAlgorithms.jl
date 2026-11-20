@@ -22,6 +22,7 @@ function HikingOA(objfun, lb::Vector{Float64}, ub::Vector{Float64}, hiker::Integ
     # Initialize population
     # Pop = [lb .+ (ub .- lb) .* rand(dim) for _ = 1:npop]
     position = initialization(npop, dim, ub, lb)
+    Pop = [position[q, :] for q = 1:npop]
 
     # Evaluate initial fitness
     for q = 1:npop
@@ -64,7 +65,7 @@ function HikingOA(objfun, lb::Vector{Float64}, ub::Vector{Float64}, hiker::Integ
     return OptimizationResult(
         Best_Position,
         Best_Hike,
-        Best_iteration)
+        Best_iteration[2:end])
 end
 
 function HikingOA(problem::OptimizationProblem, npop::Integer=30, max_iter::Integer=1000)::OptimizationResult

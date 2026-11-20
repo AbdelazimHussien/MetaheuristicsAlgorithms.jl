@@ -33,7 +33,7 @@ function BO(objfun, lb::Vector{Float64}, ub::Vector{Float64}, npop::Integer, max
     end
 
     bestcost, ID = findmin(cost)
-    alphabonobo = bonobo[ID, :]
+    alphabonobo = bonobo[ID:ID, :]
     pbestcost = bestcost
 
     # Initialization of other parameters
@@ -72,7 +72,7 @@ function BO(objfun, lb::Vector{Float64}, ub::Vector{Float64}, npop::Integer, max
             # Creation of newbonobo
             if rand() <= p_p
                 r1 = rand(1, dim)
-                newbonobo = bonobo[i, :] .+ scab * r1 .* (alphabonobo .- bonobo[i, :]) .+ flag * scsb * (1 .- r1) .* (bonobo[i, :] .- bonobo[p, :])
+                newbonobo = bonobo[i:i, :] .+ scab * r1 .* (alphabonobo .- bonobo[i:i, :]) .+ flag * scsb * (1 .- r1) .* (bonobo[i:i, :] .- bonobo[p:p, :])
             else
                 for j = 1:dim
                     if rand() <= p_xgm
@@ -151,7 +151,7 @@ function BO(objfun, lb::Vector{Float64}, ub::Vector{Float64}, npop::Integer, max
 
     # return bestcost, alphabonobo, convergence
     return OptimizationResult(
-        alphabonobo,
+        vec(alphabonobo),
         bestcost,
         convergence)
 end

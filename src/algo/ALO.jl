@@ -1,7 +1,7 @@
 function Random_walk_around_antlion(dim, max_iter, lb, ub, antlion, current_iter)
     if length(lb) == 1 && length(ub) == 1
-        lb = fill(lb, dim)
-        ub = fill(ub, dim)
+        lb = fill(lb[1], dim)
+        ub = fill(ub[1], dim)
     end
 
     if size(lb, 1) > size(lb, 2)
@@ -37,16 +37,16 @@ function Random_walk_around_antlion(dim, max_iter, lb, ub, antlion, current_iter
 
     # Move the interval of [lb, ub] around the antlion [lb + antlion, ub + antlion]
     if rand() < 0.5
-        lb = lb .+ antlion   # Equation (2.8) in the paper
+        lb = lb .+ antlion'   # Equation (2.8) in the paper
     else
         # lb .= -lb .+ antlion
-        lb = -lb .+ antlion
+        lb = -lb .+ antlion'
     end
 
     if rand() >= 0.5
-        ub = ub .+ antlion   # Equation (2.9) in the paper
+        ub = ub .+ antlion'   # Equation (2.9) in the paper
     else
-        ub = -ub .+ antlion
+        ub = -ub .+ antlion'
     end
 
     # Initialize the random walks matrix
@@ -68,7 +68,7 @@ end
 function RouletteWheelSelectionF(weights)
     accumulation = cumsum(weights)  # Cumulative sum of weights
     p = rand() * accumulation[end]   # Random threshold based on the total weight
-    chosen_index = findfirst(x -> x > p, accumulation)  # Find first index where accumulation exceeds p
+    chosen_index = something(findfirst(x -> x > p, accumulation), -1)  # Find first index where accumulation exceeds p
 
     return chosen_index  # Return the chosen index
 end
@@ -110,6 +110,7 @@ function ALO(objfun, lb::Vector{Float64}, ub::Vector{Float64}, npop::Integer, ma
 
     elite_antlion_position .= Sorted_antlions[1, :]
     elite_antlion_fitness = sorted_antlion_fitness[1]
+    convergence_curve[1] = elite_antlion_fitness
 
     # Main loop starts from the second iteration
     Current_iter = 2
@@ -171,7 +172,7 @@ function ALO(objfun, lb::Vector{Float64}, ub::Vector{Float64}, npop::Integer, ma
     # return elite_antlion_fitness, elite_antlion_position, convergence_curve
     return OptimizationResult(
         elite_antlion_position,
-        elite_antlion_position,
+        elite_antlion_fitness,
         convergence_curve)
 end
 

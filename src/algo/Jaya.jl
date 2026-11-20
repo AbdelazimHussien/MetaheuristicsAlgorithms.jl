@@ -48,7 +48,7 @@ function Jaya(objfun, lb::Vector{Float64}, ub::Vector{Float64}, npop::Integer, m
 
     # Main Loop
     gen = 1
-    while gen < max_iter
+    while gen <= max_iter
         row, col = size(x)
         t, tindex = findmin(f)
         Best = x[tindex, :]
@@ -58,7 +58,7 @@ function Jaya(objfun, lb::Vector{Float64}, ub::Vector{Float64}, npop::Integer, m
 
         for i = 1:row
             for j = 1:col
-                xnew[i, j] = x[i, j] + rand() * (Best[j] - abs(x[i, j])) - (worst[j] - abs(x[i, j]))
+                xnew[i, j] = x[i, j] + rand() * (Best[j] - abs(x[i, j])) - rand() * (worst[j] - abs(x[i, j]))
             end
         end
 
@@ -76,9 +76,9 @@ function Jaya(objfun, lb::Vector{Float64}, ub::Vector{Float64}, npop::Integer, m
 
         fopt[gen] = minimum(f)
         xopt[gen, :] = x[argmin(f), :]
+        convergence[gen] = minimum(f)
         gen += 1
         # @printf("Iteration No. = %d, Best Cost = %.4f\n", gen, fopt[gen-1])
-        convergence[gen] = minimum(f)
     end
 
     # Results

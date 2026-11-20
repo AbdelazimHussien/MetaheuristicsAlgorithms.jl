@@ -57,8 +57,8 @@ function SCHO(objfun, lb::Vector{Float64}, ub::Vector{Float64}, npop::Integer, m
                 if t == BSi
                     ub_2 = Destination_position[j] + (1 - t / max_iter) * abs(Destination_position[j] - Destination_position_second[j])
                     lb_2 = Destination_position[j] - (1 - t / max_iter) * abs(Destination_position[j] - Destination_position_second[j])
-                    ub_2 = min(ub_2, ub)
-                    lb_2 = max(lb_2, lb)
+                    ub_2 = min.(ub_2, ub)
+                    lb_2 = max.(lb_2, lb)
                     X = initialization(npop, dim, ub_2, lb_2)
                     BSi_temp = BSi
                     BSi = 0

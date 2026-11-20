@@ -90,8 +90,8 @@ function EDO(objfun, lb::Vector{Float64}, ub::Vector{Float64}, npop::Integer, ma
 
     # return BestFitness, BestSol, cgcurve
     return OptimizationResult(
-        BestFitness,
         BestSol,
+        BestFitness,
         cgcurve)
 end
 

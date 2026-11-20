@@ -142,6 +142,7 @@ include("algo/SSA.jl")
 include("algo/STOA.jl")
 include("algo/SuperbFOA.jl")
 include("algo/SupplyDO.jl")
+include("algo/THRO.jl")
 include("algo/TLBO.jl")
 include("algo/TLCO.jl")
 include("algo/TOC.jl")
@@ -200,7 +201,14 @@ export INFO, IVYA
 export Jaya, JS
 export LCA, LFD, LPO, LSHADE_cnEpSin
 # export LSHADE_cnEpSin
+export ArtemisininO, CDO, ChameleonSA, FATA, HHO
+export MossGO, MountainGO, MPA, MRFO, MVO
+export OOA
+export ParrotO, PDO, PKO, PLO, POA, PoliticalO, PRO, PumaO
+export QIO
 export RBMO, RFO, RIME, ROA, RSA, RSO, RUN
+export SBO, SBOA, SCA, SCHO, SeaHO, SnowOA, SO, SOA, SparrowSA, SuperbFOA
+export WUTP
 export SFOA, SHO, SMA, SSA, STOA, SupplyDO
 export THRO, TLBO, TLCO, TSA, TTAO, WHO, WO, WOA, WSO, YDSE, ZOA
 

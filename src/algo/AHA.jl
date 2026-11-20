@@ -56,9 +56,8 @@ function AHA(objfun, lb::Vector{Float64}, ub::Vector{Float64}, npop::Integer, ma
 
     his_best_fit = zeros(max_iter)
     VisitTable = zeros(npop, npop)
-    VisitTable .= NaN
     for i = 1:npop
-        VisitTable[i, i] = NaN
+        VisitTable[i, i] = -Inf
     end
 
     for It = 1:max_iter
@@ -98,7 +97,7 @@ function AHA(objfun, lb::Vector{Float64}, ub::Vector{Float64}, npop::Integer, ma
                     VisitTable[i, :] .+= 1
                     VisitTable[i, TargetFoodIndex] = 0
                     VisitTable[:, i] .= maximum(VisitTable, dims=2) .+ 1
-                    VisitTable[i, i] = NaN
+                    VisitTable[i, i] = -Inf
                 else
                     VisitTable[i, :] .+= 1
                     VisitTable[i, TargetFoodIndex] = 0
@@ -113,7 +112,7 @@ function AHA(objfun, lb::Vector{Float64}, ub::Vector{Float64}, npop::Integer, ma
                     PopPos[i, :] = newPopPos
                     VisitTable[i, :] .+= 1
                     VisitTable[:, i] .= maximum(VisitTable, dims=2) .+ 1
-                    VisitTable[i, i] = NaN
+                    VisitTable[i, i] = -Inf
                 else
                     VisitTable[i, :] .+= 1
                 end
@@ -122,11 +121,11 @@ function AHA(objfun, lb::Vector{Float64}, ub::Vector{Float64}, npop::Integer, ma
 
         if It % (2 * npop) == 0
             _, MigrationIndex = findmax(PopFit)
-            PopPos[MigrationIndex, :] = rand(1, dim) .* (ub .- lb) .+ lb
+            PopPos[MigrationIndex, :] = rand(dim) .* (ub .- lb) .+ lb
             PopFit[MigrationIndex] = objfun(PopPos[MigrationIndex, :])
             VisitTable[MigrationIndex, :] .+= 1
             VisitTable[:, MigrationIndex] .= maximum(VisitTable, dims=2) .+ 1
-            VisitTable[MigrationIndex, MigrationIndex] = NaN
+            VisitTable[MigrationIndex, MigrationIndex] = -Inf
         end
 
         for i = 1:npop

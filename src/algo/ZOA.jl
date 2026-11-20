@@ -90,5 +90,5 @@ function ZOA(objfun, lb::Vector{Float64}, ub::Vector{Float64}, npop::Integer, ma
 end
 
 function ZOA(problem::OptimizationProblem, npop::Integer=30, max_iter::Integer=1000)
-    return ZOA(npop, max_iter, problem.lb, problem.ub, problem.dim, problem.objfun)
+    return ZOA(problem.objfun, problem.lb, problem.ub, npop, max_iter)
 end

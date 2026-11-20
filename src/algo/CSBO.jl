@@ -28,11 +28,11 @@ function CSBO(objfun, lb::Vector{Float64}, ub::Vector{Float64}, npop::Integer, m
     position = initializationLogistic(npop, dim, ub, lb)
     for i = 1:npop
         # position = rand(lb:ub, dim)
-        cost = objfun(position)
-        pop[i] = Plant(position, cost)
+        cost = objfun(position[i, :])
+        pop[i] = Plant(position[i, :], cost)
 
         if cost <= BestSolCost
-            BestSolPosition = position
+            BestSolPosition = position[i, :]
             BestSolCost = cost
         end
     end
@@ -123,7 +123,7 @@ function CSBO(objfun, lb::Vector{Float64}, ub::Vector{Float64}, npop::Integer, m
     return OptimizationResult(
         BestSolPosition,
         BestSolCost,
-        BestCost)
+        BestCost[1:npop:(max_iter-1)*npop+1])
 end
 
 function CSBO(problem::OptimizationProblem, npop::Integer=30, max_iter::Integer=1000)::OptimizationResult

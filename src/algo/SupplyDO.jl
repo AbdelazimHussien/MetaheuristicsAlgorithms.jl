@@ -18,13 +18,13 @@ function SupplyDO(objfun, lb::Vector{Float64}, ub::Vector{Float64}, marketsize::
         "CommQuantityFit" => Inf,
     )
 
-    market = fill(OneMarket, marketsize)
+    market = [deepcopy(OneMarket) for _ = 1:marketsize]
     best_f = Inf
     best_x = []
 
     for i = 1:marketsize
         # market[i]["CommPrice"] = rand(dim) .* (ub - lb) .+ lb
-        market[i]["CommPrice"] = initialization(1, dim, lb, ub)
+        market[i]["CommPrice"] = vec(initialization(1, dim, ub, lb))
         market[i]["CommPriceFit"] = objfun(market[i]["CommPrice"])
         market[i]["CommQuantity"] = rand(dim) .* (ub - lb) .+ lb
         market[i]["CommQuantityFit"] = objfun(market[i]["CommQuantity"])
@@ -64,13 +64,13 @@ function SupplyDO(objfun, lb::Vector{Float64}, ub::Vector{Float64}, marketsize::
 
         for i = 1:marketsize
             Ind = rand() < 0.5 ? 1 : 2
-            k = findfirst(x -> x >= rand(), cumsum(FQ))
+            k = findfirst(>=(rand()), cumsum(FQ))
             CommQuantityEqu = market[k]["CommQuantity"]
 
             Alpha = a * sin.(2 * pi * rand(dim))
             Beta = 2 * cos.(2 * pi * rand(dim))
 
-            CommPriceEqu = ifelse(rand() > 0.5, rand() * MeanPrice, market[findfirst(x -> x >= rand(), cumsum(FP))]["CommPrice"])
+            CommPriceEqu = ifelse(rand() > 0.5, rand() * MeanPrice, market[findfirst(>=(rand()), cumsum(FP))]["CommPrice"])
 
             NewCommQuantity = CommQuantityEqu .+ Alpha .* (market[i]["CommPrice"] .- vec(CommPriceEqu))
 

@@ -102,7 +102,7 @@ function GO(objfun, lb::Vector{Float64}, ub::Vector{Float64}, npop::Integer, max
 
                     AF = 0.01 + (0.1 - 0.01) * (1 - FEs / MaxFEs)
                     if rand() < AF
-                        newx[j] = lb + (ub - lb) * rand()
+                        newx[j] = lb[j] + (ub[j] - lb[j]) * rand()
                     end
                 end
             end
@@ -142,7 +142,7 @@ function GO(objfun, lb::Vector{Float64}, ub::Vector{Float64}, npop::Integer, max
     return OptimizationResult(
         gbestX,
         gbestfitness,
-        gbesthistory)
+        gbesthistory[npop:npop:MaxFEs])
 end
 
 function GO(problem::OptimizationProblem, npop::Integer=30, max_iter::Integer=1000)::OptimizationResult

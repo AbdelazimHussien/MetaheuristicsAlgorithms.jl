@@ -16,13 +16,13 @@ function SBO(objfun, lb::Vector{Float64}, ub::Vector{Float64}, npop::Integer, ma
     pMutation = 0.05
 
     Z = 0.02
-    sigma = Z * (max(ub) - min(lb))
+    sigma = Z * (maximum(ub) - minimum(lb))
 
     pop = [Dict("Position" => zeros(dim), "Cost" => Inf) for _ = 1:npop]
 
     for i = 1:npop
         # pop[i]["Position"] = rand(dim) .* (ub - lb) .+ lb
-        pop[i]["Position"] = initialization(1, dim, lb, ub)
+        pop[i]["Position"] = vec(initialization(1, dim, ub, lb))
         pop[i]["Cost"] = objfun(pop[i]["Position"])
     end
 
