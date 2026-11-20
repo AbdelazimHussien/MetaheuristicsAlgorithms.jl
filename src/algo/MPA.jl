@@ -23,8 +23,8 @@ function MPA(objfun, lb::Vector{Float64}, ub::Vector{Float64}, npop::Integer, ma
     Prey = initialization(npop, dim, ub, lb)
     Prey_old = zeros(size(Prey))
 
-    lb = ones(npop, dim) .* lb
-    ub = ones(npop, dim) .* ub
+    lb = ones(npop, dim) .* lb'
+    ub = ones(npop, dim) .* ub'
 
     Iter = 0
     FADs = 0.2
@@ -33,9 +33,9 @@ function MPA(objfun, lb::Vector{Float64}, ub::Vector{Float64}, npop::Integer, ma
     while Iter < max_iter
         # Detecting top predator
         for i = 1:npop
-            Flag4ub = Prey[i, :] .> ub
-            Flag4lb = Prey[i, :] .< lb
-            Prey[i, :] .= (Prey[i, :] .* .!(Flag4ub .| Flag4lb)) .+ ub .* Flag4ub .+ lb .* Flag4lb
+            Flag4ub = Prey[i, :] .> ub[i, :]
+            Flag4lb = Prey[i, :] .< lb[i, :]
+            Prey[i, :] .= (Prey[i, :] .* .!(Flag4ub .| Flag4lb)) .+ ub[i, :] .* Flag4ub .+ lb[i, :] .* Flag4lb
 
             fitness[i] = objfun(Prey[i, :])
 
@@ -89,9 +89,9 @@ function MPA(objfun, lb::Vector{Float64}, ub::Vector{Float64}, npop::Integer, ma
         end
 
         for i = 1:npop
-            Flag4ub = Prey[i, :] .> ub
-            Flag4lb = Prey[i, :] .< lb
-            Prey[i, :] .= (Prey[i, :] .* .!(Flag4ub .| Flag4lb)) .+ ub .* Flag4ub .+ lb .* Flag4lb
+            Flag4ub = Prey[i, :] .> ub[i, :]
+            Flag4lb = Prey[i, :] .< lb[i, :]
+            Prey[i, :] .= (Prey[i, :] .* .!(Flag4ub .| Flag4lb)) .+ ub[i, :] .* Flag4ub .+ lb[i, :] .* Flag4lb
 
             fitness[i] = objfun(Prey[i, :])
 

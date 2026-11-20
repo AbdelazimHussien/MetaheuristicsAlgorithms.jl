@@ -107,7 +107,7 @@ function HHO(objfun, lb::Vector{Float64}, ub::Vector{Float64}, npop::Integer, ma
     # return Rabbit_Energy, Rabbit_Location, CNVG
     return OptimizationResult(
         Rabbit_Location,
-        best_vRabbit_Energyalue,
+        Rabbit_Energy,
         CNVG)
 end
 
