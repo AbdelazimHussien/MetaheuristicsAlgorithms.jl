@@ -17,7 +17,7 @@ function LPO(objfun, lb::Vector{Float64}, ub::Vector{Float64}, npop::Integer, ma
     BestCost = Inf
     Convergence = zeros(Float64, max_iter)
     Delta = rand(npop) .* 2π
-    sigma1 = [rand(1, dim) for _ = 1:npop]
+    sigma1 = [rand(dim) for _ = 1:npop]
 
     # Evaluate initial population
     for i = 1:npop
@@ -30,7 +30,7 @@ function LPO(objfun, lb::Vector{Float64}, ub::Vector{Float64}, npop::Integer, ma
 
     it = 0
     Pos1 = zeros(dim)
-    while it <= max_iter
+    while it < max_iter
         BestCost = minimum(Fitness)
         WorstCost = maximum(Fitness)
 
@@ -73,15 +73,16 @@ function LPO(objfun, lb::Vector{Float64}, ub::Vector{Float64}, npop::Integer, ma
                     Positions[i, :] = newsol
                     Fitness[i] = newCost
                     if newCost <= BestCost
-                        BestPosition = newsol
+                        BestPosition = copy(newsol)
                         BestCost = newCost
                     end
                 end
-                sigma1[i] = rand(1, dim)
+                sigma1[i] = rand(dim)
             end
         end
 
         it += 1
+        Convergence[it] = BestCost
     end
 
     Result = Convergence

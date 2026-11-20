@@ -29,7 +29,7 @@ end
 function AFT(objfun, lb::Vector{Float64}, ub::Vector{Float64}, noThieves::Integer, max_iter::Integer)::OptimizationResult
     dim = length(lb)
 
-    ccurve = zeros(1, max_iter)
+    ccurve = zeros(max_iter)
 
     xth = initialization(noThieves, dim, ub, lb)  # Position of the thieves in the space
 
@@ -40,7 +40,7 @@ function AFT(objfun, lb::Vector{Float64}, ub::Vector{Float64}, noThieves::Intege
     end
 
     # Initialization of AFT parameters
-    fitness = fit
+    fitness = copy(fit)
     sorted_indexes = sortperm(fit)
     sorted_thieves_fitness = fit[sorted_indexes]
 
@@ -48,8 +48,8 @@ function AFT(objfun, lb::Vector{Float64}, ub::Vector{Float64}, noThieves::Intege
     gbest = Sorted_thieves[1, :]
     fit0 = sorted_thieves_fitness[1]
 
-    best = xth  # Best positions of thieves
-    xab = xth   # Position of Ali Baba
+    best = copy(xth)  # Best positions of thieves
+    xab = copy(xth)   # Position of Ali Baba
 
     # Start the AFT main loop
     for ite = 1:max_iter

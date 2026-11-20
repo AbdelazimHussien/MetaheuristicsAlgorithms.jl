@@ -12,7 +12,7 @@ function ARO(objfun, lb::Vector{Float64}, ub::Vector{Float64}, npop::Integer, ma
     dim = length(lb)
     PopPos = initialization(npop, dim, ub, lb)
     # PopPos = [rand(dim) .* (ub - lb) .+ lb for _ = 1:npop]
-    PopFit = [objfun(PopPos[i]) for i = 1:npop]
+    PopFit = [objfun(PopPos[i, :]) for i = 1:npop]
 
     BestF = Inf
     BestX = zeros(dim)
@@ -21,7 +21,7 @@ function ARO(objfun, lb::Vector{Float64}, ub::Vector{Float64}, npop::Integer, ma
     for i = 1:npop
         if PopFit[i] <= BestF
             BestF = PopFit[i]
-            BestX = PopPos[i]
+            BestX = PopPos[i, :]
         end
     end
 
@@ -45,14 +45,14 @@ function ARO(objfun, lb::Vector{Float64}, ub::Vector{Float64}, npop::Integer, ma
             if A > 1
                 K = [1:i-1; i+1:npop]
                 RandInd = K[rand(1:end)]
-                newPopPos = PopPos[RandInd] .+ R .* (PopPos[i] .- PopPos[RandInd]) .+
+                newPopPos = PopPos[RandInd, :] .+ R .* (PopPos[i, :] .- PopPos[RandInd, :]) .+
                             round(0.5 * (0.05 + rand())) * randn(dim)
             else
                 Direct2[i, ceil(Int, rand() * dim)] = 1
                 gr = Direct2[i, :]
                 H = ((max_iter - It + 1) / max_iter) * randn()
-                b = PopPos[i] .+ H * gr .* PopPos[i]
-                newPopPos = PopPos[i] .+ R .* (rand() .* b .- PopPos[i])
+                b = PopPos[i, :] .+ H * gr .* PopPos[i, :]
+                newPopPos = PopPos[i, :] .+ R .* (rand() .* b .- PopPos[i, :])
             end
 
             # Apply boundary constraints
@@ -62,7 +62,7 @@ function ARO(objfun, lb::Vector{Float64}, ub::Vector{Float64}, npop::Integer, ma
             newPopFit = objfun(newPopPos)
             if newPopFit < PopFit[i]
                 PopFit[i] = newPopFit
-                PopPos[i] = newPopPos
+                PopPos[i, :] = newPopPos
             end
         end
 
@@ -70,7 +70,7 @@ function ARO(objfun, lb::Vector{Float64}, ub::Vector{Float64}, npop::Integer, ma
         for i = 1:npop
             if PopFit[i] < BestF
                 BestF = PopFit[i]
-                BestX = PopPos[i]
+                BestX = PopPos[i, :]
             end
         end
 
@@ -80,8 +80,8 @@ function ARO(objfun, lb::Vector{Float64}, ub::Vector{Float64}, npop::Integer, ma
 
     # return BestF, BestX, HisBestF
     return OptimizationResult(
-        BestF,
         BestX,
+        BestF,
         HisBestF)
 end
 

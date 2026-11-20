@@ -66,9 +66,9 @@ function HBA(objfun, lb::Vector{Float64}, ub::Vector{Float64}, npop::Integer, ma
             end
         end
 
-        FU = X .> ub
-        FL = X .< lb
-        X = (X .* .! (FU .| FL)) .+ ub .* FU .+ lb .* FL
+        FU = X .> ub'
+        FL = X .< lb'
+        X = (X .* .! (FU .| FL)) .+ ub' .* FU .+ lb' .* FL
 
         Ybest, index = findmin(fitness)
         CNVG[t] = Ybest

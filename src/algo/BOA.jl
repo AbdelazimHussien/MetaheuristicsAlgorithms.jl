@@ -43,7 +43,7 @@ function BOA(objfun, lb::Vector{Float64}, ub::Vector{Float64}, npop::Integer, ma
 
             Flag4Ub = S[i, :] .> ub
             Flag4Lb = S[i, :] .< lb
-            S[i, :] = (S[i, :] .* .~(Flag4Ub .+ Flag4Lb)) .+ ub .* Flag4Ub .+ lb .* Flag4Lb
+            S[i, :] = (S[i, :] .* .~(Flag4Ub .| Flag4Lb)) .+ ub .* Flag4Ub .+ lb .* Flag4Lb
 
             Fnew = objfun(S[i, :])
 

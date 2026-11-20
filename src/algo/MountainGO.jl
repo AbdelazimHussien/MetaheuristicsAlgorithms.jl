@@ -59,7 +59,7 @@ function MountainGO(objfun, lb::Vector{Float64}, ub::Vector{Float64}, npop::Inte
     for Iter = 1:max_iter
         for i = 1:npop
             RandomSolution = rand(1:npop, ceil(Int, npop / 3))
-            M = X[rand(ceil(Int, npop / 3):npop), :] * floor(rand()) + reshape(mean(X[RandomSolution, :], dims=1), 30) .* ceil(rand())
+            M = X[rand(ceil(Int, npop / 3):npop), :] * floor(rand()) + reshape(mean(X[RandomSolution, :], dims=1), dim) .* ceil(rand())
 
             cofi = Coefficient_Vector(dim, Iter, max_iter)
 
@@ -68,7 +68,7 @@ function MountainGO(objfun, lb::Vector{Float64}, ub::Vector{Float64}, npop::Inte
 
             NewX = Solution_Imp(X, BestX, lb, ub, npop, cofi, M, A, D, i)
 
-            NewX .= max.(lb, min.(NewX, ub))
+            NewX .= max.(lb', min.(NewX, ub'))
             Sol_CostNew = [objfun(row) for row in eachrow(NewX)]
 
             X = vcat(X, NewX)

@@ -23,7 +23,7 @@ function HHO(objfun, lb::Vector{Float64}, ub::Vector{Float64}, npop::Integer, ma
         for i = 1:npop
             FU = X[i, :] .> ub
             FL = X[i, :] .< lb
-            X[i, :] = (X[i, :] .* .~(FU .+ FL)) .+ ub .* FU .+ lb .* FL
+            X[i, :] = (X[i, :] .* .~(FU .| FL)) .+ ub .* FU .+ lb .* FL
 
             fitness = objfun(X[i, :])
 

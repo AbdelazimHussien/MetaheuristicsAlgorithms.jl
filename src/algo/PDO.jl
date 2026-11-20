@@ -58,7 +58,7 @@ function PDO(objfun, lb::Vector{Float64}, ub::Vector{Float64}, npop::Integer, ma
         for i = 1:npop
             for j = 1:M
                 cpd = rand() * ((TPD[i, j] - X[rand(1:npop), j]) / (TPD[i, j] + eps()))
-                P = rho + (X[i, j] - mean(X[i, :])) / (TPD[i, j] * (ub - lb) + eps())
+                P = rho + (X[i, j] - mean(X[i, :])) / (TPD[i, j] * (ub[j] - lb[j]) + eps())
                 eCB = PDBest_P[j] * P
 
                 if t < max_iter / 4

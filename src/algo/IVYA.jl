@@ -13,7 +13,7 @@ function IVYA(objfun, lb::Vector{Float64}, ub::Vector{Float64}, npop::Integer, m
     dim = length(lb)
     # Position = rand(npop, dim) .* (ub .- lb) .+ lb
     Position = initialization(npop, dim, ub, lb)
-    GV = Position ./ (ub .- lb)
+    GV = Position ./ (ub .- lb)'
     Cost = [objfun(Position[i, :]) for i = 1:npop]
 
     BestCosts = zeros(Float64, max_iter)
@@ -56,6 +56,7 @@ function IVYA(objfun, lb::Vector{Float64}, ub::Vector{Float64}, npop::Integer, m
         sorted_indices = sortperm(Cost)
         Position = Position[sorted_indices, :]
         Cost = Cost[sorted_indices]
+        GV = GV[sorted_indices, :]
 
         if length(Cost) > npop
             Position = Position[1:npop, :]

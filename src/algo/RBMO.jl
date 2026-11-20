@@ -32,12 +32,12 @@ function RBMO(objfun, lb::Vector{Float64}, ub::Vector{Float64}, npop::Integer, m
             p = rand(2:5)
             selected_index_p = randperm(npop)[1:p]
             Xp = X[selected_index_p, :]
-            Xpmean = mean(Xp, dims=1)
+            Xpmean = vec(mean(Xp, dims=1))
 
             q = rand(10:npop)
             selected_index_q = randperm(npop)[1:q]
             Xq = X[selected_index_q, :]
-            Xpmean = vec(mean(Xp, dims=1))
+            Xqmean = vec(mean(Xq, dims=1))
 
             A = randperm(npop)
             R1 = A[1]
@@ -45,11 +45,11 @@ function RBMO(objfun, lb::Vector{Float64}, ub::Vector{Float64}, npop::Integer, m
             if rand() < Epsilon
                 X[i, :] = X[i, :] .+ (Xpmean - X[R1, :]) .* rand(D)
             else
-                X[i, :] = X[i, :] .+ (Xpmean - X[R1, :]) .* rand(D)
+                X[i, :] = X[i, :] .+ (Xqmean - X[R1, :]) .* rand(D)
             end
         end
 
-        X = max.(lb, min.(X, ub))
+        X = max.(lb', min.(X, ub'))
 
         for i = 1:npop
             fitness[i] = objfun(X[i, :])
@@ -82,7 +82,7 @@ function RBMO(objfun, lb::Vector{Float64}, ub::Vector{Float64}, npop::Integer, m
             end
         end
 
-        X = max.(lb, min.(X, ub))
+        X = max.(lb', min.(X, ub'))
 
         for i = 1:npop
             fitness[i] = objfun(X[i, :])

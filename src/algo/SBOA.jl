@@ -10,10 +10,10 @@ function SBOA(objfun, lb::Real, ub::Real, npop::Integer, max_iter::Integer, dim:
 end
 function SBOA(objfun, lb::Vector{Float64}, ub::Vector{Float64}, npop::Integer, max_iter::Integer)
     dim = length(lb)
-    lb = fill(lb, dim)
-    ub = fill(ub, dim)
+    lb = ones(dim) .* lb
+    ub = ones(dim) .* ub
 
-    X = initialization(npop, dim, lb, ub)
+    X = initialization(npop, dim, ub, lb)
     fit = zeros(npop)
     Bast_P = zeros(dim)
     for i = 1:npop

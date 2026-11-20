@@ -18,9 +18,9 @@ function SuperbFOA(objfun, lb::Vector{Float64}, ub::Vector{Float64}, npop::Integ
     best_fitness = Inf
     best_position = zeros(dim)
     fitness = zeros(npop)
-    FEs = 1
-    lb = fill(lb, dim)
-    ub = fill(ub, dim)
+    FEs = 0
+    lb = lb .* ones(dim)
+    ub = ub .* ones(dim)
 
     for i = 1:npop
         fitness[i] = objfun(X[i, :])
@@ -51,7 +51,7 @@ function SuperbFOA(objfun, lb::Vector{Float64}, ub::Vector{Float64}, npop::Integ
 
         for i = 1:npop
             if T < c1
-                Xnew[i, :] = X[i, :] .+ lb .+ (ub .- lb) .* rand(1, dim)
+                Xnew[i, :] = X[i, :] .+ lb .+ (ub .- lb) .* rand(dim)
             else
                 s = r1 * 20 + r2 * 20
                 if s > 20
@@ -88,7 +88,7 @@ function SuperbFOA(objfun, lb::Vector{Float64}, ub::Vector{Float64}, npop::Integ
     return OptimizationResult(
         best_position,
         best_fitness,
-        curve)
+        curve[npop:npop:end])
 end
 
 function SuperbFOA(problem::OptimizationProblem, npop::Integer=30, max_iter::Integer=1000)::OptimizationResult

@@ -25,7 +25,7 @@ function TLCO(objfun, lb::Vector{Float64}, ub::Vector{Float64}, npop::Integer, c
 
     for i = 1:npop
         # Int_Population[i]["pos"] = lb .+ rand(dim) .* (ub - lb)
-        Int_Population[i]["pos"] = initialization(1, dim, ub, lb)
+        Int_Population[i]["pos"] = vec(initialization(1, dim, ub, lb))
         Int_Population[i]["cost"] = objfun(Int_Population[i]["pos"])
     end
 
@@ -50,7 +50,7 @@ function TLCO(objfun, lb::Vector{Float64}, ub::Vector{Float64}, npop::Integer, c
         for i = 1:round(npop)
             if i <= round(0.7 * npop)
                 particle_worker[i]["pos"] = particle_worker[i]["pos"] .+
-                                            (-1 + 2 * rand()) * (rand(dim) .+ levy(1, dim, beta)) .*
+                                            (-1 + 2 * rand()) * (rand(dim) .+ vec(levy(1, dim, beta))) .*
                                             abs.(gbest["pos"] .- particle_worker[i]["pos"])
 
                 particle_worker[i]["pos"] = min.(max.(particle_worker[i]["pos"], lb), ub)
@@ -100,7 +100,7 @@ function TLCO(objfun, lb::Vector{Float64}, ub::Vector{Float64}, npop::Integer, c
 
             if i > round(0.7 * npop) && i <= npop
                 particle_soldier[i]["pos"] = 2 * rand() * gbest["pos"] .+
-                                             (-1 + 2 * rand()) .* abs.(particle_soldier[i]["pos"] .- levy(1, dim, beta) .* gbest["pos"])
+                                             (-1 + 2 * rand()) .* abs.(particle_soldier[i]["pos"] .- vec(levy(1, dim, beta)) .* gbest["pos"])
 
                 particle_soldier[i]["pos"] = min.(max.(particle_soldier[i]["pos"], lb), ub)
 

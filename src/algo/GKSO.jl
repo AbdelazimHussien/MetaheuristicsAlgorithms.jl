@@ -17,7 +17,7 @@ function GKSO(objfun, lb::Vector{Float64}, ub::Vector{Float64}, npop::Integer, m
 
     PopPos = zeros(npop, dim)
     PopFit = zeros(npop)
-    PopPos[i, :] = initialization(npop, dim, ub, lb)
+    PopPos = initialization(npop, dim, ub, lb)
     for i = 1:npop
         # PopPos[i, :] = rand(dim) .* (ub - lb) + lb
         PopFit[i] = objfun(vec(PopPos[i, :]'))

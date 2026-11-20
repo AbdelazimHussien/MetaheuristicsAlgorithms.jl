@@ -112,16 +112,16 @@ function APO(objfun, lb::Vector{Float64}, ub::Vector{Float64}, npop::Integer, ma
                     end
                     flag = [1, -1]  # Plus-minus
                     Flag = flag[rand(1:2)]
-                    Xnear = (1 + Flag * rand(1:dim) * (1 - iter / max_iter)) .* protozoa[i, :]
+                    Xnear = (1 .+ Flag * rand(dim) * (1 - iter / max_iter)) .* protozoa[i, :]
                     newprotozoa[i, :] .= protozoa[i, :] + f * (Xnear .- protozoa[i, :] .+ (1 / np) * vec(sum(epn, dims=1))) .* Mf
                 end
             end
         end
 
         # Enforce bounds
-        newprotozoa .= ((newprotozoa .>= lb) .& (newprotozoa .<= ub)) .* newprotozoa .+
-                       (newprotozoa .< lb) .* lb .+
-                       (newprotozoa .> ub) .* ub
+        newprotozoa .= ((newprotozoa .>= lb') .& (newprotozoa .<= ub')) .* newprotozoa .+
+                       (newprotozoa .< lb') .* lb' .+
+                       (newprotozoa .> ub') .* ub'
 
         newprotozoa_Fit = objfun.(eachrow(newprotozoa))
 
@@ -137,8 +137,8 @@ function APO(objfun, lb::Vector{Float64}, ub::Vector{Float64}, npop::Integer, ma
 
     # return bestFit, bestProtozoa, f_out_convergence
     return OptimizationResult(
-        bestFit,
         bestProtozoa,
+        bestFit,
         f_out_convergence)
 end
 

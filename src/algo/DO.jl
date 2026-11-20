@@ -61,7 +61,7 @@ function DO(objfun, lb::Vector{Float64}, ub::Vector{Float64}, npop::Integer, max
             end
         end
         dandelions .= dandelions_1
-        dandelions = clamp.(dandelions, lb, ub)
+        dandelions = clamp.(dandelions, lb', ub')
 
         dandelions_mean = sum(dandelions, dims=1) ./ npop
         dandelions_2 = copy(dandelions)
@@ -71,7 +71,7 @@ function DO(objfun, lb::Vector{Float64}, ub::Vector{Float64}, npop::Integer, max
             end
         end
         dandelions .= dandelions_2
-        dandelions = clamp.(dandelions, lb, ub)
+        dandelions = clamp.(dandelions, lb', ub')
 
         # Step_length = levyF(npop, dim, 1.5)
         Step_length = levy(npop, dim, 1.5)
@@ -83,7 +83,7 @@ function DO(objfun, lb::Vector{Float64}, ub::Vector{Float64}, npop::Integer, max
             end
         end
         dandelions .= dandelions_3
-        dandelions = clamp.(dandelions, lb, ub)
+        dandelions = clamp.(dandelions, lb', ub')
 
         for i = 1:npop
             dandelionsFitness[i] = objfun(dandelions[i, :])

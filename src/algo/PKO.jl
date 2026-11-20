@@ -17,7 +17,7 @@ function PKO(objfun, lb::Vector{Float64}, ub::Vector{Float64}, npop::Integer, ma
     X = initialization(npop, dim, ub, lb)
 
     Fitness = zeros(npop)
-    Convergence_curve = zeros(max_iter, 1)
+    Convergence_curve = zeros(max_iter)
 
     for i = 1:npop
         Fitness[i] = objfun(X[i, :])
@@ -62,7 +62,7 @@ function PKO(objfun, lb::Vector{Float64}, ub::Vector{Float64}, npop::Integer, ma
 
             FU = X_1 .> ub
             FL = X_1 .< lb
-            X_1 = (X_1 .* .~(FU .+ FL)) + ub .* FU + lb .* FL
+            X_1 = (X_1 .* .~(FU .| FL)) + ub .* FU + lb .* FL
 
             fitnessn = objfun(X_1)
 
@@ -89,7 +89,7 @@ function PKO(objfun, lb::Vector{Float64}, ub::Vector{Float64}, npop::Integer, ma
 
             FU = X_1 .> ub
             FL = X_1 .< lb
-            X_1 = (X_1 .* .~(FU .+ FL)) + ub .* FU + lb .* FL
+            X_1 = (X_1 .* .~(FU .| FL)) + ub .* FU + lb .* FL
 
             fitnessn = objfun(X_1)
 

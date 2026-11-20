@@ -46,7 +46,7 @@ function THRO(objfun, lb::Vector{Float64}, ub::Vector{Float64}, npop::Integer, m
     His_BestFit = zeros(max_iter)
 
     for It = 1:max_iter
-        Rand_npop = randperm(npop)
+        Rand_npop = randperm(2 * nPop)
         PopPos = vcat(Tianji_PopPos, King_PopPos)
         PopFit = vcat(Tianji_PopFit, King_PopFit)
 
@@ -85,8 +85,8 @@ function THRO(objfun, lb::Vector{Float64}, ub::Vector{Float64}, npop::Integer, m
             T_Beta = round(Int, 0.5 * (0.1 + rand())) * randn()
             King_Alpha = 1 + round(Int, 0.5 * (0.5 + rand())) * randn()
             K_Beta = round(Int, 0.5 * (0.1 + rand())) * randn()
-            Tianji_R = Levy(1) .* T_B[i, :]
-            King_R = Levy(1) .* K_B[i, :]
+            Tianji_R = levy(1) .* T_B[i, :]
+            King_R = levy(1) .* K_B[i, :]
 
             # Scenario 1
             if Tianji_PopFit[Tianji_SlowestId] < King_PopFit[King_SlowestId]
@@ -96,7 +96,7 @@ function THRO(objfun, lb::Vector{Float64}, ub::Vector{Float64}, npop::Integer, m
                     (
                         (p .* Tianji_SlowestPos .+ (1 - p) .* Tianji_PopPos[1, :]) .+
                         Tianji_R .*
-                        (Tianji_PopPos[1, :] .- Tianji_SlowestPos .+ p .* (mean(Tianji_PopPos, dims=1) .- mean(King_PopPos, dims=1)))
+                        (Tianji_PopPos[1, :] .- Tianji_SlowestPos .+ p .* (vec(mean(Tianji_PopPos, dims=1)) .- vec(mean(King_PopPos, dims=1))))
                     ) .* Tianji_Alpha .+ T_Beta
                 # Tianji_newPopPos = SpaceBound(Tianji_newPopPos, ub, lb)
                 Tianji_newPopPos = clamp.(Tianji_newPopPos, lb, ub)
@@ -109,7 +109,7 @@ function THRO(objfun, lb::Vector{Float64}, ub::Vector{Float64}, npop::Integer, m
 
                 King_newPopPos =
                     ((p .* King_SlowestPos .+ (1 - p) .* Tianji_SlowestPos) .+ King_R .*
-                                                                               (Tianji_SlowestPos .- King_SlowestPos .+ p .* (mean(Tianji_PopPos, dims=1) .- mean(King_PopPos, dims=1)))) .*
+                                                                               (Tianji_SlowestPos .- King_SlowestPos .+ p .* (vec(mean(Tianji_PopPos, dims=1)) .- vec(mean(King_PopPos, dims=1))))) .*
                     King_Alpha .+ K_Beta
                 # King_newPopPos = SpaceBound(King_newPopPos, ub, lb)
                 King_newPopPos = clamp.(King_newPopPos, lb, ub)
@@ -133,7 +133,7 @@ function THRO(objfun, lb::Vector{Float64}, ub::Vector{Float64}, npop::Integer, m
                         (
                             (p .* Tianji_SlowestPos .+ (1 - p) .* Tianji_PopPos[Tr1, :]) .+
                             Tianji_R .*
-                            (Tianji_PopPos[Tr1, :] .- Tianji_SlowestPos .+ p .* (mean(Tianji_PopPos, dims=1) .- mean(King_PopPos, dims=1)))
+                            (Tianji_PopPos[Tr1, :] .- Tianji_SlowestPos .+ p .* (vec(mean(Tianji_PopPos, dims=1)) .- vec(mean(King_PopPos, dims=1))))
                         ) .* Tianji_Alpha .+ T_Beta
                     # Tianji_newPopPos = SpaceBound(Tianji_newPopPos, ub, lb)
                     Tianji_newPopPos = clamp.(Tianji_newPopPos, lb, ub)
@@ -149,7 +149,7 @@ function THRO(objfun, lb::Vector{Float64}, ub::Vector{Float64}, npop::Integer, m
                         (
                             (p .* King_FastestPos .+ (1 - p) .* King_PopPos[1, :]) .+
                             King_R .*
-                            (King_PopPos[1, :] .- King_FastestPos .+ p .* (mean(Tianji_PopPos, dims=1) .- mean(King_PopPos, dims=1)))
+                            (King_PopPos[1, :] .- King_FastestPos .+ p .* (vec(mean(Tianji_PopPos, dims=1)) .- vec(mean(King_PopPos, dims=1))))
                         ) .* King_Alpha .+ K_Beta
                     # King_newPopPos = SpaceBound(King_newPopPos, ub, lb)
                     King_newPopPos = clamp.(King_newPopPos, lb, ub)
@@ -172,7 +172,7 @@ function THRO(objfun, lb::Vector{Float64}, ub::Vector{Float64}, npop::Integer, m
                             (
                                 (p .* Tianji_FastestPos .+ (1 - p) .* Tianji_PopPos[1, :]) .+
                                 Tianji_R .*
-                                (Tianji_PopPos[1, :] .- Tianji_FastestPos .+ p .* (mean(Tianji_PopPos, dims=1) .- mean(King_PopPos, dims=1)))
+                                (Tianji_PopPos[1, :] .- Tianji_FastestPos .+ p .* (vec(mean(Tianji_PopPos, dims=1)) .- vec(mean(King_PopPos, dims=1))))
                             ) .* Tianji_Alpha .+ T_Beta
                         # Tianji_newPopPos = SpaceBound(Tianji_newPopPos, ub, lb)
                         Tianji_newPopPos = clamp.(Tianji_newPopPos, lb, ub)
@@ -187,7 +187,7 @@ function THRO(objfun, lb::Vector{Float64}, ub::Vector{Float64}, npop::Integer, m
                             (
                                 (p .* King_FastestPos .+ (1 - p) .* King_PopPos[1, :]) .+
                                 King_R .*
-                                (King_PopPos[1, :] .- King_FastestPos .+ p .* (mean(Tianji_PopPos, dims=1) .- mean(King_PopPos, dims=1)))
+                                (King_PopPos[1, :] .- King_FastestPos .+ p .* (vec(mean(Tianji_PopPos, dims=1)) .- vec(mean(King_PopPos, dims=1))))
                             ) .* King_Alpha .+ K_Beta
                         # King_newPopPos = SpaceBound(King_newPopPos, ub, lb)
                         King_newPopPos = clamp.(King_newPopPos, lb, ub)
@@ -209,7 +209,7 @@ function THRO(objfun, lb::Vector{Float64}, ub::Vector{Float64}, npop::Integer, m
                                 (
                                     (p .* King_SlowestPos .+ (1 - p) .* King_PopPos[1, :]) .+
                                     King_R .*
-                                    (King_PopPos[1, :] .- King_SlowestPos .+ p .* (mean(Tianji_PopPos, dims=1) .- mean(King_PopPos, dims=1)))
+                                    (King_PopPos[1, :] .- King_SlowestPos .+ p .* (vec(mean(Tianji_PopPos, dims=1)) .- vec(mean(King_PopPos, dims=1))))
                                 ) .* King_Alpha .+ K_Beta
                             # King_newPopPos = SpaceBound(King_newPopPos, ub, lb)
                             King_newPopPos = clamp.(King_newPopPos, lb, ub)
@@ -224,7 +224,7 @@ function THRO(objfun, lb::Vector{Float64}, ub::Vector{Float64}, npop::Integer, m
                                 (
                                     (p .* Tianji_FastestPos .+ (1 - p) .* Tianji_PopPos[1, :]) .+
                                     Tianji_R .*
-                                    (Tianji_PopPos[1, :] .- Tianji_FastestPos .+ p .* (mean(Tianji_PopPos, dims=1) .- mean(King_PopPos, dims=1)))
+                                    (Tianji_PopPos[1, :] .- Tianji_FastestPos .+ p .* (vec(mean(Tianji_PopPos, dims=1)) .- vec(mean(King_PopPos, dims=1))))
                                 ) .* Tianji_Alpha .+ T_Beta
                             # Tianji_newPopPos = SpaceBound(Tianji_newPopPos, ub, lb)
                             Tianji_newPopPos = clamp.(Tianji_newPopPos, lb, ub)
@@ -262,9 +262,17 @@ function THRO(objfun, lb::Vector{Float64}, ub::Vector{Float64}, npop::Integer, m
 
     # return BestFit, BestX, His_BestFit
     return OptimizationResult(
-        BestFit,
         BestX,
+        BestFit,
         His_BestFit)
+end
+
+function THRO(objfun, lb::Real, ub::Real, npop::Integer, max_iter::Integer, dim::Integer)::OptimizationResult
+    return THRO(objfun, fill(lb, dim), fill(ub, dim), npop, max_iter)
+end
+
+function THRO(problem::OptimizationProblem, npop::Integer=30, max_iter::Integer=1000)::OptimizationResult
+    return THRO(problem.objfun, problem.lb, problem.ub, npop, max_iter)
 end
 
 # function Levy(d)

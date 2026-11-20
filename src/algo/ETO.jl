@@ -50,11 +50,11 @@ function ETO(objfun, lb::Vector{Float64}, ub::Vector{Float64}, npop::Integer, ma
                     UB_2 = Destination_position[j] + (1 - t / max_iter) * abs(rand() * Destination_position[j] - Destination_position_second[j]) * rand()
                     LB_2 = Destination_position[j] - (1 - t / max_iter) * abs(rand() * Destination_position[j] - Destination_position_second[j]) * rand()
 
-                    if UB_2 > ub
-                        UB_2 = ub
+                    if UB_2 > ub[j]
+                        UB_2 = ub[j]
                     end
-                    if LB_2 < lb
-                        LB_2 = lb
+                    if LB_2 < lb[j]
+                        LB_2 = lb[j]
                     end
 
                     X = initialization(npop, dim, UB_2, LB_2)
@@ -107,7 +107,7 @@ function ETO(objfun, lb::Vector{Float64}, ub::Vector{Float64}, npop::Integer, ma
         end
 
         for i = 1:npop
-            X[i, :] = clamp.(X[i, :], LB_2, UB_2)
+            X[i, :] = clamp.(clamp.(X[i, :], LB_2, UB_2), lb, ub)
             Objective_values[i] = objfun(X[i, :])
 
             if Objective_values[i] < Destination_fitness

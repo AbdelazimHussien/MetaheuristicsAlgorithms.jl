@@ -24,7 +24,7 @@ function DDAO(objfun, lb::Vector{Float64}, ub::Vector{Float64}, npop::Integer, m
 
     for i = 1:npop
         # pop[i]["Phase"] = lb .+ rand(VarLength) .* (ub - lb)
-        pop[i]["Phase"] = initialization(1, dim, ub, lb)
+        pop[i]["Phase"] = vec(initialization(1, dim, ub, lb))
 
         pop[i]["Cost"] = objfun(pop[i]["Phase"])
 
@@ -78,6 +78,8 @@ function DDAO(objfun, lb::Vector{Float64}, ub::Vector{Float64}, npop::Integer, m
                 BestSol = deepcopy(pop[i])
             end
         end
+
+        BestCost[t] = BestSol["Cost"]
 
         T *= alpha
     end

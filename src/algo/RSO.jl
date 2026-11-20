@@ -24,7 +24,7 @@ function RSO(objfun, lb::Vector{Float64}, ub::Vector{Float64}, npop::Integer, ma
     while l < max_iter
         # Flag4Upper_bound = Positions .> ub
         # Flag4Lower_bound = Positions .< lb
-        Positions .= max.(lb, min.(Positions, ub))  # Clamp values between bounds
+        Positions .= max.(lb', min.(Positions, ub'))  # Clamp values between bounds
 
         fitness_values = [objfun(Positions[i, :]) for i in axes(Positions, 1)]
 

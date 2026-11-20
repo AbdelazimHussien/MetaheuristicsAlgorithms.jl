@@ -33,11 +33,11 @@ function TTAO(objfun, lb::Vector{Float64}, ub::Vector{Float64}, npop::Integer, m
             X3[i, :] = X1[i, :] .+ l .* h2
         end
 
-        X2 = clamp.(X2, lb, ub)
-        X3 = clamp.(X3, lb, ub)
+        X2 = clamp.(X2, lb', ub')
+        X3 = clamp.(X3, lb', ub')
         r1, r2 = rand(), rand()
         X4 = r1 .* X1 .+ r2 .* X2 .+ (1 - r1 - r2) .* X3
-        X4 = clamp.(X4, lb, ub)
+        X4 = clamp.(X4, lb', ub')
 
         X1_fit = [objfun(X1[i, :]) for i = 1:N]
         X2_fit = [objfun(X2[i, :]) for i = 1:N]
@@ -97,7 +97,7 @@ function TTAO(objfun, lb::Vector{Float64}, ub::Vector{Float64}, npop::Integer, m
 
         N00 = npop - N * 3
         if N00 > 0
-            X00 = rand(N00, dim) .* (ub - lb) .+ lb
+            X00 = rand(N00, dim) .* (ub - lb)' .+ lb'
             X00_fit = [objfun(X00[i, :]) for i = 1:N00]
 
             X_1_0 = vcat(X_best_1, X00)

@@ -17,7 +17,7 @@ function ParrotO(objfun, lb::Vector{Float64}, ub::Vector{Float64}, npop::Integer
     end
 
     X0 = initialization(npop, dim, ub, lb)
-    X = X0
+    X = copy(X0)
 
     fitness = zeros(npop)
     for i = 1:npop
@@ -39,7 +39,7 @@ function ParrotO(objfun, lb::Vector{Float64}, ub::Vector{Float64}, npop::Integer
         alpha = rand() / 5
         sita = rand() * π
 
-        for i in axes(X, 1)
+        for j in axes(X, 1)
             St = rand(1:4)
 
             if St == 1

@@ -26,7 +26,7 @@ function WO(objfun, lb::Vector{Float64}, ub::Vector{Float64}, npop::Integer, max
     Second_Pos = zeros(Float64, dim)
     best_score = Inf
     Second_Score = Inf
-    GBestX = repeat(best_pos, npop, 1)
+    GBestX = repeat(best_pos', npop, 1)
 
 
     X = initialization(npop, dim, ub, lb)
@@ -84,7 +84,7 @@ function WO(objfun, lb::Vector{Float64}, ub::Vector{Float64}, npop::Integer, max
                     X[i, :] .= m1
                 end
                 for j in M_number + 1:M_number + F_number
-                    X[j, :] .= X[j, :] .+ Alpha .* (X[i, :] .- X[j, :]) .+ (1 .- Alpha) .* (GBestX[j, :] .- X[j, :])
+                    X[j, :] .= X[j, :] .+ Alpha .* (X[M_number, :] .- X[j, :]) .+ (1 .- Alpha) .* (GBestX[j, :] .- X[j, :])
                 end
                 for i in npop - C_number + 1:npop
                     P = rand()
@@ -130,7 +130,7 @@ function WO(objfun, lb::Vector{Float64}, ub::Vector{Float64}, npop::Integer, max
 end
 
 function WO(problem::OptimizationProblem, npop::Integer=30, max_iter::Integer=1000)
-    return WO(npop, max_iter, problem.lb, problem.ub, problem.dim, problem.objfun)
+    return WO(problem.objfun, problem.lb, problem.ub, npop, max_iter)
 end
 function hal(index, base)
     result = 0.0

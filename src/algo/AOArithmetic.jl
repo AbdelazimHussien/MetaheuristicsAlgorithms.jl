@@ -109,8 +109,8 @@ function AOArithmetic(objfun, lb::Vector{Float64}, ub::Vector{Float64}, npop::In
 
     # return Best_FF, Best_P, Conv_curve
     return OptimizationResult(
-        Best_FF,
         Best_P,
+        Best_FF,
         Conv_curve)
 end
 

@@ -43,9 +43,9 @@ function WHO(objfun, lb::Vector{Float64}, ub::Vector{Float64}, npop::Integer, ma
     gBest = zeros(dim)
     gBestScore = Inf
 
-    group = [Dict("pos" => lb .+ rand(dim) .* (ub .- lb), "cost" => objfun(lb .+ rand(dim) .* (ub .- lb))) for _ = 1:Nfoal]
+    group = [(pos = lb .+ rand(dim) .* (ub .- lb); Dict("pos" => pos, "cost" => objfun(pos))) for _ = 1:Nfoal]
 
-    Stallion = [Dict("pos" => lb .+ rand(dim) .* (ub .- lb), "cost" => objfun(lb .+ rand(dim) .* (ub .- lb)), "group" => []) for _ = 1:NStallion]
+    Stallion = [(pos = lb .+ rand(dim) .* (ub .- lb); Dict("pos" => pos, "cost" => objfun(pos), "group" => [])) for _ = 1:NStallion]
 
     group = shuffle(group)
     i = 0
@@ -61,7 +61,7 @@ function WHO(objfun, lb::Vector{Float64}, ub::Vector{Float64}, npop::Integer, ma
 
     Stallion = exchange(Stallion)
     idx = argmin([s["cost"] for s in Stallion])
-    WH = Stallion[idx]
+    WH = deepcopy(Stallion[idx])
     gBest = WH["pos"]
     gBestScore = WH["cost"]
     convergence_curve[1] = WH["cost"]
@@ -118,7 +118,7 @@ function WHO(objfun, lb::Vector{Float64}, ub::Vector{Float64}, npop::Integer, ma
         Stallion = exchange(Stallion)
         idx = argmin([s["cost"] for s in Stallion])
         if Stallion[idx]["cost"] < WH["cost"]
-            WH = Stallion[idx]
+            WH = deepcopy(Stallion[idx])
         end
 
         gBest = WH["pos"]
@@ -136,5 +136,5 @@ function WHO(objfun, lb::Vector{Float64}, ub::Vector{Float64}, npop::Integer, ma
 end
 
 function WHO(problem::OptimizationProblem, npop::Integer=30, max_iter::Integer=1000)
-    return WHO(npop, max_iter, problem.lb, problem.ub, problem.dim, problem.objfun)
+    return WHO(problem.objfun, problem.lb, problem.ub, npop, max_iter)
 end

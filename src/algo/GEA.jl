@@ -22,10 +22,11 @@ function GEA(objfun, lb::Vector{Float64}, ub::Vector{Float64}, npop::Integer, ma
         Costs[i] = objfun(Positions[i, :])
     end
     BestCost = minimum(Costs)
-    BestPosition = Positions[argmin(Costs)]
+    BestPosition = Positions[argmin(Costs), :]
     BestCosts = zeros(FEs)
 
     it = npop
+    BestCosts[it] = BestCost
 
     while it < FEs
         for i = 1:npop
@@ -70,11 +71,15 @@ function GEA(objfun, lb::Vector{Float64}, ub::Vector{Float64}, npop::Integer, ma
 
             if flag == 0
                 i2 = RouletteWheelSelectionFun(1 .- p)
-                newsol_Position = Positions[i2, :] .+ rand() * (P_i - rand()) .* rand(dim) * (ub - lb) .+ lb
+                newsol_Position = Positions[i2, :] .+ rand() * (P_i - rand()) .* (rand(dim) .* (ub - lb) .+ lb)
                 newsol_Position = max.(newsol_Position, lb)
                 newsol_Position = min.(newsol_Position, ub)
                 newsol_Cost = objfun(newsol_Position)
                 it += 1
+
+                if it > FEs
+                    break
+                end
 
                 if newsol_Cost <= Costs[i]
                     Positions[i, :] = newsol_Position
@@ -96,7 +101,7 @@ function GEA(objfun, lb::Vector{Float64}, ub::Vector{Float64}, npop::Integer, ma
     return OptimizationResult(
         BestPosition,
         BestCost,
-        BestCosts)
+        BestCosts[npop:npop:FEs])
 end
 
 function GEA(problem::OptimizationProblem, npop::Integer=30, max_iter::Integer=1000)::OptimizationResult

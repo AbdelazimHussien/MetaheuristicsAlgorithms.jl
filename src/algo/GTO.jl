@@ -28,8 +28,8 @@ function GTO(objfun, lb::Vector{Float64}, ub::Vector{Float64}, npop::Integer, ma
     end
 
     GX = copy(X)
-    lb = ones(dim) * lb
-    ub = ones(dim) * ub
+    lb = ones(dim) .* lb
+    ub = ones(dim) .* ub
 
     p = 0.03
     Beta = 3
@@ -53,7 +53,7 @@ function GTO(objfun, lb::Vector{Float64}, ub::Vector{Float64}, npop::Integer, ma
             end
         end
 
-        GX .= clamp.(GX, lb, ub)
+        GX .= clamp.(GX, lb', ub')
 
         for i = 1:npop
             New_Fit = objfun(GX[i, :])
@@ -73,13 +73,13 @@ function GTO(objfun, lb::Vector{Float64}, ub::Vector{Float64}, npop::Integer, ma
                 delta = (abs.(mean(GX, dims=1)) .^ g) .^ (1 / g)
                 GX[i, :] .= C * delta[1, :] .* (X[i, :] .- Silverback) .+ X[i, :]
             else
-                h = rand() >= 0.5 ? randn() : randn()
+                h = rand() >= 0.5 ? randn(dim) : randn()
                 r1 = rand()
                 GX[i, :] .= Silverback .- (Silverback .* (2 * r1 - 1) .- X[i, :] .* (2 * r1 - 1)) .* (Beta * h)
             end
         end
 
-        GX .= clamp.(GX, lb, ub)
+        GX .= clamp.(GX, lb', ub')
 
         for i = 1:npop
             New_Fit = objfun(GX[i, :])

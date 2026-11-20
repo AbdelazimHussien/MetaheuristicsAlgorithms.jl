@@ -47,7 +47,7 @@ function AEFA(objfun, lb::Vector{Float64}, ub::Vector{Float64}, npop::Integer, m
         Fmean = mean(fitness)
 
         if Fmax == Fmin
-            Q = ones(N)
+            Q = ones(npop)
         else
             best_f = tag == 1 ? Fmin : Fmax
             worst_f = tag == 1 ? Fmax : Fmin
@@ -83,7 +83,7 @@ function AEFA(objfun, lb::Vector{Float64}, ub::Vector{Float64}, npop::Integer, m
         V = rand(npop, dim) .* V .+ a
         X = X .+ V
 
-        X = clamp.(X, lb, ub)
+        X = clamp.(X, lb', ub')
 
         # Plotting
         # if D >= 2
@@ -99,11 +99,11 @@ function AEFA(objfun, lb::Vector{Float64}, ub::Vector{Float64}, npop::Integer, m
 
     println("Fbest ", Fbest)
     println("Lbest ", Lbest)
-    return Fbest, Lbest, BestValues, MeanValues
-    # return OptimizationResult(
-    #     Lbest,
-    #     Fbest,
-    #     BestValues)
+    # return Fbest, Lbest, BestValues, MeanValues
+    return OptimizationResult(
+        Lbest,
+        Fbest,
+        BestValues)
 end
 
 function AEFA(problem::OptimizationProblem, npop::Integer=30, max_iter::Integer=1000)#::OptimizationResult

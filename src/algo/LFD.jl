@@ -12,12 +12,12 @@ end
 function LFD(objfun, lb::Vector{Float64}, ub::Vector{Float64}, npop::Integer, max_iter::Integer)
     dim = length(lb)
     threshold = 2
-    lb = lb * ones(dim)
-    ub = ub * ones(dim)
+    lb = lb .* ones(dim)
+    ub = ub .* ones(dim)
 
     if size(ub, 1) == 1
-        ub = ones(dim) * ub
-        lb = ones(dim) * lb
+        ub = ones(dim) .* ub
+        lb = ones(dim) .* lb
     end
 
     Positions = initialization(npop, dim, ub, lb)
@@ -44,7 +44,7 @@ function LFD(objfun, lb::Vector{Float64}, ub::Vector{Float64}, npop::Integer, ma
 
     while l <= max_iter
         for i in axes(Positions, 1)
-            Positions[i, :] .= max.(lb[dim], min.(Positions[i, :], ub[dim]))
+            Positions[i, :] .= max.(lb, min.(Positions[i, :], ub))
 
             S_i = zeros(dim)
             NeighborN = 0
@@ -65,7 +65,7 @@ function LFD(objfun, lb::Vector{Float64}, ub::Vector{Float64}, npop::Integer, ma
                         if R < CSV
                             rand_leader_index = rand(1:npop)
                             X_rand = Positions[rand_leader_index, :]
-                            Positions_temp[j, :] = levy(Positions[j, :], X_rand, dim)
+                            Positions_temp[j, :] = Positions[j, :] .+ 0.01 .* levy(dim) .* (Positions[j, :] .- X_rand) .* rand(dim)
                         else
                             Positions_temp[j, :] = lb[1] .+ rand(1, dim) .* (ub[1] - lb[1])
                         end
@@ -84,7 +84,7 @@ function LFD(objfun, lb::Vector{Float64}, ub::Vector{Float64}, npop::Integer, ma
             rand_leader_index = rand(1:floor(Int(npop)))
             X_rand = Positions[rand_leader_index, :]
             X_new = TargetPosition + 10 * S_i_total + rand() * 0.00005 * ((TargetPosition + 0.005 * X_rand) / 2 - Positions[i, :])
-            X_new = levy(X_new, TargetPosition, dim)
+            X_new = X_new .+ 0.01 .* levy(dim) .* (X_new .- TargetPosition) .* rand(dim)
             Positions_temp[i, :] = X_new
             NN[i] = NeighborN
         end
@@ -92,6 +92,7 @@ function LFD(objfun, lb::Vector{Float64}, ub::Vector{Float64}, npop::Integer, ma
         Positions .= Positions_temp
 
         for i in axes(Positions, 1)
+            Positions[i, :] .= max.(lb, min.(Positions[i, :], ub))
             PositionsFitness[i] = objfun(Positions[i, :])
         end
 

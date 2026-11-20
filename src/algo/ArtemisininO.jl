@@ -13,7 +13,7 @@ end
 
 function Transborder_reset(z, ub, lb, dim, best)
     for j = 1:dim
-        if z[j] > ub || z[j] < lb
+        if z[j] > ub[j] || z[j] < lb[j]
             z[j] = best[j]
         end
     end
@@ -51,7 +51,7 @@ function ArtemisininO(objfun, lb::Vector{Float64}, ub::Vector{Float64}, npop::In
     # Containers
     New_pop = zeros(npop, dim)
     Fitnorm = zeros(npop)
-    Convergence_curve = []
+    Convergence_curve = [fmin]
 
     # Record the current optimal solution
     best = pop[x, :]

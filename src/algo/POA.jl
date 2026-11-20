@@ -11,8 +11,8 @@ end
 
 function POA(objfun, lb::Vector{Float64}, ub::Vector{Float64}, npop::Integer, max_iter::Integer)
     dim = length(lb)
-    lb = ones(dim) * lb
-    ub = ones(dim) * ub
+    lb = ones(dim) .* lb
+    ub = ones(dim) .* ub
 
     X = initialization(npop, dim, ub, lb)
 

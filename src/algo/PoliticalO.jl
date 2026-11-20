@@ -21,14 +21,14 @@ function PoliticalO(objfun, lb::Vector{Float64}, ub::Vector{Float64}, npop::Inte
     Leader_score = Inf
 
     Positions = initialization(npop, dim, ub, lb)
-    auxPositions = Positions
+    auxPositions = copy(Positions)
     prevPositions = Positions
-    Convergence_curve = zeros(1, max_iter)
+    Convergence_curve = zeros(max_iter)
     fitness = zeros(npop, 1)
 
     Positions, fitness, Leader_score, Leader_pos = Election(Positions, fitness, Leader_score, Leader_pos, ub, lb, objfun)
 
-    auxFitness = fitness
+    auxFitness = copy(fitness)
     prevFitness = fitness
     aWinnerInd, aWinners, pLeaderInd, pLeaders = GovernmentFormation(Positions, fitness, areas, parties, dim)
 
@@ -36,8 +36,8 @@ function PoliticalO(objfun, lb::Vector{Float64}, ub::Vector{Float64}, npop::Inte
     while t < max_iter
         prevFitness = auxFitness
         prevPositions = auxPositions
-        auxFitness = fitness
-        auxPositions = Positions
+        auxFitness = copy(fitness)
+        auxPositions = copy(Positions)
 
         ElectionCampaign!(Positions, prevPositions, fitness, prevFitness, pLeaders, aWinners, areas, parties, dim)
         PartySwitching!(Positions, fitness, parties, areas, lambda, t, max_iter)

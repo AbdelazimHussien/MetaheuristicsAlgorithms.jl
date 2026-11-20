@@ -12,7 +12,7 @@ end
 function MRFO(objfun, lb::Vector{Float64}, ub::Vector{Float64}, npop::Integer, max_iter::Integer)
     dim = length(lb)
     # PopPos = [rand(dim) .* (ub - lb) .+ lb for _ = 1:npop]
-    PopPos = initialization(npop, dim, lb, ub)
+    PopPos = collect.(eachrow(initialization(npop, dim, lb, ub)))
     PopFit = [objfun(PopPos[i]) for i = 1:npop]
 
     BestF = Inf

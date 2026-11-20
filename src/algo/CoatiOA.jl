@@ -24,7 +24,7 @@ function CoatiOA(objfun, lb::Vector{Float64}, ub::Vector{Float64}, npop::Integer
     Xbest = zeros(dim)
     fbest = Inf
 
-    best_so_far = 0
+    best_so_far = zeros(max_iter)
 
     for t = 1:max_iter
         best, location = findmin(fit)
@@ -86,7 +86,7 @@ function CoatiOA(objfun, lb::Vector{Float64}, ub::Vector{Float64}, npop::Integer
             end
         end
 
-        best_so_far = fbest
+        best_so_far[t] = fbest
         average = mean(fit)
     end
 

@@ -46,7 +46,7 @@ function YDSE(objfun, lb::Vector{Float64}, ub::Vector{Float64}, npop::Integer, m
         X[i, :] = (FS[i, :] .+ SS[i, :]) ./ 2 .+ Delta_L
     end
 
-    X .= clamp.(X, lb, ub)
+    X .= clamp.(X, lb', ub')
 
     for i = 1:npop
         Fringes_fitness[i] = objfun(X[i, :])

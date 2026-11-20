@@ -122,7 +122,7 @@ function AHA(objfun, lb::Vector{Float64}, ub::Vector{Float64}, npop::Integer, ma
 
         if It % (2 * npop) == 0
             _, MigrationIndex = findmax(PopFit)
-            PopPos[MigrationIndex, :] = rand(1, dim) .* (ub .- lb) .+ lb
+            PopPos[MigrationIndex, :] = rand(dim) .* (ub .- lb) .+ lb
             PopFit[MigrationIndex] = objfun(PopPos[MigrationIndex, :])
             VisitTable[MigrationIndex, :] .+= 1
             VisitTable[:, MigrationIndex] .= maximum(VisitTable, dims=2) .+ 1

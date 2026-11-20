@@ -55,7 +55,7 @@ function WSO(objfun, lb::Vector{Float64}, ub::Vector{Float64}, whiteSharks::Inte
             a = sign.(WSO_Positions[i, :] .- ub) .> 0
             b = sign.(WSO_Positions[i, :] .- lb) .< 0
 
-            wo = .~(a .& b)
+            wo = xor.(a, b)
 
             if rand() < mv
                 WSO_Positions[i, :] = WSO_Positions[i, :] .* .!wo + ub .* a + lb .* b
@@ -91,7 +91,7 @@ function WSO(objfun, lb::Vector{Float64}, ub::Vector{Float64}, whiteSharks::Inte
 
                 if fitness[i] < fmin0
                     fmin0 = fitness[i]
-                    gbest = copy(wbest[index, :])
+                    gbest = copy(wbest[i, :])
                 end
             end
         end

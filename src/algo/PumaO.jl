@@ -124,7 +124,8 @@ function PumaO(objfun, lb::Vector{Float64}, ub::Vector{Float64}, npop::Integer, 
 
     Sol = Vector{Any}(undef, npop)
     for i = 1:npop
-        Sol[i] = Dict(:X => initialization(1, dim, ub, lb), :Cost => objfun(rand(lb:ub, dim)))
+        Sol[i] = Dict(:X => vec(initialization(1, dim, ub, lb)), :Cost => Inf)
+        Sol[i][:Cost] = objfun(Sol[i][:X])
     end
 
     ind = argmin([s[:Cost] for s in Sol])
@@ -180,7 +181,7 @@ function PumaO(objfun, lb::Vector{Float64}, ub::Vector{Float64}, npop::Integer, 
         if Score_Explore > Score_Exploit
             SelectFlag = 1
             Sol = Exploration(Sol, lb, ub, dim, npop, objfun)
-            Count_select = UnSelected
+            Count_select = copy(UnSelected)
             UnSelected[2] += 1
             UnSelected[1] = 1
             F3_Explore = PF[3]
@@ -199,7 +200,7 @@ function PumaO(objfun, lb::Vector{Float64}, ub::Vector{Float64}, npop::Integer, 
         else
             SelectFlag = 2
             Sol = Exploitation(Sol, lb, ub, dim, npop, Best, max_iter, Iter, objfun)
-            Count_select = UnSelected
+            Count_select = copy(UnSelected)
             UnSelected[1] += 1
             UnSelected[2] = 1
             F3_Explore += PF[3]

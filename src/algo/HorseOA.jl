@@ -11,7 +11,7 @@ end
 
 function HorseOA(objfun, lb::Vector{Float64}, ub::Vector{Float64}, nHourse::Integer, max_iter::Integer)
     dim = length(lb)
-    VarSize = (1, dim)  # Size of Decision Variables Matrix
+    VarSize = dim  # Size of Decision Variables Matrix
 
     VelMax = 0.1 * (ub .- lb)
     VelMin = -VelMax
@@ -28,7 +28,7 @@ function HorseOA(objfun, lb::Vector{Float64}, ub::Vector{Float64}, nHourse::Inte
 
     for i = 1:nHourse
         # Hourse[i][:Position] = lb .+ (ub .- lb) .* rand(dim)
-        Hourse[i][:Position] = initialization(1, dim, ub, lb)
+        Hourse[i][:Position] = vec(initialization(1, dim, ub, lb))
 
         Hourse[i][:Velocity] = zeros(VarSize)
 
@@ -73,10 +73,10 @@ function HorseOA(objfun, lb::Vector{Float64}, ub::Vector{Float64}, nHourse::Inte
     r_Delta = 0.10
 
     for it = 1:max_iter
-        sort!(CostPositionCounter, dims=1)
+        CostPositionCounter = sortslices(CostPositionCounter, dims=1, by=r -> r[2])
         MeanPosition = mean(CostPositionCounter[1:nHourse, 2])
-        BadPosition = mean(CostPositionCounter[Int((1 - phiD) * nHourse):nHourse, 3])
-        GoodPosition = mean(CostPositionCounter[1:Int(phiI * nHourse), 3])
+        BadPosition = mean(CostPositionCounter[round(Int, (1 - phiD) * nHourse):nHourse, 3])
+        GoodPosition = mean(CostPositionCounter[1:max(1, round(Int, phiI * nHourse)), 3])
 
         for i = 1:nHourse
             CC = findfirst(x -> x == i, CostPositionCounter[:, 1])

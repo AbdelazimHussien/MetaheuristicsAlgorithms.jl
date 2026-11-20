@@ -22,8 +22,8 @@ function GazelleOA(objfun, lb::Vector{Float64}, ub::Vector{Float64}, npop::Integ
     gazelle = initialization(npop, dim, ub, lb)
     Prey_old = zeros(npop, dim)
 
-    lb = repeat([lb], npop) .* ones(npop, dim)
-    ub = repeat([ub], npop) .* ones(npop, dim)
+    Xmin = repeat(lb', npop)
+    Xmax = repeat(ub', npop)
 
     Iter = 0
     PSRs = 0.34
@@ -33,7 +33,7 @@ function GazelleOA(objfun, lb::Vector{Float64}, ub::Vector{Float64}, npop::Integ
         for i = 1:npop
             Flag4ub = gazelle[i, :] .> ub
             Flag4lb = gazelle[i, :] .< lb
-            gazelle[i, :] .= gazelle[i, :] .* .~(Flag4ub .+ Flag4lb) .+ ub .* Flag4ub .+ lb .* Flag4lb
+            gazelle[i, :] .= gazelle[i, :] .* .~(Flag4ub .| Flag4lb) .+ ub .* Flag4ub .+ lb .* Flag4lb
 
             fitness[i] = objfun(gazelle[i, :])
 
@@ -86,7 +86,7 @@ function GazelleOA(objfun, lb::Vector{Float64}, ub::Vector{Float64}, npop::Integ
         for i = 1:npop
             Flag4ub = gazelle[i, :] .> ub
             Flag4lb = gazelle[i, :] .< lb
-            gazelle[i, :] .= gazelle[i, :] .* .~(Flag4ub .+ Flag4lb) .+ ub .* Flag4ub .+ lb .* Flag4lb
+            gazelle[i, :] .= gazelle[i, :] .* .~(Flag4ub .| Flag4lb) .+ ub .* Flag4ub .+ lb .* Flag4lb
 
             fitness[i] = objfun(gazelle[i, :])
 
@@ -105,7 +105,7 @@ function GazelleOA(objfun, lb::Vector{Float64}, ub::Vector{Float64}, npop::Integ
 
         if rand() < PSRs
             U = rand(npop, dim) .< PSRs
-            gazelle .= gazelle .+ CF * ((lb .+ rand(npop, dim) .* (ub .- lb)) .* U)
+            gazelle .= gazelle .+ CF * ((Xmin .+ rand(npop, dim) .* (Xmax .- Xmin)) .* U)
         else
             r = rand()
             Rs = npop

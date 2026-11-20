@@ -33,7 +33,7 @@ function DMOA(objfun, lb::Vector{Float64}, ub::Vector{Float64}, npop::Integer, m
 
     for i = 1:nAlphaGroup
         # pop[i].Position = rand(VarSize) .* (ub .- lb) .+ lb
-        pop[i].Position = initialization(1, VarSize, ub, lb)
+        pop[i].Position = vec(initialization(1, VarSize, ub, lb))
         pop[i].Cost = objfun(pop[i].Position)
         if pop[i].Cost <= BestSol.Cost
             BestSol = pop[i]
@@ -64,7 +64,7 @@ function DMOA(objfun, lb::Vector{Float64}, ub::Vector{Float64}, npop::Integer, m
             phi = (peep / 2) * rand(VarSize) .* (2 .* rand(VarSize) .- 1)
 
             newpop = Mongoose(zeros(VarSize), Inf)
-            newpop.Position = pop[i].Position .+ phi .* (pop[i].Position .- pop[k].Position)
+            newpop.Position = clamp.(pop[i].Position .+ phi .* (pop[i].Position .- pop[k].Position), lb, ub)
 
             newpop.Cost = objfun(newpop.Position)
 
@@ -82,7 +82,7 @@ function DMOA(objfun, lb::Vector{Float64}, ub::Vector{Float64}, npop::Integer, m
             phi = (peep / 2) * rand(VarSize) .* (2 .* rand(VarSize) .- 1)
 
             newpop = Mongoose(zeros(VarSize), Inf)
-            newpop.Position = pop[i].Position .+ phi .* (pop[i].Position .- pop[k].Position)
+            newpop.Position = clamp.(pop[i].Position .+ phi .* (pop[i].Position .- pop[k].Position), lb, ub)
 
             newpop.Cost = objfun(newpop.Position)
 
@@ -97,7 +97,7 @@ function DMOA(objfun, lb::Vector{Float64}, ub::Vector{Float64}, npop::Integer, m
 
         for i = 1:nBabysitter
             if C[i] >= L
-                pop[i].Position = rand(VarSize) .* (ub .- lb) .+ lb
+                pop[i] = Mongoose(rand(VarSize) .* (ub .- lb) .+ lb, Inf)
                 pop[i].Cost = objfun(pop[i].Position)
                 C[i] = 0
             end

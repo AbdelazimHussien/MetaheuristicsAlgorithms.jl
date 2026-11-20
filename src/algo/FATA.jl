@@ -22,9 +22,9 @@ function FATA(objfun, lb::Vector{Float64}, ub::Vector{Float64}, npop::Integer, m
     fitness = fill(Inf, npop)
     it = 1
     FEs = 0
-    lb = fill(lb, dim)
-    ub = fill(ub, dim)
-    MaxFEs = max_iter * dim
+    lb = ones(dim) .* lb
+    ub = ones(dim) .* ub
+    MaxFEs = max_iter * npop
 
     while FEs < MaxFEs
         for i in axes(Flight, 1)

@@ -19,7 +19,7 @@ function PRO(objfun, lb::Vector{Float64}, ub::Vector{Float64}, npop::Integer, ma
 
     # pop = [Dict("Position" => rand(dim) .* (ub - lb) .+ lb,
     #     "Cost" => Inf) for _ = 1:npop]
-    pop = [Dict("Position" => initialization(1, dim, ub, lb),
+    pop = [Dict("Position" => vec(initialization(1, dim, ub, lb)),
         "Cost" => Inf) for _ = 1:npop]
 
     for i = 1:npop
@@ -45,11 +45,11 @@ function PRO(objfun, lb::Vector{Float64}, ub::Vector{Float64}, npop::Integer, ma
                 newpop1[i]["Position"] += randn(dim)
             end
 
-            newpop1[i]["Cost"] = objfun(newpop1[i]["Position"])
             newpop1[i]["Position"] = clamp.(newpop1[i]["Position"], lb, ub)
+            newpop1[i]["Cost"] = objfun(newpop1[i]["Position"])
         end
 
-        meanr = zeros(30)
+        meanr = zeros(dim)
 
         for d = 1:nrich
             meanr .+= pop1[d]["Position"]
@@ -66,8 +66,8 @@ function PRO(objfun, lb::Vector{Float64}, ub::Vector{Float64}, npop::Integer, ma
                 newpop2[j]["Position"] += randn(dim)
             end
 
-            newpop2[j]["Cost"] = objfun(newpop2[j]["Position"])
             newpop2[j]["Position"] = clamp.(newpop2[j]["Position"], lb, ub)
+            newpop2[j]["Cost"] = objfun(newpop2[j]["Position"])
         end
 
         pop = vcat(pop1, pop2, newpop1, newpop2)
@@ -82,9 +82,9 @@ function PRO(objfun, lb::Vector{Float64}, ub::Vector{Float64}, npop::Integer, ma
 
     # return BestSol["Cost"], BestSol, BestCost[end]
     return OptimizationResult(
-        BestSol,
+        BestSol["Position"],
         BestSol["Cost"],
-        BestCost[end])
+        BestCost)
 end
 
 function PRO(problem::OptimizationProblem, npop::Integer=30, max_iter::Integer=1000)::OptimizationResult

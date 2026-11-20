@@ -14,7 +14,7 @@ function GGO(objfun, lb::Vector{Float64}, ub::Vector{Float64}, npop::Integer, ma
     # population = lb .+ rand(npop, dim) .* (ub .- lb)
     population = initialization(npop, dim, ub, lb)
     fitness = zeros(Float64, npop)
-    Convergence = zeros(max_iter, 1)
+    Convergence = zeros(max_iter)
 
     for i = 1:npop
         fitness[i] = objfun(population[i, :])

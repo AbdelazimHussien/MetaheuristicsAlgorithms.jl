@@ -22,7 +22,7 @@ function ESC(objfun, lb::Vector{Float64}, ub::Vector{Float64}, npop::Integer, ma
     end
 
     # population = rand(npop, dim) .* (ub .- lb) .+ lb
-    population = initialization(npop, dim, ub, lb)
+    population = initialization(npop, dim, vec(ub), vec(lb))
     best_fitness = Inf
     best_solution = zeros(dim)
 
@@ -75,8 +75,8 @@ function ESC(objfun, lb::Vector{Float64}, ub::Vector{Float64}, npop::Integer, ma
                     # weight1 = adaptive_levy_weight(beta_base, dim, t, max_iter)
                     weight1 = levy(beta_base, dim, t, max_iter)
 
-                    populationNew[i, :] .= population[i, :]
-                    .+mask1 .* (weight1 .* (calmCenter - population[i, :]) + (randVec - population[i, :] .+ randn(dim) / 50)) .* panicIndex
+                    populationNew[i, :] .= population[i, :] .+
+                    mask1 .* (weight1 .* (calmCenter - population[i, :]) + (randVec - population[i, :] .+ randn(dim) / 50)) .* panicIndex
 
                 elseif i <= calmCount + conformCount
                     minConform = vec(minimum(conform, dims=1))

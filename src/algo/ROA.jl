@@ -71,8 +71,8 @@ function ROA(objfun, lb::Vector{Float64}, ub::Vector{Float64}, npop::Integer, ma
 
     # return Best_score, Best_pos, Convergence_curve
     return OptimizationResult(
-        BestX,
         Best_pos,
+        Best_score,
         Convergence_curve)
 end
 
