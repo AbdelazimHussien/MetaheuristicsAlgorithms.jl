@@ -58,7 +58,7 @@ function Jaya(objfun, lb::Vector{Float64}, ub::Vector{Float64}, npop::Integer, m
 
         for i = 1:row
             for j = 1:col
-                xnew[i, j] = x[i, j] + rand() * (Best[j] - abs(x[i, j])) - (worst[j] - abs(x[i, j]))
+                xnew[i, j] = x[i, j] + rand() * (Best[j] - abs(x[i, j])) - rand() * (worst[j] - abs(x[i, j]))
             end
         end
 

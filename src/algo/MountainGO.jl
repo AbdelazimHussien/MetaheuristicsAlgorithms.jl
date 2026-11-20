@@ -69,7 +69,7 @@ function MountainGO(objfun, lb::Vector{Float64}, ub::Vector{Float64}, npop::Inte
             NewX = Solution_Imp(X, BestX, lb, ub, npop, cofi, M, A, D, i)
 
             NewX .= max.(lb', min.(NewX, ub'))
-            Sol_CostNew = [objfun(row) for row in eachrow(NewX)]
+            Sol_CostNew = [objfun(NewX[k, :]) for k in axes(NewX, 1)]
 
             X = vcat(X, NewX)
             Sol_Cost = vcat(Sol_Cost, Sol_CostNew)

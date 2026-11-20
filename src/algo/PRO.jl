@@ -60,7 +60,7 @@ function PRO(objfun, lb::Vector{Float64}, ub::Vector{Float64}, npop::Integer, ma
         pattern = (pop1[1]["Position"] + meanr + pop1[end]["Position"]) / 3
 
         for j = 1:npoor
-            newpop2[j]["Position"] += rand() .* (pattern - pop2[j]["Position"])
+            newpop2[j]["Position"] += rand() .* pattern - pop2[j]["Position"]
 
             if rand() < pmut
                 newpop2[j]["Position"] += randn(dim)

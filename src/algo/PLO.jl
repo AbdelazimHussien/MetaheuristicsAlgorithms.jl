@@ -84,7 +84,6 @@ function PLO(objfun, lb::Vector{Float64}, ub::Vector{Float64}, npop::Integer, ma
         end
 
         it += 1
-        println("$it ---> $Bestscore")
         push!(Convergence_curve, Bestscore)
     end
 

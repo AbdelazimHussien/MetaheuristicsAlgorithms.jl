@@ -43,8 +43,8 @@ function GEA(objfun, lb::Vector{Float64}, ub::Vector{Float64}, npop::Integer, ma
             P_i = sqrt(((G^(2 / it)) - (G^((it + 1) / it))) * (it / (it - 1)))
 
             ImpFitness = sum(Costs[1:Nc])
-            p = [Costs[ii] / ImpFitness for ii = 1:Nc]
             ImpFitness = ImpFitness == 0 ? 1e-320 : ImpFitness
+            p = [Costs[ii] / ImpFitness for ii = 1:Nc]
 
             i1 = sum(p) == 0 ? 1 : RouletteWheelSelectionFun(p)
 

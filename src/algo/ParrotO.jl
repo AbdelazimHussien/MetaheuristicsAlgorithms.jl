@@ -43,7 +43,7 @@ function ParrotO(objfun, lb::Vector{Float64}, ub::Vector{Float64}, npop::Integer
             St = rand(1:4)
 
             if St == 1
-                X_new[j, :] .= (X[j, :] .- GBestX) .* levy(dim) .+ rand() * mean(X) * (1 - i / max_iter)^(2 * i / max_iter)
+                X_new[j, :] .= (X[j, :] .- GBestX) .* levy(dim) .+ rand() * vec(mean(X, dims=1)) * (1 - i / max_iter)^(2 * i / max_iter)
 
             elseif St == 2
                 X_new[j, :] .= X[j, :] .+ GBestX .* levy(dim) .+ randn() * (1 - i / max_iter) * ones(dim)
@@ -51,7 +51,7 @@ function ParrotO(objfun, lb::Vector{Float64}, ub::Vector{Float64}, npop::Integer
             elseif St == 3
                 H = rand()
                 if H < 0.5
-                    X_new[j, :] .= X[j, :] .+ alpha * (1 - i / max_iter) * (X[j, :] .- mean(X))
+                    X_new[j, :] .= X[j, :] .+ alpha * (1 - i / max_iter) * (X[j, :] .- vec(mean(X, dims=1)))
                 else
                     X_new[j, :] .= X[j, :] .+ alpha * (1 - i / max_iter) * exp(-j / (rand() * max_iter))
                 end

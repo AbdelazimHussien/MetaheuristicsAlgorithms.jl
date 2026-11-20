@@ -9,10 +9,6 @@ end
 
 function APO(objfun, lb::Vector{Float64}, ub::Vector{Float64}, npop::Integer, max_iter::Integer)
     dim = length(lb)#(objfun, dim, npop, max_iter, lb, ub, Fid::Int, runid::Int)
-    # Random seeds
-    stm = sum(100 .* [year(now()), month(now()), day(now()), hour(now()), minute(now()), second(now())])
-    Random.seed!(stm)
-
     # Global best
     targetbest = [300, 400, 600, 800, 900, 1800, 2000, 2200, 2300, 2400, 2600, 2700]
     f_out_convergence = zeros(max_iter)
@@ -123,7 +119,7 @@ function APO(objfun, lb::Vector{Float64}, ub::Vector{Float64}, npop::Integer, ma
                        (newprotozoa .< lb') .* lb' .+
                        (newprotozoa .> ub') .* ub'
 
-        newprotozoa_Fit = objfun.(eachrow(newprotozoa))
+        newprotozoa_Fit = [objfun(newprotozoa[i, :]) for i = 1:ps]
 
         bin = protozoa_Fit .> newprotozoa_Fit
         protozoa[bin, :] .= newprotozoa[bin, :]

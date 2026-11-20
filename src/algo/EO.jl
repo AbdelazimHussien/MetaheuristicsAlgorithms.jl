@@ -31,9 +31,10 @@ function EO(objfun, lb::Vector{Float64}, ub::Vector{Float64}, npop::Integer, max
     a2 = 1
     GP = 0.5
 
+    fit_old = zeros(npop)
+
     while Iter < max_iter
         fitness = zeros(npop)
-        fit_old = zeros(npop)
 
         for i = 1:npop
             Flag4ub = C[i, :] .> ub
